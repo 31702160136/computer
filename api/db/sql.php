@@ -1,0 +1,66 @@
+<?php
+include_once "./../config/source.php";
+//		$data=array("jj"=>"jj","j3j"=>"jj1");
+class Sql{
+	private $link=null;
+	function __construct(){
+		$source=new Source();
+		$this->link=$source->getSource();
+	}
+	function query($sql){
+		$result = mysqli_query($this->link, $sql); //查询
+		$array=array();
+		while($row = mysqli_fetch_assoc($result))
+		{
+			foreach($row as $key=>$value){
+				$arr[$key]=$value;
+			}
+			array_push($array,$arr);
+		}
+		return $array;
+	}
+	function insert($array){
+		$data=$array["data"];
+		$str1=null;
+		$str2=null;
+		$count=count($data);
+		foreach($data as $key=>$value){
+			if($count>1){
+				$str1=$str1."`".$key."`, ";
+				$str2=$str2."'".$value."', ";
+			}else{
+				$str1=$str1.$key;
+				$str2=$str2.$value;
+			}
+			$count--;
+		}
+		$sql="insert into ".$array['table']." (".$str1.") values (".$str2.")";
+		$result = mysqli_query($this->link, $sql);
+		mysqli_commit($this->link);
+		return $result;
+	}
+	function modify($array){
+		$data=$array["data"];
+		$str=null;
+		$count=count($data);
+		foreach($data as $key=>$value){
+			if($count>1){
+				$str=$str.$key." = ".$value.", ";
+			}else{
+				$str=$str.$key." = ".$value." ";
+			}
+			$count--;
+		}
+		$sql="update ".$array['table']." set ".$str." where id=".$array['id'];
+		$result = mysqli_query($this->link, $sql);
+		mysqli_commit($this->link);
+		return $result;
+	}
+	function delete($array){
+		$sql="delete from ".$array['table']." where id=".$array['table'];
+		$result = mysqli_query($this->link, $sql);
+		mysqli_commit($this->link);
+		return $result;
+	}
+}
+?>
