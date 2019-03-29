@@ -14,7 +14,7 @@ class UserController{
 	function __construct(){
 		$this->userService=new UserService();
 	}
-	public function findAll(){
+	public function get_users(){
 		return $this->userService->findUser();
 	}
 	public function login(){
@@ -23,11 +23,28 @@ class UserController{
 			"password"=>@$_GET["password"]
 		);
 		$result=$this->userService->Login($data);
+		if($result["code"]==200){
+			sessionLogin($data["username"]);
+		}
+		return $result;
+	}
+	//退出登陆
+	public function out_login(){
+		$result=sessionOutLogin();
+		return $result;
+	}
+	public function is_login(){
+		$result=sessionIsLogin();
 		return $result;
 	}
 }
 function filtration($fun){
-	$arr[0]="login";
+	$arr=array(
+		"get_users",
+		"login",
+		"out_login",
+		"is_login"
+	);
 	for($i=0;$i<count($arr);$i++){
 		if($arr[$i]==$fun){
 			return true;

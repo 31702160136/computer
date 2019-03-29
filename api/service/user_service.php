@@ -1,5 +1,6 @@
 <?php
 include_once "./../dao/user_dao.php";
+include_once "./../utils/session_login.php";
 //测试数据
 //$use=new UserService();
 //$data=array(
@@ -23,20 +24,23 @@ class UserService{
 			if($result[0]["password"]==$data["password"]){
 				$array=array(
 					"name"=>$result[0]["name"],
-					"message"=>true,
+					"status"=>true,
+					"message"=>"登陆成功",
 					"code"=>200
 				);
 				return $array;
 			}else{
 				$array=array(
-					"message"=>false,
+					"status"=>false,
+					"message"=>"登陆失败",
 					"code"=>403
 				);
 				return $array;
 			}
 		}else{
 			$array=array(
-					"message"=>false,
+					"status"=>false,
+					"message"=>"请写入完整的信息",
 					"code"=>403
 			);
 			return $array;
