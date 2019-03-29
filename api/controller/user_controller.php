@@ -14,13 +14,23 @@ class UserController{
 	function __construct(){
 		$this->userService=new UserService();
 	}
+	/*
+	 * 获取所有用户信息
+	 * */
 	public function get_users(){
+		$result=sessionIsLogin();
+		if(!$result["status"]){
+			return $result;
+		}
 		return $this->userService->findUser();
 	}
+	/*
+	 * 登陆接口
+	 * */
 	public function login(){
 		$data=array(
-			"username"=>@$_GET["username"],
-			"password"=>@$_GET["password"]
+			"username"=>@$_POST["username"],
+			"password"=>@$_POST["password"]
 		);
 		$result=$this->userService->Login($data);
 		if($result["code"]==200){
@@ -28,11 +38,16 @@ class UserController{
 		}
 		return $result;
 	}
-	//退出登陆
+	/*
+	 * 退出登陆接口
+	 * */
 	public function out_login(){
 		$result=sessionOutLogin();
 		return $result;
 	}
+	/*
+	 * 是否登陆接口
+	 * */
 	public function is_login(){
 		$result=sessionIsLogin();
 		return $result;

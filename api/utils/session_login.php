@@ -12,6 +12,7 @@ function sessionIsLogin() {
 function sessionLogin($username) {
 	session_start();
 	$_SESSION['username'] = $username;
+	
 }
 
 function sessionOutLogin() {
@@ -24,5 +25,6 @@ function sessionOutLogin() {
 	} else {
 		$data = array("status" => false, "message" => "注销失败", "code" => 403);
 	}
+	return $data;
 }
 ?>
