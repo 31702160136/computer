@@ -46,3 +46,21 @@
     "message": "用户未登录",
     "code": 403
 	}
+4.注册接口
+	接口：create_admin.php
+	类型:post
+	参数1：username  //账号
+	参数2: password  //密码
+	参数3: name      //姓名
+	成功：
+	{
+    	"status": true,
+    	"message": "注册成功",
+    	"code": 200
+	}
+	失败:
+	{
+    	"status": false,
+    	"message": "注册成功",
+    	"code": 403
+	}

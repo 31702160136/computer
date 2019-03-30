@@ -6,7 +6,6 @@ function sessionIsLogin() {
 	} else {
 		error("用户未登录");
 	}
-	return $data;
 }
 
 function sessionLogin($username) {

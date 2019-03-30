@@ -13,7 +13,7 @@ class SelectService{
 	//通过账号获取密码
 	public function getPasswordByUserName($username){
 		if(isset($username)){
-			$result=$this->userDao->findUserPassWord($username);
+			$result=$this->userDao->findUserByUserName($username);
 			if(count($result)>0){
 				return $result[0];
 			}else{

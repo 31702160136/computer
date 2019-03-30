@@ -17,25 +17,18 @@ class UserDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
-	//根据账号查询用户密码
-	function findUserPassWord($username){
+	//根据账号查询用户
+	function findUserByUserName($username){
 		$sql="select * from user where username='".$username."'";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
 	//创建用户
-	function createUser($array){
-//		模拟数据
-//		$array=array(
-//			"table"=>"user",
-//			"data"=>array(
-//				"username"=>"555",
-//				"password"=>"111",
-//				"role"=>"admin",
-//				"creation_time"=>time(),
-//				"modify_time"=>time()
-//			)
-//		);
+	function createUser($data){
+		$array=array(
+			"table"=>"user",
+			"data"=>$data
+		);
 		$result=$this->sql->insert($array);
 		return $result;
 	}
