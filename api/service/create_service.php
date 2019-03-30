@@ -6,8 +6,9 @@ class CreateService{
 	function __construct(){
 		$this->userDao=new UserDao();
 	}
+	//创建管理员
 	public function createAdmin($data){
-		if(isset($data["username"])&&isset($data["password"])){
+		if(isset($data["username"])&&isset($data["password"])&&isset($data["name"])){
 			$result=$this->userDao->findUserByUserName($data["username"]);
 			if(!(count($result)>0)){
 				$data["role"]="admin";

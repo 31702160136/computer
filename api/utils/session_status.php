@@ -1,22 +1,27 @@
 <?php
 function sessionIsLogin() {
-	session_start();
+	@session_start();
 	if (@$_SESSION['username'] != null) {
-		succeed("用户已登录");
+		return true;
 	} else {
-		error("用户未登录");
+		return false;
 	}
 }
 
 function sessionLogin($username) {
-	session_start();
+	@session_start();
 	$_SESSION['username'] = $username;
 }
 
+function getSessionUserName() {
+	@session_start();
+	return $_SESSION['username'];
+}
+
 function sessionOutLogin() {
-	session_start();
-	session_unset();
-	session_destroy();
+	@session_start();
+	@session_unset();
+	@session_destroy();
 
 	if (empty($_SESSION)) {
 		return true;

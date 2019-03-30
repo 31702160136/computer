@@ -28,8 +28,8 @@ class Sql{
 				$str1=$str1."`".$key."`, ";
 				$str2=$str2."'".$value."', ";
 			}else{
-				$str1=$str1.$key;
-				$str2=$str2.$value;
+				$str1=$str1."`".$key."`";
+				$str2=$str2."'".$value."'";
 			}
 			$count--;
 		}
@@ -44,9 +44,9 @@ class Sql{
 		$count=count($data);
 		foreach($data as $key=>$value){
 			if($count>1){
-				$str=$str.$key." = ".$value.", ";
+				$str=$str."`".$key."` = '".$value."', ";
 			}else{
-				$str=$str.$key." = ".$value." ";
+				$str=$str."`".$key."` = '".$value."' ";
 			}
 			$count--;
 		}

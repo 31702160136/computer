@@ -49,9 +49,11 @@
 4.注册接口
 	接口：create_admin.php
 	类型:post
-	参数1：username  //账号
-	参数2: password  //密码
-	参数3: name      //姓名
+	参数1：name  //姓名
+	参数2: username  //账号
+	参数3: password      //密码
+	参数4: phone      //手机
+	参数5: email      //邮箱
 	成功：
 	{
     	"status": true,
@@ -62,5 +64,22 @@
 	{
     	"status": false,
     	"message": "注册成功",
+    	"code": 403
+	}
+4.修改密码接口
+	接口：modify_password.php
+	类型:post
+	参数1：oldPassword  //旧密码
+	参数3: password      //新密码
+	成功：
+	{
+    	"status": true,
+    	"message": "密码修改成功",
+    	"code": 200
+	}
+	失败:
+	{
+    	"status": false,
+    	"message": "原密码错误",
     	"code": 403
 	}

@@ -33,7 +33,12 @@ class UserDao{
 		return $result;
 	}
 	//修改用户
-	function modifyUser($array){
+	function modifyUser($data,$id){
+		$array=array(
+			"id"=>$id,
+			"table"=>"user",
+			"data"=>$data
+		);
 		$result=$this->sql->modify($array);
 		return $result;
 	}
