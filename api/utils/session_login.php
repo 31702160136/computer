@@ -2,9 +2,9 @@
 function sessionIsLogin() {
 	session_start();
 	if (@$_SESSION['username'] != null) {
-		$data = array("status" => true, "message" => "用户已登录", "code" => 200);
+		succeed("用户已登录");
 	} else {
-		$data = array("status" => false, "message" => "用户未登录", "code" => 403);
+		error("用户未登录");
 	}
 	return $data;
 }
@@ -12,7 +12,6 @@ function sessionIsLogin() {
 function sessionLogin($username) {
 	session_start();
 	$_SESSION['username'] = $username;
-	
 }
 
 function sessionOutLogin() {
@@ -21,10 +20,9 @@ function sessionOutLogin() {
 	session_destroy();
 
 	if (empty($_SESSION)) {
-		$data = array("status" => true, "message" => "注销成功", "code" => 200);
+		return true;
 	} else {
-		$data = array("status" => false, "message" => "注销失败", "code" => 403);
+		return false;
 	}
-	return $data;
 }
 ?>
