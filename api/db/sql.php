@@ -10,12 +10,11 @@ class Sql{
 	function query($sql){
 		$result = mysqli_query($this->link, $sql); //查询
 		$array=array();
-		while($row = mysqli_fetch_assoc($result))
-		{
-			foreach($row as $key=>$value){
-				$arr[$key]=$value;
+		if(mysqli_num_rows($result)>0){
+			while($row = mysqli_fetch_assoc($result))
+			{
+				array_push($array,$row);
 			}
-			array_push($array,$arr);
 		}
 		return $array;
 	}

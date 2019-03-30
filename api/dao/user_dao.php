@@ -17,9 +17,9 @@ class UserDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
-	//查询一条用户信息
+	//根据账号查询用户密码
 	function findUserPassWord($username){
-		$sql="select * from user where username=".$username;
+		$sql="select * from user where username='".$username."'";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
