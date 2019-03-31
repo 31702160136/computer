@@ -12,6 +12,14 @@
         <script src="js/bootstrap.min.js"></script> 
         <script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
+		<!--<style type="text/css">
+			.test03{
+				width: 100%;
+				height: 100%;
+				background-color: #0000FF;
+				white-space:nowrap; 
+			}
+		</style>-->
         <script> 
         	$(function() {
                 $(".meun-item").click(function() {
@@ -69,8 +77,8 @@
                     <p><span>茂名职业技术学院</span></p>
                     <p id="log_out"><a>退出登录</a></p>
                 </div>
-                <div class="meun-title">导航管理</div>
-                <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab"><img src="images/icon_source.png">导航管理</div>
+                <div class="meun-title">功能</div>
+                <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab"><img src="images/icon_source.png">栏目管理</div>
                 <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user_grey.png">新闻动态</div>
                 <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png">修改密码</div>
                 <div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">轮播图</div>
@@ -86,18 +94,18 @@
                 </a>
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <!-- 导航管理模块 -->
+                    <!-- 栏目管理模块 -->
                     <div role="tabpanel" class="tab-pane active" id="sour">
                         <div class="check-div form-inline">
-                            <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">添加导航</button>
+                            <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">添加栏目</button>
                         </div>
                         <div class="data-div">
                         	<!--操作标题-->
                             <div class="row tableHeader">
-                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">导航编码</div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">导航名称</div>
-                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">导航链接</div>
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">导航操作</div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">编码</div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">名称</div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">链接</div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</div>
                             </div>
                             <div class="tablebody">
                                 <div class="row">
@@ -126,58 +134,6 @@
                                         <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1  levl3">3</div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4   levl3">
-                                        <span>新闻动态</span>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                        /admin/system/userlist/software/
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3">4</div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  levl3">
-                                        <span>教学科研</span>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                        /admin/system/userlist/software/
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button class="btn btn-success btn-xs " data-toggle="modal " data-target="#changeSource ">修改</button>
-                                        <button class="btn btn-danger btn-xs " data-toggle="modal " data-target="#deleteSource ">删除</button>
-                                    </div>
-                                </div>
-                                <div class="row ">
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 levl3 ">5</div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 levl3">
-                                        <span>党建工作</span>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                        /admin/system/userlist/software/
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1   levl3">6</div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  levl3">
-                                        <span></span><span>学生活动</span>
-                                    </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                                        /admin/system/userlist/software/
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 ">
-                                        <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!--页码块-->
@@ -189,12 +145,6 @@
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
                                     </select>页
                                 </li>
                                 <li class="gray">共20页</li>
@@ -212,7 +162,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">添加导航</h4>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">添加栏目</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
@@ -243,20 +193,17 @@
                                         <button type="button" class="btn btn-xs btn-xs btn-green">确 定</button>
                                     </div>
                                 </div>
-                                <!-- /.modal-content -->
                             </div>
-                            <!-- /.modal-dialog -->
                         </div>
-                        <!-- /.modal -->
 
-                        <!--修改导航弹出窗口-->
+                        <!--修改栏目弹出窗口-->
                         <div class="modal fade" id="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                     	<!--关闭按钮-->
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">修改导航</h4>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">修改栏目</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
@@ -287,33 +234,27 @@
                                         <button type="button" class="btn btn-xs btn-green">确 定</button>
                                     </div>
                                 </div>
-                                <!-- /.modal-content -->
                             </div>
-                            <!-- /.modal-dialog -->
                         </div>
-                        <!-- /.modal -->
                         
-                        <!--弹出删除导航警告窗口-->
+                        <!--弹出删除栏目警告窗口-->
                         <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">删除导航</h4>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">删除栏目</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="container-fluid">确定要删除该导航？删除后不可恢复</div>
+                                        <div class="container-fluid">确定要删除该栏目？删除后不可恢复</div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
                                         <button type="button" class="btn btn-xs btn-danger">确 定</button>
                                     </div>
                                 </div>
-                                <!-- /.modal-content -->
                             </div>
-                            <!-- /.modal-dialog -->
                         </div>
-                        <!-- /.modal -->
                     </div>
 
             <!--新闻动态模块-->
@@ -341,56 +282,34 @@
                 <div class="data-div">
                     <div class="row tableHeader">
                         <div class="col-xs-1">新闻ID</div>
-                        <div class="col-xs-2">新闻标题</div>
-                        <div class="col-xs-4">内容简介</div>
+                        <div class="col-xs-4">新闻标题</div>
                         <div class="col-xs-2">所属导航</div>
-                        <div class="col-xs-1">状态</div>
+                        <div class="col-xs-2">状态</div>
                         <div class="col-xs-2">操作</div>
+                        <div class="col-xs-1">内容</div>
                     </div>
                     <div class="tablebody">
                         <div class="row">
                             <div class="col-xs-1">01</div>
-                            <div class="col-xs-2">计算机工程系简介</div>
-                            <div class="col-xs-4">计算机工程系承担着计算机专业人才的培养，及全院计算机相关的...</div>
+                            <div class="col-xs-4">计算机工程系简介</div>
                             <div class="col-xs-2">系部概括</div>
-                            <div class="col-xs-1">正常</div>
+                            <div class="col-xs-2">正常</div>
                             <div class="col-xs-2">
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
                             </div>
+                            <div class="col-xs-1"><a href="#">查看</a></div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-1">02</div>
-                            <div class="col-xs-2">北京亚康万玮信息技术有限公司</div>
-                            <div class="col-xs-4">亚康科技成立于1999年，公司规模800余人，总部位于北京海淀区...</div>
-                            <div class="col-xs-2">招生就业</div>
-                            <div class="col-xs-1">正常</div>
+                            <div class="col-xs-1">01</div>
+                            <div class="col-xs-4">计算机工程系简介计算机工程系简介计算机工程系简介计算机</div>
+                            <div class="col-xs-2">系部概括</div>
+                            <div class="col-xs-2">正常</div>
                             <div class="col-xs-2">
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-1">03</div>
-                            <div class="col-xs-2">茂名职业技术学院青协计算机分...</div>
-                            <div class="col-xs-4">2019年3月7日晚七点三十五分，茂名职业技术学院志愿者协会计算...</div>
-                            <div class="col-xs-2">学生工作</div>
-                            <div class="col-xs-1">正常</div>
-                            <div class="col-xs-2">
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-1">04</div>
-                            <div class="col-xs-2">计算机工程系2018-2019学年第...</div>
-                            <div class="col-xs-4">中共茂名职业技术学院计算机工程系党总支委员会根据《中国共产党...</div>
-                            <div class="col-xs-2">党建工作</div>
-                            <div class="col-xs-1">正常</div>
-                            <div class="col-xs-2">
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
-                            </div>
+                            <div class="col-xs-1"><a href="#">查看</a></div>
                         </div>
                     </div>
                 </div>
@@ -402,13 +321,6 @@
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
                             </select>页</li>
                         <li class="gray">共20页</li>
                         <li><i class="glyphicon glyphicon-menu-left"></i></li>
@@ -564,25 +476,25 @@
                         <div class="form-group">
                             <label for="sKnot" class="col-xs-4 control-label">原密码：</label>
                             <div class="col-xs-5">
-                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                <input type="password" class="form-control input-sm duiqi" id="oldPwd" placeholder="请输入原密码" style="margin-top: 7px;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="sKnot" class="col-xs-4 control-label">新密码：</label>
                             <div class="col-xs-5">
-                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                <input type="password" class="form-control input-sm duiqi" id="newPwd1" placeholder="请输入新密码" style="margin-top: 7px;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="sKnot" class="col-xs-4 control-label">确定密码：</label>
                             <div class="col-xs-5">
-                                <input type="" class="form-control input-sm duiqi" id="sKnot" placeholder="" style="margin-top: 7px;">
+                                <input type="password" class="form-control input-sm duiqi" id="newPwd2" placeholder="请再次输入新密码" style="margin-top: 7px;">
                             </div>
                         </div>
                         <div class="form-group text-right">
                             <div class="col-xs-offset-4 col-xs-5" style="margin-left: 169px;">
                                 <button type="reset" class="btn btn-xs btn-white">取 消</button>
-                                <button type="submit" class="btn btn-xs btn-green">保存</button>
+                                <button type="button" id="btn_Pwd" class="btn btn-xs btn-green" >保 存</button>
                             </div>
                         </div>
                     </form>
@@ -696,11 +608,12 @@
 		
 	
 	<script>
-		/**
-		 * 退出登录
-		 */
+		
 		//DOM加载完成后进行操作
 		$(document).ready(function(){
+			/**
+			 * 退出登录
+			 */
 			$("#log_out").click(function(){
 				$.ajax({
 					type:"post",
@@ -719,6 +632,48 @@
 				    }
 				});
 			});
+			
+			/**
+			 * 修改密码
+			 */
+			$("#btn_Pwd").click(function(){
+				var oldPwd = $("#oldPwd").val();
+				var newPwd01 = $("#newPwd1").val();
+				var newPwd02 = $("#newPwd2").val();
+				if(oldPwd == ""){
+					alert("请输入原密码");
+				}else if(newPwd01 == ""){
+					alert("请输入新密码");
+				}else if(newPwd02 == ""){
+					alert("请输入确定密码");
+				}else if(newPwd01 != newPwd02){
+					alert("新密码与确定密码不一致");
+				}else{
+					$.ajax({
+						type:"post",
+						url: host + "controller_b/modify_password.php",
+						data:{
+							"oldPassword":oldPwd,
+							"password":newPwd02
+						},
+						async:true,
+						success: function(data){
+							var res=JSON.parse(data);
+							if (res.status == true) {
+								alert("密码修改成功，请重新登录");
+								window.location.href = "login.html";
+							}else{
+								alert("密码修改失败");
+							}
+				      	},
+					    error : function () {
+					      	document.write("error");
+					    }
+					});	
+				}
+			});
+		
+		
 		});
 	</script>
 	</body>
