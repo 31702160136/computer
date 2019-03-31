@@ -5,7 +5,7 @@ include_once "./../utils/session_status.php";
 $username = @$_POST["username"];
 $password = @$_POST["password"];
 $selectService = new SelectService();
-$result = $selectService -> getPasswordByUserName($username);
+$result = $selectService -> getUserInfoByUserName($username);
 if ($result["password"] == $password) {
 	sessionLogin($username);
 	$data = array("name" => $result["name"]);

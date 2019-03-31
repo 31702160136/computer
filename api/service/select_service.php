@@ -10,8 +10,8 @@ class SelectService{
 		$result=$this->userDao->findAllUser();
 		return $result;
 	}
-	//通过账号获取密码
-	public function getPasswordByUserName($username){
+	//通过账号获取用户信息
+	public function getUserInfoByUserName($username){
 		if(isset($username)){
 			$result=$this->userDao->findUserByUserName($username);
 			if(count($result)>0){
