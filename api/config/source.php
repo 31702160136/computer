@@ -6,7 +6,7 @@ class Source{
  
 	private $mysql_username='root'; //改成自己的mysql数据库用户名
  
-	private $mysql_password='root'; //改成自己的mysql数据库密码
+	private $mysql_password=''; //改成自己的mysql数据库密码
 
 	private $mysql_database='computer'; //改成自己的mysql数据库名
 	
