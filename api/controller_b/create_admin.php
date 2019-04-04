@@ -14,8 +14,8 @@ if (sessionIsLogin()) {
 		"name" => @$_POST["name"],
 		"username" => @$_POST["username"],
 		"password" => @$_POST["password"],
-		"phone" => @$_POST["phone"],
-		"email" => @$_POST["email"]
+		"phone"=>isset($_POST["phone"]) ? $_POST["phone"]:null,
+		"email"=>isset($_POST["email"]) ? $_POST["email"]:null
 		);
 		$result = $create_service -> createAdmin($data);
 		if ($result) {

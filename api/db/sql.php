@@ -24,6 +24,11 @@ class Sql{
 		$str2=null;
 		$count=count($data);
 		foreach($data as $key=>$value){
+			if($data[$key]==null){
+				unset($data[$key]);
+				$count--;
+				continue;
+			}
 			if($count>1){
 				$str1=$str1."`".$key."`, ";
 				$str2=$str2."'".$value."', ";
@@ -33,7 +38,7 @@ class Sql{
 			}
 			$count--;
 		}
-		$sql="insert into ".$array['table']." (".$str1.") values (".$str2.")";
+		$sql="insert into `".$array['table']."` (".$str1.") values (".$str2.")";
 		$result = mysqli_query($this->link, $sql);
 		mysqli_commit($this->link);
 		return $result;
@@ -43,6 +48,11 @@ class Sql{
 		$str=null;
 		$count=count($data);
 		foreach($data as $key=>$value){
+			if($data[$key]==null){
+				unset($data[$key]);
+				$count--;
+				continue;
+			}
 			if($count>1){
 				$str=$str."`".$key."` = '".$value."', ";
 			}else{
@@ -50,7 +60,7 @@ class Sql{
 			}
 			$count--;
 		}
-		$sql="update ".$array['table']." set ".$str." where id=".$array['id'];
+		$sql="update `".$array['table']."` set ".$str." where id=".$array['id'];
 		$result = mysqli_query($this->link, $sql);
 		mysqli_commit($this->link);
 		return $result;
