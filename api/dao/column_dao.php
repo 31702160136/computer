@@ -11,6 +11,11 @@ class ColumnDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
+	function findColumnById($id){
+		$sql="select * from `column` where id='".$id."'";
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	function findColumnByTitle($title){
 		$sql="select * from `column` where title='".$title."'";
 		$result=$this->sql->query($sql);

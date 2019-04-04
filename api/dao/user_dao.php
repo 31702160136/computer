@@ -1,5 +1,5 @@
 <?php
-	include_once "./../db/sql.php";
+include_once "./../db/sql.php";
 class UserDao{
 	private $sql=null;
 	function __construct(){
