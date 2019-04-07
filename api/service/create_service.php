@@ -1,6 +1,5 @@
 <?php
 include_once "./../handler/handler.php";
-
 include_once "./../dao/user_dao.php";
 include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";

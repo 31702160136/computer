@@ -6,13 +6,13 @@ class UserDao{
 		$this->sql=new Sql();
 	}
 	//查询所有用户信息
-	public function findAllUser(){
+	public function findUsers(){
 		$sql="select * from `user`";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
 	//查询一条用户信息
-	function findOneUser($id){
+	function findUser($id){
 		$sql="select * from `user` where id='".$id."'";
 		$result=$this->sql->query($sql);
 		return $result;
