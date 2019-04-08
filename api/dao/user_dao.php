@@ -1,25 +1,25 @@
 <?php
-	include_once "./../db/sql.php";
+include_once "./../db/sql.php";
 class UserDao{
 	private $sql=null;
 	function __construct(){
 		$this->sql=new Sql();
 	}
 	//查询所有用户信息
-	public function findAllUser(){
-		$sql="select * from user";
+	public function findUsers(){
+		$sql="select * from `user`";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
 	//查询一条用户信息
-	function findOneUser($id){
-		$sql="select * from user where id=".$id;
+	function findUser($id){
+		$sql="select * from `user` where id='".$id."'";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
 	//根据账号查询用户
 	function findUserByUserName($username){
-		$sql="select * from user where username='".$username."'";
+		$sql="select * from `user` where username='".$username."'";
 		$result=$this->sql->query($sql);
 		return $result;
 	}
