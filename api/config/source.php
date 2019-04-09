@@ -14,7 +14,7 @@ class Source{
 	public function getSource(){
 		if(!isset($this->link)){
 			$this->link=mysqli_connect($this->mysql_server_name,$this->mysql_username,$this->mysql_password,$this->mysql_database) or die("连接数据库失败") ; //连接数据库
-			//mysqli_query('set names utf8');
+			mysqli_query($this->link,'set names utf8');//兼容低版本字符输出编码
 			mysqli_set_charset($this->link,"set names utf8"); //数据库输出编码
 			return $this->link;
 		}else{

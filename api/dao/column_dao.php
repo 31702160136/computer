@@ -6,8 +6,12 @@ class ColumnDao {
 		$this -> sql = new Sql();
 	}
 
-	public function findColumns() {
-		$sql = "select * from `column`";
+	public function findColumns($page,$size) {
+		if(isset($page)&&isset($size)){
+			$sql = "select * from `news` limit ".$page.",".$size;
+		}else{
+			$sql = "select * from `news`";
+		}
 		$result = $this -> sql -> query($sql);
 		return $result;
 	}

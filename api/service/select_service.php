@@ -14,8 +14,17 @@ class SelectService {
 		$this -> newsDao = new NewsDao();
 	}
 
-	public function getUsers() {
-		$result = $this -> userDao -> findUsers();
+	public function getUsers($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if ($data["page"] <= 0) {
+				$data["page"] = 1;
+			}
+			$page = ($data["page"] - 1) * $data["size"];
+			$size = $data["size"];
+		}
+		$result = $this -> userDao -> findUsers($page,$size);
 		return $result;
 	}
 
@@ -34,7 +43,16 @@ class SelectService {
 	}
 
 	public function getColumns() {
-		$result = $this -> columnDao -> findColumns();
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if ($data["page"] <= 0) {
+				$data["page"] = 1;
+			}
+			$page = ($data["page"] - 1) * $data["size"];
+			$size = $data["size"];
+		}
+		$result = $this -> columnDao -> findColumns($page,$size);
 		return $result;
 	}
 

@@ -6,8 +6,12 @@ class UserDao{
 		$this->sql=new Sql();
 	}
 	//查询所有用户信息
-	public function findUsers(){
-		$sql="select * from `user`";
+	public function findUsers($page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select * from `user` limit ".$page.",".$size;
+		}else{
+			$sql = "select * from `user`";
+		}
 		$result=$this->sql->query($sql);
 		return $result;
 	}

@@ -61,7 +61,9 @@
 	}
 5.查询用户列表接口
 	接口：select_users.php
-	类型:get/post
+	类型:get
+	参数2：page  //页数
+	参数3：size  //获取信息数量
 	{
     	"status": true,
     	"message": "获取用户列表成功",
@@ -69,14 +71,14 @@
     	"data": [
         	{
         	    "id": "1",
-        	    "name": "超级管理员",
-        	    "username": "admin",
-        	    "password": "admin",
-            	"role": "superAdmin",
-            	"phone": null,
-            	"email": null,
-            	"creation_time": "1553779168",
-            	"modify_time": "1553779168"
+        	    "name": "超级管理员", 			//姓名
+        	    "username": "admin", 			//账号
+        	    "password": "admin", 			//密码
+            	"role": "superAdmin",			//角色
+            	"phone": null,					//手机
+            	"email": null,					//邮箱
+            	"creation_time": "1553779168",	//注册时间
+            	"modify_time": "1553779168"		//更新时间
         	}
     	]
 	}
@@ -91,20 +93,22 @@
     	"data": [
         	{
         	    "id": "1",
-        	    "name": "超级管理员",
-        	    "username": "admin",
-        	    "password": "admin",
-            	"role": "superAdmin",
-            	"phone": null,
-            	"email": null,
-            	"creation_time": "1553779168",
-            	"modify_time": "1553779168"
+        	    "name": "超级管理员", 			//姓名
+        	    "username": "admin", 			//账号
+        	    "password": "admin", 			//密码
+            	"role": "superAdmin",			//角色
+            	"phone": null,					//手机
+            	"email": null,					//邮箱
+            	"creation_time": "1553779168",	//注册时间
+            	"modify_time": "1553779168"		//更新时间
         	}
     	]
 	}
 5.查询栏目接口
 	接口：select_columns.php
-	类型:get/post
+	类型:get
+	参数2：page  //页数（选题）
+	参数3：size  //获取信息数量（选题）
 	{
     	"status": true,
     	"message": "获取栏目列表成功",
@@ -112,11 +116,11 @@
     	"data": [
         	{
             	"id": "3",
-            	"title": "好栏目",
-            	"index": "0",
-            	"is_start": "1",
-            	"creation_time": "1554366110",
-            	"modify_time": "1554368747"
+            	"title": "好栏目",				//栏目标题
+            	"index": "0",					//排序权重值，越高越排前
+            	"is_start": "1",				//状态0不启用，1启用
+            	"creation_time": "1554366110",	//创建时间
+            	"modify_time": "1554368747"		//更新时间
         	}
     	]
 	}
@@ -146,7 +150,9 @@
 	}
 7.查询新闻接口
 	接口：select_news.php
-	类型:get/post
+	类型:get
+	参数2：page  //页数（选题）
+	参数3：size  //获取信息数量（选题）
 	成功：
 	{
     	"status": true,
@@ -155,27 +161,29 @@
     	"data": [
         	{
             	"id": "11",
-            	"title": "我是新闻",
-            	"describe": "撒旦",
-            	"content": "阿斯蒂芬发",
-            	"cover": "www.yulemofang.cn/computer/images/41eb7d00561daa28f0a0b603de18975c.jpg",
-            	"slideshow_cover": "/computer/images/微信截图_20180922011410.png",
-            	"type": "阿斯蒂芬",
-            	"contributor": "案说法",
-            	"is_hot": "0",
-            	"is_top": "0",
-            	"is_start": "0",
-            	"column_id": "3",
-            	"user_id": "1",
-            	"creation_time": "1554393636",
-            	"modify_time": "1554393636"
+            	"title": "我是新闻",				//新闻标题
+            	"describe": "撒旦",				//新闻描述
+            	"content": "阿斯蒂芬发",			//新闻内容，格式为HTML
+            	"cover": "www.yulemofang.cn/computer/images/41eb7d00561daa28f0a0b603de18975c.jpg",//封面图片
+            	"slideshow_cover": "/computer/images/微信截图_20180922011410.png",//轮播图片
+            	"type": "阿斯蒂芬",				//新闻类型
+            	"contributor": "案说法",			//投稿者
+            	"is_hot": "0",					//是否热点新闻0为不热点，1为热点
+            	"is_top": "0",					//是否定制0为不顶置，1为顶置
+            	"is_start": "0",				//是否启用
+            	"column_id": "3",				//新闻对应的栏目id
+            	"user_id": "1",					//发布新闻的管理员id
+            	"creation_time": "1554393636",	//创建时间
+            	"modify_time": "1554393636"		//更新时间
         	}
     	]
 	}
 7.根据栏目id查询新闻接口
 	接口：select_news_by_column_id.php
 	类型:get
-	参数：column_id  //栏目id
+	参数1：column_id  //栏目id
+	参数2：page  //页数（选题）
+	参数3：size  //获取信息数量（选题）
 	成功：
 	{
     	"status": true,
@@ -184,20 +192,20 @@
     	"data": [
         	{
             	"id": "11",
-            	"title": "我是新闻",
-            	"describe": "撒旦",
-            	"content": "阿斯蒂芬发",
-            	"cover": "www.yulemofang.cn/computer/images/41eb7d00561daa28f0a0b603de18975c.jpg",
-            	"slideshow_cover": "/computer/images/微信截图_20180922011410.png",
-            	"type": "阿斯蒂芬",
-            	"contributor": "案说法",
-            	"is_hot": "0",
-            	"is_top": "0",
-            	"is_start": "0",
-            	"column_id": "3",
-            	"user_id": "1",
-            	"creation_time": "1554393636",
-            	"modify_time": "1554393636"
+            	"title": "我是新闻",				//新闻标题
+            	"describe": "撒旦",				//新闻描述
+            	"content": "阿斯蒂芬发",			//新闻内容，格式为HTML
+            	"cover": "www.yulemofang.cn/computer/images/41eb7d00561daa28f0a0b603de18975c.jpg",//封面图片
+            	"slideshow_cover": "/computer/images/微信截图_20180922011410.png",//轮播图片
+            	"type": "阿斯蒂芬",				//新闻类型
+            	"contributor": "案说法",			//投稿者
+            	"is_hot": "0",					//是否热点新闻0为不热点，1为热点
+            	"is_top": "0",					//是否定制0为不顶置，1为顶置
+            	"is_start": "0",				//是否启用
+            	"column_id": "3",				//新闻对应的栏目id
+            	"user_id": "1",					//发布新闻的管理员id
+            	"creation_time": "1554393636",	//创建时间
+            	"modify_time": "1554393636"		//更新时间
         	}
     	]
 	}
