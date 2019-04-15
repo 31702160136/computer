@@ -17,7 +17,6 @@ class CreateService{
 		if(isset($data["username"])&&isset($data["password"])&&isset($data["name"])){
 			$result=$this->userDao->findUserByUserName($data["username"]);
 			if(!(count($result)>0)){
-				$data["role"]="admin";
 				$data["creation_time"]=time();
 				$data["modify_time"]=time();
 				$result=$this->userDao->createUser($data);

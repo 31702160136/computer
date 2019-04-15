@@ -42,6 +42,8 @@
 	参数3: password      //密码
 	参数4: phone      //手机(选填)
 	参数5: email      //邮箱(选填)
+	参数1：is_state  //是否激活(选填),默认激活
+	参数1：role  //角色(选填)默认admin(普通管理员),可输入的参数admin(普通管理员),superAdmin(超级管理员)
 	成功：
 	{
     	"status": true,
@@ -62,8 +64,8 @@
 5.查询用户列表接口
 	接口：select_users.php
 	类型:get
-	参数2：page  //页数
-	参数3：size  //获取信息数量
+	参数1：page  //页数
+	参数2：size  //获取信息数量
 	{
     	"status": true,
     	"message": "获取用户列表成功",
@@ -81,6 +83,16 @@
             	"modify_time": "1553779168"		//更新时间
         	}
     	]
+	}
+5.批量删除用户列表接口
+	接口：select_users.php
+	类型:get
+	参数1：usernames[]  //删除单个例子：usernames[]:[1]，删除多个例子实例：usernames[]:[1,2,3,4,5]
+		发送ajax请求前把数据打包成数组，然后传进usernames[]进行发送
+	{
+    "status": true,
+    "message": "删除用户成功",
+    "code": 200
 	}
 5.根据账号的方式查询用户接口
 	接口：select_user_by_username.php
@@ -128,7 +140,7 @@
 	接口：create_column.php
 	类型:post
 	参数1：title  //栏目标题
-	参数3: index      //栏目排序权重,默认0,范围0-无限,9最高权限(选填)
+	参数3: index      //栏目排序权重,默认0,范围0-无限,值越大排越高最高权限(选填)
 	参数3: is_start      //是否启用(0不启用，1启用),默认不启用(选填)
 	成功：
 	{

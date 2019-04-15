@@ -66,7 +66,15 @@ class Sql{
 		return $result;
 	}
 	function delete($array){
-		$sql="delete from ".$array['table']." where id=".$array['table'];
+		$str=null;
+		for($i=0;$i<count($array['data']);$i++){
+			if(($i+1)>=count($array['data'])){
+				$str=$str."'".$array['data'][$i]."'";
+			}else{
+				$str=$str."'".$array['data'][$i]."',";
+			}
+		}
+		$sql="delete from `".$array['table']."` where `".$array['fields']."` in (".$str.")";
 		$result = mysqli_query($this->link, $sql);
 		mysqli_commit($this->link);
 		return $result;

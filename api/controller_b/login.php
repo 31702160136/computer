@@ -12,6 +12,6 @@ if ($result["password"] == $password) {
 	succeedOfInfo("登陆成功", $data);
 } else {
 	sessionOutLogin();
-	error("密码错误");
+	error("密码错误"); 
 }
 ?>

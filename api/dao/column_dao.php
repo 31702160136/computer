@@ -8,9 +8,9 @@ class ColumnDao {
 
 	public function findColumns($page,$size) {
 		if(isset($page)&&isset($size)){
-			$sql = "select * from `news` limit ".$page.",".$size;
+			$sql = "select * from `column` limit ".$page.",".$size;
 		}else{
-			$sql = "select * from `news`";
+			$sql = "select * from `column`";
 		}
 		$result = $this -> sql -> query($sql);
 		return $result;
