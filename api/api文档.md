@@ -154,13 +154,22 @@
 6.修改栏目接口
 	接口：modify_column.php
 	类型:post
-	参数1：title  //栏目标题
+	参数1：title  //栏目标题(选填)
 	参数3: index      //栏目排序权重,范围0-9,9最高权限(选填)
-	参数3: is_start      //栏目排序权重,范围0-9,9最高权限(选填)
 	成功：
 	{
     	"status": true,
     	"message": "修改栏目成功",
+    	"code": 200
+	}
+6.栏目启动状态接口
+	接口：modify_column_start.php
+	类型:post
+	参数1：id  //栏目
+	成功：
+	{
+    	"status": true,
+    	"message": "设置栏目启动状态成功",
     	"code": 200
 	}
 5.批量删除栏目列表接口
@@ -234,6 +243,36 @@
             	"modify_time": "1554393636"		//更新时间
         	}
     	]
+	}
+6.新闻启动状态设置接口
+	接口：modify_news_start.php
+	类型:post
+	参数1：id  //新闻id
+	成功：
+	{
+    	"status": true,
+    	"message": "新闻启动状态设置成功",
+    	"code": 200
+	}
+6.新闻火热状态设置接口
+	接口：modify_news_hot.php
+	类型:post
+	参数1：id  //新闻id
+	成功：
+	{
+    	"status": true,
+    	"message": "新闻火热状态设置成功",
+    	"code": 200
+	}
+6.新闻置顶状态设置接口
+	接口：modify_news_top.php
+	类型:post
+	参数1：id  //新闻id
+	成功：
+	{
+    	"status": true,
+    	"message": "新闻置顶状态设置成功",
+    	"code": 200
 	}
 5.批量删除新闻列表接口
 	接口：delete_news.php

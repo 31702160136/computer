@@ -1,18 +1,18 @@
 <?php
 include_once "./../handler/handler.php";
 include_once "./../service/modify_service.php";
+include_once "./../service/select_service.php";
 if (sessionIsLogin()) {
 	$modify_service = new ModifyService();
 	$data = array(
 		"id"=>@$_POST["id"],
-		"title" => isset($_POST["title"])? $_POST["title"]:null, 
-		"index" => isset($_POST["index"])? $_POST["index"]:null
+		"state"=>"is_start"
 	);
-	$result = $modify_service ->modifyColumn($data);
+	$result = $modify_service ->modifyNewsState($data);
 	if ($result) {
-		succeed("栏目修改成功");
+		succeed("新闻启动状态设置成功");
 	} else {
-		error("栏目修改失败");
+		error("新闻启动状态设置失败");
 	}
 } else {
 	error("用户未登录");

@@ -48,7 +48,7 @@ class Sql{
 		$str=null;
 		$count=count($data);
 		foreach($data as $key=>$value){
-			if($data[$key]==null){
+			if(is_null($data[$key])){
 				unset($data[$key]);
 				$count--;
 				continue;

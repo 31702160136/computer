@@ -14,6 +14,11 @@ class NewsDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	} 
+	public function findNewsById($id){
+		$sql = "select * from `news` where `id`=" . $id;
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	public function findNewsByColumnId($id,$page,$size){
 		if(isset($page)&&isset($size)){
 			$sql = "select * from `news` where `column_id`=" . $id." limit ".$page.",".$size;
@@ -29,6 +34,12 @@ class NewsDao{
 			"data"=>$data
 		);
 		$result=$this->sql->insert($array);
+		return $result;
+	}
+	//修改新闻
+	function modifyNews($data, $id) {
+		$array = array("id" => $id, "table" => "news", "data" => $data);
+		$result = $this -> sql -> modify($array);
 		return $result;
 	}
 	//删除用户

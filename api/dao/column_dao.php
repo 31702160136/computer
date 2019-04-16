@@ -16,16 +16,8 @@ class ColumnDao {
 		return $result;
 	}
 
-	function findColumnById($ids) {
-		$id = null;
-		for ($i = 0; $i < count($ids); $i++) {
-			if ($i < count($ids) - 1) {
-				$id = $id . "`id`=" . "'" . $ids[$i] . "' or ";
-			} else {
-				$id = $id . "`id`=" . "'" . $ids[$i] . "'";
-			}
-		}
-		$sql = "select * from `column` where " . $id;
+	function findColumnById($id) {
+		$sql = "select * from `column` where `id`=" . $id;
 		$result = $this -> sql -> query($sql);
 		return $result;
 	}
