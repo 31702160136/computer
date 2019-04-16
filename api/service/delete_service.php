@@ -14,11 +14,49 @@ class DeleteService {
 		$this -> newsDao = new NewsDao();
 	}
 
-	function delUserByUserName($data) {
+	function delUserById($data) {
 		if (isset($data)) {
 			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
 			if ($result[0]["role"] == "superAdmin") {
-				$result = $this -> userDao -> deleteUserByUserName($data);
+				$result = $this -> userDao -> deleteUserById($data);
+				//判断是否修改成功
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("权限不足");
+			}
+		}else{
+			error("缺少参数");
+		}
+	}
+	
+	function delColumnById($data) {
+		if (isset($data)) {
+			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
+			if ($result[0]["role"] == "admin" || $result[0]["role"] == "superAdmin") {
+				$result = $this -> columnDao ->deleteColumnById($data);
+				//判断是否修改成功
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("权限不足");
+			}
+		}else{
+			error("缺少参数");
+		}
+	}
+	
+	function delNewsById($data) {
+		if (isset($data)) {
+			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
+			if ($result[0]["role"] == "admin" || $result[0]["role"] == "superAdmin") {
+				$result = $this -> newsDao ->deleteNewsById($data);
 				//判断是否修改成功
 				if ($result > 0) {
 					return true;

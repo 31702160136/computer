@@ -48,6 +48,16 @@ class ColumnDao {
 		$result = $this -> sql -> modify($array);
 		return $result;
 	}
+	//删除栏目
+	function deleteColumnById($data){
+		$array=array(
+			"table"=>"column",
+			"fields"=>"id",
+			"data"=>$data
+		);
+		$result=$this->sql->delete($array);
+		return $result;
+	}
 
 }
 ?>

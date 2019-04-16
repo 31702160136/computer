@@ -47,10 +47,10 @@ class UserDao{
 		return $result;
 	}
 	//删除用户
-	function deleteUserByUserName($data){
+	function deleteUserById($data){
 		$array=array(
 			"table"=>"user",
-			"fields"=>"username",
+			"fields"=>"id",
 			"data"=>$data
 		);
 		$result=$this->sql->delete($array);
