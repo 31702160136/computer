@@ -5,7 +5,7 @@ include_once "./../utils/session_status.php";
 if(sessionIsLogin()){
 	$delete_service=new DeleteService();
 	$data=@$_POST["ids"];
-	$result=$delete_service->delNewsById($data);
+	$result=$delete_service->delColumnById($data);
 	if($result){
 		succeed("删除栏目成功");
 	}else{
