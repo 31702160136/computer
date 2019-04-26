@@ -88,6 +88,28 @@ class ModifyService {
 			error("缺少必要信息");
 		}
 	}
+	//用户栏目状态
+	public function modifyUserStart($data) {
+		if (isset($data["id"])) {
+			$id = $data["id"];
+			$result = $this -> userDao -> findUser($id);
+			if (count($result) > 0) {
+				unset($data["id"]);
+				$data["is_start"] = $result[0]["is_start"] == 0 ? 1 : 0;
+				$data["modify_time"] = time();
+				$result = $this -> userDao -> modifyUser($data, $id);
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("没有此用户");
+			}
+		} else {
+			error("缺少必要信息");
+		}
+	}
 	//修改新闻状态
 	public function modifyNewsState($data) {
 		if (isset($data["id"])) {
