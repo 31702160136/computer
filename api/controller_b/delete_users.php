@@ -5,7 +5,7 @@ include_once "./../utils/session_status.php";
 if(sessionIsLogin()){
 	$delete_service=new DeleteService();
 	$data=@$_POST["ids"];
-	$result=$delete_service->delUserByUserName($data);
+	$result=$delete_service->delUserById($data);
 	if($result){
 		succeed("删除用户成功");
 	}else{
