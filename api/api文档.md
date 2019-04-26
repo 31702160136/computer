@@ -78,7 +78,7 @@
         	    "name": "超级管理员", 			//姓名
         	    "username": "admin", 			//账号
         	    "password": "admin", 			//密码
-            	"role": "superAdmin",			//角色
+            	"role": "超级管理员",			//角色
             	"phone": null,					//手机
             	"email": null,					//邮箱
             	"creation_time": "1553779168",	//注册时间
@@ -117,6 +117,16 @@
             	"modify_time": "1553779168"		//更新时间
         	}
     	]
+	}
+6.用户启动状态接口
+	接口：modify_user_start.php
+	类型:post
+	参数1：id  //用户id
+	成功：
+	{
+    	"status": true,
+    	"message": "设置用户启动状态成功",
+    	"code": 200
 	}
 //栏目类---------------------------------------------------------
 5.查询栏目接口
@@ -165,7 +175,7 @@
 6.栏目启动状态接口
 	接口：modify_column_start.php
 	类型:post
-	参数1：id  //栏目
+	参数1：id  //栏目id
 	成功：
 	{
     	"status": true,
