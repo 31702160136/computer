@@ -7,13 +7,17 @@
 <meta name="Keywords" content="茂名职业技术学院,计算机工程系" />
 <meta name="Description" content="计算机工程系" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>
 	<!--bootstrap-->
 	<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
-		
 	<script src="js/jquery.v1.9.1min.js"></script>
 	<script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script> 
 	
+	
+	<!--[if lt IE 9]>
+	<script src="bootstrap-3.3.7-dist/js/html5shiv.min.js"></script>
+	<script src="bootstrap-3.3.7-dist/js/respond.js"></script>
+	<![endif]-->
 	<link rel="stylesheet" type="text/css" href="css/swiper.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/certify.css"/>
 	<script src="js/swiper.min.js"></script>
@@ -24,50 +28,6 @@
 	<script src="OwlCarousel2-2.3.4/dist/owl.carousel.js"></script>
 	
 </head>
-<style type="text/css">
-	body{
-		background: rgb(17,168,255);
-	}
-	#header-bg-blue{
-		background: rgb(17,168,255);
-	}
-	#header-bg-white{
-		background: rgb(17,168,255);
-	}
-	.header-logo{
-		padding-bottom: 15px;
-		padding-top: 15px;
-	}
-	.header-title{
-		font-family: "华文行楷";
-		font-size: 48px;
-		color: #FFFFFF;
-	}
-	.news{
-		color: #FFFFFF;
-	}
-	.news h3{
-		background: rgba(0,0,0,.1);
-	}
-	.footer{
-		color: #FFFFFF;
-		background: rgb(127,36,161);
-	}
-	.footer img{
-		margin-top:15px;
-		margin-left: 15px;
-		width: 100%;
-	}
-	.footer p{
-		padding-left: 10px;
-	}
-	.mt20{
-		margin-top: 20px;
-	}
-	.mb20{
-		margin-bottom: 20px;
-	}
-</style>
 <body> 
 <!--头部 start-->
 <header>
@@ -130,57 +90,104 @@
 <!--轮播图 end-->
 <hr />
 <!--图片新闻 start-->
-<div id="certify">
-<div class="swiper-container">
-<div class="swiper-wrapper">
-<div class="swiper-slide"><img style="height: 370px;width: 100%;" src="images/p1.png" /><p>Picture information 1</p></div>
-<div class="swiper-slide"><img style="height: 370px;width: 100%;" src="images/p2.png" /><p>Picture information 2</p></div>
-<div class="swiper-slide"><img style="height: 370px;width: 100%;" src="images/p3.png" /><p>Picture information 3</p></div>
-<div class="swiper-slide"><img style="height: 370px;width: 100%;" src="images/p4.png" /><p>Picture information 4</p></div>
-<div class="swiper-slide"><img style="height: 370px;width: 100%;" src="images/p5.png" /><p>Picture information 5</p></div>
-</div>
-</div>
-<div class="swiper-pagination"></div>
-<div class="swiper-button-prev"></div>
-<div class="swiper-button-next"></div>
+<div class="container pic_news">
+	<div class="row">
+		<div class="col-sm-5 col-md-5 visible-lg-inline visible-md-inline  pic_news_left">
+			<a href="#">
+			<img src="images/p1.png" alt="" class="img-responsive img-rounded"/>
+			<p>广东省职业院校学生专业技能大赛</p>
+			</a>
+		</div>
+		<div id="pic_news_right" class="col-md-7 col-sm-8 pic_news_right" >
+		   	<div>
+		   		<a href="#">
+		   			<img src="images/p2.png" class="img-responsive img-rounded"/>
+		   			<div>			   
+		   				<p>[喜讯]我系学生荣获“4G全网建设技术”技能竞赛三等奖</p>
+		   				<time class="pull-left"><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>2019/5/5</time>
+		   				<span><i class="glyphicon glyphicon-eye-open"></i>阅读(80)</span>
+		   			</div>	   		
+		   		</a>
+		   	</div>
+		   	<div>
+		   		<a href="#">
+		   			<img src="images/p2.png" class="img-responsive img-rounded"/>
+		   			<div>			   
+		   				<p>[喜讯]我系学生荣获“4G全网建设技术”技能竞赛三等奖</p>
+		   				<time class="pull-left "><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>2019/5/5</time>
+		   				<span><i class="glyphicon glyphicon-eye-open"></i>阅读(80)</span>
+		   			</div>	   		
+		   		</a>
+		   	</div>
+		   	<div>
+		   		<a href="#">
+		   			<img src="images/p2.png" class="img-responsive img-rounded"/>
+		   			<div>			   
+		   				<p>[喜讯]我系学生荣获“4G全网建设技术”技能竞赛三等奖</p>
+		   				<time class="pull-left"><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>2019/5/5</time>
+		   				<span><i class="glyphicon glyphicon-eye-open"></i>阅读(80)</span>
+		   			</div>	   		
+		   		</a>
+		   	</div>
+		  
+		</div>
+	</div>
 </div>
 <!--图片新闻 end-->
 
 <!--文字新闻 strat-->
-<section class="container-fluid">	
+<section class="container">	
 	<div class="row ">
-		<div class="col-md-3 news news-left" >
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
+		<div class="col-md-4 news " >
+			<div class="news_title">
+				<h3>系部新闻</h3>
+				<small>Department news</small>
+				<span class="label label-primary pull-right">more+</span>
+			</div>
+			<ul>
+				<li>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</li>
+				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
+				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+			</ul>		
 		</div>
-		<div class="col-md-3 news col-md-offset-1" >
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
+		<div class="col-md-4 news " >
+			<div class="news_title">
+				<h3>系部新闻</h3>
+				<small>Department news</small>
+				<span class="label label-primary pull-right">more+</span>
+			</div>
+			<ul>
+				<li>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</li>
+				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
+				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+			</ul>	
 		</div>
-		<div class="col-md-3 news col-md-offset-1">
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
+		<div class="col-md-4 news ">
+			<div class="news_title">
+				<h3>系部新闻</h3>
+				<small>Department news</small>
+				<span class="label label-primary pull-right">more+</span>
+			</div>
+			<ul>
+				<li><a href="">春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</a></li>
+				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
+				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+			</ul>	
 		</div>
 	</div>
 </section>
 <!--文字新闻 end-->
 
 <!--通知 科研 start-->
-<section class="container-fluid mt20 mb20">
+<section class="container mt20 mb20">
 	<div class="row">
-		<div class="col-sm-12 col-md-3 col-lg-offset-1 col-md-offset-1 mb20" style=" height: 200px; background: #999;">
+		<div class="col-sm-12 col-md-3  mb20" style=" height: 200px; background: #999;">
 			<h3>通知公告</h3>
 			<p>这是通知</p>
 			<p>这是通知</p>
 			<p>这是通知</p>
 		</div>
-	  <div class="col-sm-6 col-md-4">
+	  <div class="col-sm-6 col-md-5">
 	    <div class="thumbnail">
 	      <img src="images/ky2.jpg" alt="">
 	      <div class="caption">
@@ -251,52 +258,7 @@
 			items:1,
 			autoPlay:true
 		});
-	var certifySwiper = new Swiper('#certify .swiper-container', {
-	watchSlidesProgress: true,
-	slidesPerView: 'auto',
-	centeredSlides: true,
-	loop: true,
-	loopedSlides: 3,
-	autoplay: true,
-	navigation: {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev',
-	},
-	pagination: {
-		el: '.swiper-pagination',
-		//clickable :true,
-	},
-	on: {
-		progress: function(progress) {
-			for (i = 0; i < this.slides.length; i++) {
-				var slide = this.slides.eq(i);
-				var slideProgress = this.slides[i].progress;
-				modify = 1;
-				if (Math.abs(slideProgress) > 1) {
-					modify = (Math.abs(slideProgress) - 1) * 0.3 + 1;
-				}
-				translate = slideProgress * modify * 260 + 'px';
-				scale = 1 - Math.abs(slideProgress) / 5;
-				zIndex = 999 - Math.abs(Math.round(10 * slideProgress));
-				slide.transform('translateX(' + translate + ') scale(' + scale + ')');
-				slide.css('zIndex', zIndex);
-				slide.css('opacity', 1);
-				if (Math.abs(slideProgress) > 3) {
-					slide.css('opacity', 0);
-				}
-			}
-		},
-		setTransition: function(transition) {
-			for (var i = 0; i < this.slides.length; i++) {
-				var slide = this.slides.eq(i)
-				slide.transition(transition);
-			}
-
-		}
-	}
-
-});
-
+		
 	});
 </script>
 </body>

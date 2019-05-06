@@ -268,11 +268,11 @@ th {
 }
 .glyphicon {
   position: relative;
-  top: 1px;
+  top: 2px;
   display: inline-block;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 1;
   line-height: 1;
 
   -webkit-font-smoothing: antialiased;
@@ -6773,8 +6773,27 @@ button.close {
 	.news-left{
   	margin-left: 5%;
   }
+  .pic_news_right a p{
+  	padding: 2px;
+  	 font-size: 16px;
+  }
   .deviation{
   	margin-left: -80px;margin-top: 20px;
   }
 }
+@media only screen and (max-width: 992px) {
+		.pic_news .row>div{
+			height: auto;
+	 	}
+	 	.pic_news_right>div{
+	 		padding: 5px 0px;
+	 	}
+	}
+	@media only screen and (max-width: 768px) {
+		.pic_news_right a img {
+			width: 80px;
+			height: 65px;
+		}
+	}
+	
 /*# sourceMappingURL=bootstrap.css.map */
