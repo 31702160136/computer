@@ -50,7 +50,7 @@
 				<button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html',600,500)"><i class="layui-icon"></i>添加</button>
 				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
-			<table class="layui-table">
+			<table class="layui-table x-admin">
 				<thead>
 					<tr>
 						<th>
@@ -110,41 +110,82 @@
 		<script>
 			select_user();
 			
-			/* 单个用户删除：
+			/* 单个管理员删除：
 			 * 
 			 * 		member_del（）
 			 * */
-			function member_del(obj, id) {
-				layer.confirm('确认要删除吗？', function(index) {
+			function member_del(obj, id, role) {
+				if (role = "普通管理员") {
+					layer.confirm('确认要删除吗？', function(index) {
+						$.ajax({
+							type:"post",
+							url: host + "controller_b/delete_users.php",
+							async:true,
+							data:{
+								"ids[]": id
+							},
+							success: function(data){
+								var res = JSON.parse(data);
+								if (res.status) {
+									select_user();
+									layer.msg('已删除!', {
+										icon: 1,
+										time: 1000
+									});
+								} else{
+									layer.msg('删除失败!', {
+										icon: 2,
+										time: 2000
+									});
+								}
+							},
+							error:function(){
+								document.write("error");
+							}
+						});
+					});
+				} else{
+					layer.msg('您无法删除超级管理员!', {
+						icon: 1,
+						time: 1000
+					});
+				}
+				
+			}
+			/* 多个管理员删除：
+			 * 
+			 * 		delAll（）
+			 * */
+			function delAll(argument) {
+				var arrayData = tableCheck.getData();
+				layer.confirm('确认要删除ID为 '+arrayData+' 的管理员吗？', function(index) {
 					$.ajax({
 						type:"post",
-						url: host + "controller_b/delete_users.php",
-						async:true,
-						data:{
-							"ids[]": id
-						},
-						success: function(data){
-							var res = JSON.parse(data);
-							if (res.status) {
-								select_user();
-								layer.msg('已删除!', {
-									icon: 1,
-									time: 1000
-								});
-							} else{
-								layer.msg('删除失败!', {
-									icon: 2,
-									time: 2000
-								});
-							}
-						},
-						error:function(){
+						url:host+"controller_b/delete_users.php",
+					  	data:{
+					  		"ids":arrayData
+					  	},
+					  	success:function(data){
+					        	var res=JSON.parse(data);
+					        	if (res.status) {
+									select_user();
+									layer.msg('已删除!', {
+										icon: 1,
+										time: 1000
+									});
+								} else{
+									layer.msg('请选择要删除的管理员', {
+										icon: 2,
+										time: 2000
+									});
+								}
+					    },
+					    error:function(){
 							document.write("error");
 						}
 					});
 				});
 			}
-			
 			
 			/* 用户编辑：
 		  	 * 
@@ -242,7 +283,7 @@
 								if (is_start == 0) {
 									$("#userList").append(
 										"<tr cate-id='1' fid='0'>\
-											<td><div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div></td>\
+											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
 											<td>"+id+"</td>\
 											<td>"+username+"</td>\
 											<td><i class='layui-icon x-show' status='true'></i>"+name+"</td>\
@@ -253,13 +294,13 @@
 											<td>"+getMyDate(modify_time)+"</td>\
 											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_start+")\">已停用</span></td>\
 											<td class='td-manage'>\
-											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
+											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+","+"'"+role+"'"+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
 										</td></tr>"
 									);
 								} else{
 									$("#userList").append(
 										"<tr cate-id='1' fid='0'>\
-											<td><div class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id='2'><i class='layui-icon'>&#xe605;</i></div></td>\
+											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
 											<td>"+id+"</td>\
 											<td>"+username+"</td>\
 											<td><i class='layui-icon x-show' status='true'></i>"+name+"</td>\
@@ -270,7 +311,7 @@
 											<td>"+getMyDate(modify_time)+"</td>\
 											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_start+")\">已启用</span></td>\
 											<td class='td-manage'>\
-											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
+											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+","+"'"+role+"'"+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
 										</td></tr>"
 									);
 								}
@@ -325,16 +366,22 @@
 			});
 
 
-			function delAll(argument) {
-				var data = tableCheck.getData();
-				layer.confirm('确认要删除吗？' + data, function(index) {
-					//捉到所有被选中的，发异步进行删除
-					layer.msg('删除成功', {
-						icon: 1
-					});
-					$(".layui-form-checked").not('.header').parents('tr').remove();
-				});
-			}
+			
+			
+			//渲染多选框事件
+			$(document).on('click', '#icheckbox',function() {
+				if($(this).hasClass('layui-form-checked')) {
+					$(this).removeClass('layui-form-checked');
+					if($(this).hasClass('header')) {
+						$(".x-admin .layui-form-checkbox").removeClass('layui-form-checked');
+					}
+				} else {
+					$(this).addClass('layui-form-checked');
+					if($(this).hasClass('header')) {
+						$(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
+					}
+				}
+			});
 		</script>
 		<script>
 			var _hmt = _hmt || [];

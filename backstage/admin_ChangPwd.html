@@ -96,11 +96,11 @@
 							var res=JSON.parse(data);
 							if (res.status) {
 								layer.msg('密码修改成功，请重新登录',{icon: 1,time:1000});
-								window.location.href = "login.html";
 								// 获得frame索引
-								var index = parent.layer.getFrameIndex(window.name);
+								//var index = parent.layer.getFrameIndex(window.name);
 								//关闭当前frame
-								parent.layer.close(index);
+								//parent.layer.close(index);
+								window.location.href = "login.html";
 							}else{
 								layer.msg('密码修改失败',{icon: 2,time:2000});
 							}

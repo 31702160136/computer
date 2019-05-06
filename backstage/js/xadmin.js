@@ -168,7 +168,7 @@ $(function () {
       };
 
 
-    tableCheck = {
+	tableCheck = {
         init:function  () {
             $(".x-admin .layui-form-checkbox").click(function(event) {
                 if($(this).hasClass('layui-form-checked')){
@@ -182,7 +182,6 @@ $(function () {
                         $(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
                     }
                 }
-                
             });
         },
         getData:function  () {
@@ -194,7 +193,6 @@ $(function () {
             return arr;
         }
     }
-
     // 开启表格多选
     tableCheck.init();
       
@@ -384,7 +382,7 @@ function x_admin_show(title,url,w,h,full=false){
         content: url,
         success: function(){
           //窗口加载成功刷新frame
-          // location.replace(location.href);
+          //location.replace(location.href);
         },
         cancel:function(){
           //关闭窗口之后刷新frame
