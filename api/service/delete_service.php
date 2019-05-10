@@ -13,61 +13,52 @@ class DeleteService {
 		$this -> columnDao = new ColumnDao();
 		$this -> newsDao = new NewsDao();
 	}
-
+	/*
+	 * 通过用户id删除用户
+	 * */
 	function delUserById($data) {
-		if (isset($data)) {
-			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
-			if ($result[0]["role"] == "superAdmin") {
-				$result = $this -> userDao -> deleteUserById($data);
-				//判断是否修改成功
-				if ($result > 0) {
-					return true;
-				} else {
-					return false;
-				}
+		if (isset($data)&&is_array($data)) {
+			$result = $this -> userDao -> deleteUserById($data);
+			//判断是否删除成功
+			if ($result > 0) {
+				return true;
 			} else {
-				error("权限不足");
+				return false;
 			}
 		}else{
-			error("缺少参数");
+			error("缺少参数:delUserById");
 		}
 	}
-	
+	/*
+	 * 通过栏目id删除栏目
+	 * */
 	function delColumnById($data) {
-		if (isset($data)) {
-			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
-			if ($result[0]["role"] == "admin" || $result[0]["role"] == "superAdmin") {
-				$result = $this -> columnDao ->deleteColumnById($data);
-				//判断是否修改成功
-				if ($result > 0) {
-					return true;
-				} else {
-					return false;
-				}
+		if (isset($data)&&is_array($data)) {
+			$result = $this -> columnDao ->deleteColumnById($data);
+			//判断是否删除成功
+			if ($result > 0) {
+				return true;
 			} else {
-				error("权限不足");
+				return false;
 			}
 		}else{
-			error("缺少参数");
+			error("缺少参数：delColumnById");
 		}
 	}
-	
+	/*
+	 * 通过新闻id删除新闻
+	 * */
 	function delNewsById($data) {
-		if (isset($data)) {
-			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
-			if ($result[0]["role"] == "admin" || $result[0]["role"] == "superAdmin") {
-				$result = $this -> newsDao ->deleteNewsById($data);
-				//判断是否修改成功
-				if ($result > 0) {
-					return true;
-				} else {
-					return false;
-				}
+		if (isset($data)&&is_array($data)) {
+			$result = $this -> newsDao ->deleteNewsById($data);
+			//判断是否删除成功
+			if ($result > 0) {
+				return true;
 			} else {
-				error("权限不足");
+				return false;
 			}
 		}else{
-			error("缺少参数");
+			error("缺少参数：delNewsById");
 		}
 	}
 

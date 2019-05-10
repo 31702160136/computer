@@ -18,12 +18,12 @@ class ModifyService {
 	 * */
 	public function modifyUserPassword($data) {
 		//判断信息是否为空
-		if (isset($data["password"]) && isset($data["oldPassword"])) {
+		if (isset($data["id"]) && isset($data["password"]) && isset($data["oldPassword"])) {
 			//取出新密码与旧密码
 			$password = $data["password"];
 			$oldPassword = $data["oldPassword"];
 			//查询管理员信息
-			$result = $this -> userDao -> findUserByUserName(getSessionUserName());
+			$result = $this -> userDao -> findUserByUserName($data["id"]);
 			//对比旧密码是否一致
 			if ($result[0]["password"] == $oldPassword) {
 				//对比新密码与旧密码是否一致
@@ -39,17 +39,19 @@ class ModifyService {
 						return false;
 					}
 				} else {
-					error("新密码与原密码一致，请重新修改密码");
+					error("新密码与旧密码一致，请重新修改密码");
 				}
 			} else {
-				error("原密码错误");
+				error("旧密码错误");
 			}
 		} else {
-			error("缺少必要信息");
+			error("缺少必要信息：modifyUserPassword");
 		}
 	}
 
-	//修改栏目
+	/*
+	 * 修改栏目
+	 * */
 	public function modifyColumn($data) {
 		if (isset($data["id"])) {
 			$id = $data["id"];
@@ -62,18 +64,20 @@ class ModifyService {
 				return false;
 			}
 		} else {
-			error("缺少必要信息");
+			error("缺少必要信息：modifyColumn");
 		}
 	}
 
-	//修改栏目状态
-	public function modifyColumnStart($data) {
+	/*
+	 * 修改栏目状态
+	 * */
+	public function modifyColumnStatus($data) {
 		if (isset($data["id"])) {
 			$id = $data["id"];
 			$result = $this -> columnDao -> findColumnById($id);
 			if (count($result) > 0) {
 				unset($data["id"]);
-				$data["is_start"] = $result[0]["is_start"] == 0 ? 1 : 0;
+				$data["is_status"] = $result[0]["is_status"] == 0 ? 1 : 0;
 				$data["modify_time"] = time();
 				$result = $this -> columnDao -> modifyColumn($data, $id);
 				if ($result > 0) {
@@ -88,14 +92,16 @@ class ModifyService {
 			error("缺少必要信息");
 		}
 	}
-	//用户栏目状态
-	public function modifyUserStart($data) {
+	/*
+	 * 用户栏目状态
+	 * */
+	public function modifyUserStatus($data) {
 		if (isset($data["id"])) {
 			$id = $data["id"];
 			$result = $this -> userDao -> findUser($id);
 			if (count($result) > 0) {
 				unset($data["id"]);
-				$data["is_start"] = $result[0]["is_start"] == 0 ? 1 : 0;
+				$data["is_status"] = $result[0]["is_status"] == 0 ? 1 : 0;
 				$data["modify_time"] = time();
 				$result = $this -> userDao -> modifyUser($data, $id);
 				if ($result > 0) {
@@ -110,9 +116,12 @@ class ModifyService {
 			error("缺少必要信息");
 		}
 	}
-	//修改新闻状态
+	/*
+	 * 修改新闻状态
+	 * state可修改状态为：is_hot，is_top，is_status
+	 * */
 	public function modifyNewsState($data) {
-		if (isset($data["id"])) {
+		if (isset($data["id"])&&isset($data["state"])) {
 			$id = $data["id"];
 			$result = $this -> newsDao -> findNewsById($id);
 			if (count($result) > 0) {
@@ -131,7 +140,7 @@ class ModifyService {
 				error("没有此新闻");
 			}
 		} else {
-			error("缺少必要信息");
+			error("缺少必要信息：modifyNewsState");
 		}
 	}
 

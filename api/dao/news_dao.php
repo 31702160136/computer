@@ -7,9 +7,9 @@ class NewsDao{
 	}
 	public function findNews($page,$size){
 		if(isset($page)&&isset($size)){
-			$sql = "select * from `news` limit ".$page.",".$size;
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.column_id=c.id limit ".$page.",".$size;
 		}else{
-			$sql = "select * from `news`";
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.column_id=c.id";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -21,9 +21,9 @@ class NewsDao{
 	}
 	public function findNewsByColumnId($id,$page,$size){
 		if(isset($page)&&isset($size)){
-			$sql = "select * from `news` where `column_id`=" . $id." limit ".$page.",".$size;
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`column_id`='" . $id."' limit ".$page.",".$size;
 		}else{
-			$sql = "select * from `news` where `column_id`=" . $id;
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`column_id`='" . $id."'";
 		}
 		$result=$this->sql->query($sql);
 		return $result;

@@ -17,4 +17,18 @@ if (sessionIsLogin()) {
 } else {
 	error("用户未登录");
 }
+/*
+ * 切换新闻顶置状态
+ * 接口状态：完成
+ * 类型：Post
+ * 参数：id
+ * 返回：json
+ * 返回数量：单条
+{
+    "status": true,
+    "message": "新闻置顶状态设置成功",
+    "code": 200
+}
+ * 
+ * */
 ?>

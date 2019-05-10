@@ -7,28 +7,15 @@ include_once "./../config/path.php";
 if(sessionIsLogin()){
 	$create_service = new CreateService();
 	$select_service=new SelectService();
-	$result_user=$select_service->getUserInfoByUserName(getSessionUserName());
-	$cover=null;
-	if(isset($_FILES["cover"])){
-		$tmpimg=$_FILES["cover"]["tmp_name"];//获取临时文件路径
-		$name=$_FILES["cover"]["name"];//文件名
-		$result=move_uploaded_file($tmpimg, "../../images/".$name);
-		if($result>0){
-			$cover=getImagesPath().$name;
-		}else{
-			error("创建新文章失败:封面图片上传失败");
-		}
+	//上传封面并获取图片路径
+	$cover=$create_service->uploadImage("cover");
+	if(!isset($cover)){
+		error("文章保存失败：上传封面图片失败");
 	}
-	$slideshow_cover=null;
-	if(isset($_FILES["slideshow_cover"])){
-		$tmpimg=$_FILES["slideshow_cover"]["tmp_name"];//获取临时文件路径
-		$name=$_FILES["slideshow_cover"]["name"];//文件名
-		$result=move_uploaded_file($tmpimg, "../../images/".$name);
-		if($result>0){
-			$slideshow_cover=getImagesPath().$name;
-		}else{
-			error("创建新文章失败:封面图片上传失败");
-		}
+	//上传轮播图并获取图片路径
+	$slideshow_cover=$create_service->uploadImage("slideshow_cover");
+	if(!isset($slideshow_cover)){
+		error("文章保存失败：上传封面轮播图失败");
 	}
 	$data=array(
 		"title"=>@$_POST["title"],
@@ -42,15 +29,39 @@ if(sessionIsLogin()){
 		"is_top"=>isset($_POST["is_top"]) ? $_POST["is_top"]:null,
 		"is_start"=>isset($_POST["is_start"]) ? $_POST["is_start"]:null,
 		"column_id"=>@$_POST["column_id"],
-		"user_id"=>$result_user["id"]
+		"user_id"=>getSessionId()
 	);
 	$result=$create_service->createNews($data);
 	if($result){
-		succeed("创建新文章成功");
+		succeed("创建新闻成功");
 	}else{
-		error("创建新文章失败");
+		error("创建新闻失败");
 	}
 }else{
 	error("用户未登录");
 }
+/*
+ * 创建新闻
+ * 接口状态：完成
+ * 类型：Post
+ * 参数：title					新闻标题
+ * 参数：describe					新闻描述
+ * 参数：content					新闻内容
+ * 参数：cover					新闻封面：图片(选填)
+ * 参数：slideshow_cover			新闻轮播：图片(选填)
+ * 参数：type						新闻类型
+ * 参数：contributor				新闻投稿者即作者
+ * 参数：is_hot					火热状态(选填)
+ * 参数：is_top					顶置状态(选填)
+ * 参数：is_start					启动状态(选填)
+ * 参数：column_id				栏目id
+ * 返回：json
+ * 返回数量：单条
+{
+    "status": true,
+    "message": "创建新闻成功",
+    "code": 200
+}
+ * 
+ * */
 ?>

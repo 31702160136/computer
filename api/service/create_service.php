@@ -3,6 +3,7 @@ include_once "./../handler/handler.php";
 include_once "./../dao/user_dao.php";
 include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
+include_once "./../config/path.php";
 class CreateService{
 	private $userDao=null;
 	private $columnDao=null;
@@ -12,8 +13,13 @@ class CreateService{
 		$this->columnDao=new ColumnDao();
 		$this->newsDao=new NewsDao();
 	}
-	//创建管理员
+	/*
+	 * 创建管理员
+	 * */
 	public function createAdmin($data){
+		if($data["role"]!="admin"&&$data["role"]!="superAdmin"){
+			error("请输入正确的角色");
+		}
 		if(isset($data["username"])&&isset($data["password"])&&isset($data["name"])){
 			$result=$this->userDao->findUserByUserName($data["username"]);
 			if(!(count($result)>0)){
@@ -26,12 +32,15 @@ class CreateService{
 					error("创建管理员失败");
 				}
 			}else{
-				error("该用户已存在");
+				error("创建管理员失败：该用户已存在");
 			}
 		}else{
-			error("缺少必要信息");
+			error("缺少必要信息：createAdmin");
 		}
 	}
+	/*
+	 * 创建栏目
+	 * */
 	public function createColumn($data){
 		if(isset($data["title"])){
 			$result=$this->columnDao->findColumnByTitle($data["title"]);
@@ -49,9 +58,12 @@ class CreateService{
 				error("创建栏目失败：已有此栏目");
 			}
 		}else{
-			error("缺少必要信息");
+			error("缺少必要信息：createColumn");
 		}
 	}
+	/*
+	 * 创建新闻
+	 * */
 	public function createNews($data){
 		if(isset($data["title"])
 			&&isset($data["describe"])
@@ -62,6 +74,7 @@ class CreateService{
 			&&isset($data["user_id"])){
 			$result_column=$this->columnDao->findColumnById($data["column_id"]);
 			//检测栏目的id是否存在，如果存在就创建
+			//
 			if((count($result_column)>0)){
 				$data["creation_time"]=time();
 				$data["modify_time"]=time();
@@ -72,11 +85,25 @@ class CreateService{
 					error("创建新文章失败");
 				}
 			}else{
-				error("请输入正确的管理员或栏目的id");
+				error("创建新文章：没有此栏目");
 			}
 		}else{
-			error("缺少必要信息");
+			error("缺少必要信息：createNews");
 		}
+	}
+	
+	public function uploadImage($name){
+		if(isset($_FILES[$name])){
+			$tmpimg=$_FILES[$name]["tmp_name"];//获取临时文件路径
+			$name=$_FILES[$name]["name"];//文件名
+			$result=move_uploaded_file($tmpimg, "../../images/".$name);
+			if($result>0){
+				return getImagesPath().$name;
+			}else{
+				return null;
+			}
+		}
+		return "";
 	}
 }
 ?>

@@ -39,6 +39,7 @@ class Sql{
 			$count--;
 		}
 		$sql="insert into `".$array['table']."` (".$str1.") values (".$str2.")";
+		echo $sql;
 		$result = mysqli_query($this->link, $sql);
 		mysqli_commit($this->link);
 		return $result;

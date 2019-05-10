@@ -6,7 +6,7 @@ if (sessionIsLogin()) {
 	$modify_service = new ModifyService();
 	$data = array(
 		"id"=>@$_POST["id"],
-		"state"=>"is_start"
+		"state"=>"is_status"
 	);
 	$result = $modify_service ->modifyNewsState($data);
 	if ($result) {
@@ -17,4 +17,18 @@ if (sessionIsLogin()) {
 } else {
 	error("用户未登录");
 }
+/*
+ * 切换新闻启动状态
+ * 接口状态：完成
+ * 类型：Post
+ * 参数：id
+ * 返回：json
+ * 返回数量：单条
+{
+    "status": true,
+    "message": "新闻启动状态设置成功",
+    "code": 200
+}
+ * 
+ * */
 ?>
