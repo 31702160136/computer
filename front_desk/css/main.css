@@ -1,0 +1,167 @@
+body,
+section,
+ul,
+li,
+p,
+span {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.mt20 {
+	margin-top: 20px;
+}
+
+.mb20 {
+	margin-bottom: 20px;
+}
+
+body {
+	background: #FFFFFF;
+}
+
+#header-bg-blue {
+	background: rgb(17, 168, 255);
+}
+
+#header-bg-white {
+	background: rgb(17, 168, 255);
+}
+
+.header-logo {
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+
+.header-title {
+	font-family: "华文行楷";
+	font-size: 48px;
+	color: #FFFFFF;
+}
+
+/*图片新闻*/
+
+.pic_news .row>div {
+	height: 22vw;
+}
+
+.pic_news .pic_news_left a {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.pic_news .pic_news_left img {
+	width: 100%;
+	height: 100%;
+}
+
+.pic_news .pic_news_left p {
+	position: absolute;
+	display: block;
+	bottom: 0;
+	background: url(../images/news_p_gb.png);
+    height: 68px;
+    line-height: 68px;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: normal;
+}
+}
+.pic_news_right{
+	position: relative;	
+}
+.pic_news_right>div{
+	position: relative;
+	padding: 2px;
+	width: 100%;
+	height: 33%;
+	overflow: hidden;
+}
+.pic_news_right a{
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+.pic_news_right a img {
+	width: 25%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+}
+.pic_news_right a div{
+	position: relative;
+	float: left;
+	width:75%;
+	height: 100%;
+	font-size: 14px;
+    font-weight: normal;
+	padding: 8px 15px;
+	border-bottom: 1px dashed #999;
+}
+.pic_news_right a p{
+	height: 40px;	
+}
+.pic_news_right a i{
+ 	color: rgb(127, 36, 161);	
+}
+
+.pic_news_right a span {
+	position: absolute;
+	bottom: 2px;
+	left: 100px;
+	font-size: 14px;
+	color: #999;
+}
+.pic_news_right a time {
+	position: absolute;
+	bottom: 2px;
+	left: 10px;
+	font-size: 14px;
+	color: #999;
+}
+/*文字新闻*/
+
+.news {
+	color: rgb(12, 126, 216);
+	padding-right: 50px;
+}
+
+.news_title {
+	padding-bottom: 2px;
+	border-bottom: 2px solid rgb(12, 126, 216);
+}
+
+.news_title h3 {
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.news li {
+	padding-top: 10px;
+	color: #000000;
+	height: 50px;
+	overflow: hidden;
+}
+
+
+/*底部区域*/
+
+.footer {
+	color: #FFFFFF;
+	background: rgb(127, 36, 161);
+}
+
+.footer img {
+	margin-top: 15px;
+	margin-left: 15px;
+	width: 100%;
+}
+
+.footer p {
+	padding-left: 10px;
+}

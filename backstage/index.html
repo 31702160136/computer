@@ -1,687 +1,216 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="左右结构项目，属于大人员的社交工具">
-        <meta name="keywords" content="左右结构项目 社交 占座 ">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="format-detection" content="telephone=no">
-		<title>计算机工程系后台系统管理</title>
-		<script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script> 
-        <script src="js/host.js"></script>
-		<script src="js/is_login.js"></script>
-		<style type="text/css">
-			.test03{
-				width: 100%;
-				height: 100%;
-				background-color: #0000FF;
-				/*强制不换行*/
-				white-space:nowrap; 
-				/*超出显示省略号*/ 
-				text-overflow:ellipsis;
-				overflow:hidden;  
-			}
-		</style>
-        <script> 
-        	$(function() {
-                $(".meun-item").click(function() {
-                    $(".meun-item").removeClass("meun-item-active");
-                    $(this).addClass("meun-item-active");
-                    var itmeObj = $(".meun-item").find("img");
-                    itmeObj.each(function() {
-                        var items = $(this).attr("src");
-                        items = items.replace("_grey.png", ".png");
-                        items = items.replace(".png", "_grey.png")
-                        $(this).attr("src", items);
-                    });
-                    var attrObj = $(this).find("img").attr("src");
-                    ;
-                    attrObj = attrObj.replace("_grey.png", ".png");
-                    $(this).find("img").attr("src", attrObj);
-                });
-                $("#topAD").click(function() {
-                    $("#topA").toggleClass(" glyphicon-triangle-right");
-                    $("#topA").toggleClass(" glyphicon-triangle-bottom");
-                });
-                $("#topBD").click(function() {
-                    $("#topB").toggleClass(" glyphicon-triangle-right");
-                    $("#topB").toggleClass(" glyphicon-triangle-bottom");
-                });
-                $("#topCD").click(function() {
-                    $("#topC").toggleClass(" glyphicon-triangle-right");
-                    $("#topC").toggleClass(" glyphicon-triangle-bottom");
-                });
-                $(".toggle-btn").click(function() {
-                    $("#leftMeun").toggleClass("show");
-                    $("#rightContent").toggleClass("pd0px");
-                })
-            })
-        </script>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="css/common.css" />
-        <link rel="stylesheet" type="text/css" href="css/slide.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/flat-ui.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.nouislider.css">
-	</head>
-	<body>
-		<div id="wrap">
-			<!--<div style="width: 100%;height: 70px;background-color: #00BDEF;">
-				<img id="logo" alt="左右结构项目" src="images/logo01.jpg" width="4%" height="100%"><span>计算机工程系后台管理系统</span>
-			</div>-->
-			<!--左侧菜单栏模块-->
-			<div class="leftMeun" id="leftMeun">
-				<div id="logoDiv">
-                    <p id="logoP"><img id="logo" alt="左右结构项目" src="images/logo01.jpg"><span>计算机工程系</span></p>
-                </div>
-                <div id="personInfor">
-                    <p id="userName">Admin</p>
-                    <p><span>茂名职业技术学院</span></p>
-                    <p id="log_out"><a>退出登录</a></p>
-                </div>
-                <div class="meun-title">功能</div>
-                <div class="meun-item meun-item-active" href="#sour" aria-controls="sour" role="tab" data-toggle="tab"><img src="images/icon_source.png">栏目管理</div>
-                <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="images/icon_user_grey.png">新闻动态</div>
-                <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="images/icon_change_grey.png">修改密码</div>
-                <div class="meun-item" href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab"><img src="images/icon_char_grey.png">轮播图</div>
-			</div>
-			
-			
-			
-			
-			<!-- 右侧具体内容栏目 -->
-            <div id="rightContent">
-                <a class="toggle-btn" id="nimei">
-                    <i class="glyphicon glyphicon-align-justify"></i>
+<!doctype html>
+<html  class="x-admin-sm">
+<head>
+	<meta charset="UTF-8">
+	<title>茂名职业技术学院-计算机工程系</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript"src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+	<script src="js/host.js"></script>
+	<script src="js/is_login.js"></script>
+	<script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
+    <link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/xadmin.css">
+    <script>
+        // 是否开启刷新记忆tab功能
+        // var is_remember = false;
+    </script>
+</head>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="./index.html">计算机工程系后台管理</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav left fast-add" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">+新增</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('资讯','https://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
+              <dd><a onclick="x_admin_show('图片','https://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
+               <dd><a onclick="x_admin_show('用户 最大化','https://www.baidu.com','','',true)"><i class="iconfont">&#xe6b8;</i>用户最大化</a></dd>
+               <dd><a onclick="x_admin_add_to_tab('在tab打开','https://www.baidu.com',true)"><i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
+            </dl>
+          </li>
+        </ul>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">admin</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+              <dd><a onclick="x_admin_show('修改密码','admin_ChangPwd.html',500,300)" target="_parent">修改密码</a></dd>
+              <dd><a id="out_login">退出</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+        	
+        	<li>
+                <a _href="admin-list.html">
+                    <i class="iconfont">&#xe726;</i>
+                    <cite>管理员管理</cite>
+                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
                 </a>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <!-- 栏目管理模块 -->
-                    <div role="tabpanel" class="tab-pane active" id="sour">
-                        <div class="check-div form-inline">
-                            <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addSource">添加栏目</button>
-                        </div>
-                        <div class="data-div">
-                        	<!--操作标题-->
-                            <div class="row tableHeader">
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">编码</div>
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">名称</div>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">状态</div>
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">操作</div>
-                            </div>
-                            <div class="tablebody">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 levl3 ">1</div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4  levl3"><span>系部概况</span></div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">正常</div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                    	<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeSource">修改</button>
-                                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteSource">删除</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--页码块-->
-                        <footer class="footer">
-                            <ul class="pagination">
-                                <li>
-                                    <select>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                    </select>页
-                                </li>
-                                <li class="gray">共20页</li>
-                                <!--左箭头-->
-                                <li><i class="glyphicon glyphicon-menu-left"></i></li>
-                                <!--右箭头-->
-                                <li><i class="glyphicon glyphicon-menu-right"></i></li>
-                            </ul>
-                        </footer>
-                        
-                        
-                        <!--弹出窗口 添加栏目-->
-                        <div class="modal fade" id="addSource" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">添加栏目</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <form class="form-horizontal">
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">ID：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="columnID" placeholder="请输入栏目ID">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-	                                                <label for="sName" class="col-xs-3 control-label">名称：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="columnName" placeholder="请输入栏目名称">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-		                                            <label for="situation" class="col-xs-3 control-label">状态：</label>
-		                                            <div class="col-xs-8">
-		                                                <label class="control-label" for="anniu">
-		                                                    <input type="radio">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		                                                <label class="control-label" for="meun">
-		                                                    <input type="radio">禁用</label>
-		                                            </div>
-	                                        	</div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-xs btn-xs btn-green" id="column_Btn">确 定</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--修改栏目弹出窗口-->
-                        <div class="modal fade" id="changeSource" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    	<!--关闭按钮-->
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">修改栏目</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <form class="form-horizontal">
-                                                <div class="form-group ">
-                                                    <label for="sName" class="col-xs-3 control-label">名称：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="email" class="form-control input-sm duiqi" id="1" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sLink" class="col-xs-3 control-label">链接：</label>
-                                                    <div class="col-xs-8 ">
-                                                        <input type="" class="form-control input-sm duiqi" id="2" placeholder="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="sOrd" class="col-xs-3 control-label">排序：</label>
-                                                    <div class="col-xs-8">
-                                                        <input type="" class="form-control input-sm duiqi" id="3" placeholder="">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-xs btn-green">确 定</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!--弹出删除栏目警告窗口-->
-                        <div class="modal fade" id="deleteSource" role="dialog" aria-labelledby="gridSystemModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="gridSystemModalLabel">删除栏目</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="container-fluid">确定要删除该栏目？删除后不可恢复</div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                        <button type="button" class="btn btn-xs btn-danger">确 定</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-            <!--新闻动态模块-->
-            <div role="tabpanel" class="tab-pane" id="user">
-                <div class="check-div form-inline">
-                    <div class="col-xs-3">
-                        <button class="btn btn-yellow btn-xs" data-toggle="modal" data-target="#addUser">添加新闻</button>
-                    </div>
-                    <div class="col-xs-4">
-                        <input type="text" class="form-control input-sm" placeholder="输入文字搜索">
-                        <button class="btn btn-white btn-xs ">查 询 </button>
-                    </div>
-                    <div class="col-lg-3 col-lg-offset-2 col-xs-4" style=" padding-right: 40px;text-align: right;">
-                        <label for="paixu">排序:&nbsp;</label>
-                        <select class=" form-control">
-                            <option>系部概况</option>
-                            <option>新闻动态</option>
-                            <option>教学科研</option>
-                            <option>招生就业</option>
-                            <option>党建工作</option>
-                            <option>学生活动</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="data-div">
-                    <div class="row tableHeader">
-                        <div class="col-xs-1">新闻ID</div>
-                        <div class="col-xs-4">新闻标题</div>
-                        <div class="col-xs-2">所属导航</div>
-                        <div class="col-xs-2">状态</div>
-                        <div class="col-xs-2">操作</div>
-                        <div class="col-xs-1">内容</div>
-                    </div>
-                    <div class="tablebody">
-                        <div class="row">
-                            <div class="col-xs-1">01</div>
-                            <div class="col-xs-4 test03">计算机工程系简介计算机工程系简介计算机工程系简介计算机</div>
-                            <div class="col-xs-2">系部概括</div>
-                            <div class="col-xs-2">正常</div>
-                            <div class="col-xs-2">
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
-                            </div>
-                            <div class="col-xs-1"><a href="#">查看</a></div>
-                        </div>
-                    </div>
-                </div>
-                <!--页码块-->
-                <footer class="footer">
-                    <ul class="pagination">
-                        <li>
-                            <select>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>页</li>
-                        <li class="gray">共20页</li>
-                        <li><i class="glyphicon glyphicon-menu-left"></i></li>
-                        <li><i class="glyphicon glyphicon-menu-right"></i></li>
-                    </ul>
-                </footer>
-
-                <!--弹出添加新闻窗口-->
-                <div class="modal fade" id="addUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="gridSystemModalLabel">添加新闻</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <form class="form-horizontal">
-                                        <div class="form-group ">
-                                            <label for="sName" class="col-xs-3 control-label">新闻ID：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="email" class="form-control input-sm duiqi" id="4" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sLink" class="col-xs-3 control-label">新闻标题：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="" class="form-control input-sm duiqi" id="5" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sOrd" class="col-xs-3 control-label">内容简介：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="6" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sKnot" class="col-xs-3 control-label">所属导航：</label>
-                                            <div class="col-xs-8">
-                                                <select class=" form-control select-duiqi">
-                                                    <option>系部概况</option>
-						                            <option>新闻动态</option>
-						                            <option>教学科研</option>
-						                            <option>招生就业</option>
-						                            <option>党建工作</option>
-						                            <option>学生活动</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="situation" class="col-xs-3 control-label">状态：</label>
-                                            <div class="col-xs-8">
-                                                <label class="control-label" for="anniu">
-                                                    <input type="radio" name="situation" id="7">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <label class="control-label" for="meun">
-                                                    <input type="radio" name="situation" id="8">禁用</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                <button type="button" class="btn btn-xs btn-green">保 存</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-                <!--弹出修改新闻窗口-->
-                <div class="modal fade" id="reviseUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="gridSystemModalLabel">修改新闻</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    <form class="form-horizontal">
-                                        <div class="form-group ">
-                                            <label for="sName" class="col-xs-3 control-label">新闻ID：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="email" class="form-control input-sm duiqi" id="9" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sLink" class="col-xs-3 control-label">新闻标题：</label>
-                                            <div class="col-xs-8 ">
-                                                <input type="" class="form-control input-sm duiqi" id="10" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sOrd" class="col-xs-3 control-label">内容简介：</label>
-                                            <div class="col-xs-8">
-                                                <input type="" class="form-control input-sm duiqi" id="11" placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="situation" class="col-xs-3 control-label">状态：</label>
-                                            <div class="col-xs-8">
-                                                <label class="control-label" for="anniu">
-                                                    <input type="radio" name="situation" id="12">正常</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <label class="control-label" for="meun">
-                                                    <input type="radio" name="situation" id="13"> 禁用</label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                <button type="button" class="btn btn-xs btn-green">保 存</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-                <!--弹出删除新闻警告窗口-->
-                <div class="modal fade" id="deleteUser" role="dialog" aria-labelledby="gridSystemModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="gridSystemModalLabel">删除新闻</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid"> 确定要删除该新闻？删除后不可恢复！</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-xs btn-white" data-dismiss="modal">取 消</button>
-                                <button type="button" class="btn  btn-xs btn-danger">保 存</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </li>
+        	
+        	
+        	<li>
+                <a _href="cate.html">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite id="chaxunlanmu">栏目管理</cite>
+                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
+                </a>
+            </li>
+        	
+        	<li>
+                <a _href="order-list2.html">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite id="chaxunlanmu">新闻管理</cite>
+                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6ce;</i>
+                    <cite>系统统计</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="echarts1.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>拆线图</cite>
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="echarts2.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>柱状图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts3.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>地图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts4.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>饼图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts5.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>雷达图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts6.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>k线图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts7.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>热力图</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="echarts8.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>仪表图</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b4;</i>
+                    <cite>图标字体</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="unicode.html">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>图标对应字体</cite>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>我的桌面</li>
+          </ul>
+          <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                <dl>
+                    <dd data-type="this">关闭当前</dd>
+                    <dd data-type="other">关闭其它</dd>
+                    <dd data-type="all">关闭全部</dd>
+                </dl>
+          </div>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
-            
-            <!-- 修改密码模块 -->
-            <div role="tabpanel" class="tab-pane" id="chan">
-                <div class="check-div">计算机工程系后台管理系统</div>
-                <div style="padding: 50px 0;margin-top: 50px;background-color: #fff; text-align: right;width: 420px;margin: 50px auto;">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="sKnot" class="col-xs-4 control-label">原密码：</label>
-                            <div class="col-xs-5">
-                                <input type="password" class="form-control input-sm duiqi" id="oldPwd" placeholder="请输入原密码" style="margin-top: 7px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sKnot" class="col-xs-4 control-label">新密码：</label>
-                            <div class="col-xs-5">
-                                <input type="password" class="form-control input-sm duiqi" id="newPwd1" placeholder="请输入新密码" style="margin-top: 7px;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="sKnot" class="col-xs-4 control-label">确定密码：</label>
-                            <div class="col-xs-5">
-                                <input type="password" class="form-control input-sm duiqi" id="newPwd2" placeholder="请再次输入新密码" style="margin-top: 7px;">
-                            </div>
-                        </div>
-                        <div class="form-group text-right">
-                            <div class="col-xs-offset-4 col-xs-5" style="margin-left: 169px;">
-                                <button type="reset" class="btn btn-xs btn-white">取 消</button>
-                                <button type="button" id="btn_Pwd" class="btn btn-xs btn-green" >保 存</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            <!--添加轮播图管理模块-->
-            <div role="tabpanel" class="tab-pane" id="time">
-                <div class="check-div form-inline">
-                    <span href="#sitt" aria-controls="sitt" role="tab" data-toggle="tab" style="cursor: pointer;"><span class="glyphicon glyphicon glyphicon-chevron-left"></span>&nbsp;&nbsp;返回上一页</span>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <div class="data-div">
-                    <div class="row tableHeader">
-                        <div class="col-xs-3 ">编码</div>
-                        <div class="col-xs-3">开始</div>
-                        <div class="col-xs-3">结束</div>
-                        <div class="col-xs-3"> 操作</div>
-                    </div>
-                    <div class="tablebody">
-                        <div class="row">
-                            <div class="col-xs-3 ">6426398978</div>
-                            <div class="col-xs-3">10:10</div>
-                            <div class="col-xs-3">19:30</div>
-                            <div class="col-xs-3">
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#changeTime">修改</button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteTime">删除</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--页码块-->
-                <footer class="footer">
-                    <ul class="pagination">
-                        <li>
-                            <select>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>页
-                        </li>
-                        <li class="gray">共20页</li>
-                        <li><i class="glyphicon glyphicon-menu-left"></i></li>
-                        <li><i class="glyphicon glyphicon-menu-right"></i></li>
-                    </ul>
-                </footer>
-
-            </div>
-            <!--轮播图管理模块-->
-            <div role="tabpanel" class="tab-pane" id="sitt">
-            	<div class="check-div form-inline">
-                    <a href="#time" data-toggle="tab" 
-                    	style="border: 5px solid #EAB67C;  background-color: #EAB67C; color: white; border-radius: 4px;">添加轮播图</a>
-                </div>
-                <div class="data-div">
-                    <div class="row tableHeader">
-                        <div class="col-xs-2">序号</div>
-                        <div class="col-xs-4">名称</div>
-                        <div class="col-xs-3">图片</div>
-                        <div class="col-xs-3" style="padding-left: 40px;">操作</div>
-                    </div>
-                    <div class="tablebody">
-                    	<div class="row">
-                            <div class="col-xs-2">01</div>
-                        	<div class="col-xs-4">轮播图01</div>
-                            <a class="col-xs-3">查看大图</a>
-                            <div class="col-xs-3">
-                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#reviseUser">修改</button>
-                                <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#deleteUser">删除</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!--页码块-->
-                <footer class="footer">
-                    <ul class="pagination">
-                        <li>
-                            <select>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>页
-                        </li>
-                        <li class="gray">共20页</li>
-                        <li><i class="glyphicon glyphicon-menu-left"></i></li>
-                        <li><i class="glyphicon glyphicon-menu-right"></i></li>
-                    </ul>
-                </footer>
-            </div>
+          </div>
+          <div id="tab_show"></div>
         </div>
     </div>
-		</div>
-		
-	
-	<script>
-		
-		//DOM加载完成后进行操作
-		$(document).ready(function(){
-			/**
-			 * 创建栏目
-			 */
-			$("#column_Btn").click(function(){
-				var columnName = $("#columnName").val();
-				if(columnName == ""){
-					alert("请输入栏目名称");
-				}else{
-					$.ajax({
-						type:"post",
-						url: host + "controller_b/create_column.php",
-						async:true,
-						data:{
-							"title": columnName
-						},
-						success: function(data){
-							var res=JSON.parse(data);
-							if (res.status) {
-								alert("栏目添加成功");;
-							}else{
-								alert("栏目添加失败");
-							}
-				      	},
-					    error : function () {
-					      	document.write("error");
-					    }
-					});
-				}
-			});
-			
-			
-			/**
-			 * 退出登录
-			 */
-			$("#log_out").click(function(){
-				$.ajax({
-					type:"post",
-					url: host + "controller_b/out_login.php",
-					async:true,
-					success: function(data){
-						var res=JSON.parse(data);
-						if (res.status) {
-							window.location.href = "login.html";
-						}else{
-							alert("失败");
-						}
-			      	},
-				    error : function () {
-				      	document.write("error");
-				    }
-				});
-			});
-			
-			/**
-			 * 修改密码
-			 */
-			$("#btn_Pwd").click(function(){
-				var oldPwd = $("#oldPwd").val();
-				var newPwd01 = $("#newPwd1").val();
-				var newPwd02 = $("#newPwd2").val();
-				if(oldPwd == ""){
-					alert("请输入原密码");
-				}else if(newPwd01 == ""){
-					alert("请输入新密码");
-				}else if(newPwd02 == ""){
-					alert("请输入确定密码");
-				}else if(newPwd01 != newPwd02){
-					alert("新密码与确定密码不一致");
-				}else{
-					$.ajax({
-						type:"post",
-						url: host + "controller_b/modify_password.php",
-						data:{
-							"oldPassword":oldPwd,
-							"password":newPwd02
-						},
-						async:true,
-						success: function(data){
-							var res=JSON.parse(data);
-							if (res.status == true) {
-								alert("密码修改成功，请重新登录");
-								window.location.href = "login.html";
-							}else{
-								alert("密码修改失败");
-							}
-				      	},
-					    error : function () {
-					      	document.write("error");
-					    }
-					});	
-				}
-			});
-		
-		
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+    <div class="footer">
+        <div class="copyright">Copyright ©17移动互联1班  v1.0 All Rights Reserved</div>  
+    </div>
+    <!-- 底部结束 -->
+    
+    <script src="js/host.js"></script>
+    <script>
+    	/**
+		 * 退出登录
+		 */
+		$("#out_login").click(function(){
+			$.ajax({
+				type:"get",
+				url: host + "controller_b/out_login.php",
+				async:true,
+				success: function(data){
+					var res=JSON.parse(data);
+					if(res.status){
+						window.location.href="login.html";
+					}
+				},
+			 	error : function () {
+			      	document.write("error");
+			    }
+			});		
 		});
-	</script>
-	</body>
+    </script>
+</body>
 </html>
