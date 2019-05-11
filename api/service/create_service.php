@@ -3,15 +3,18 @@ include_once "./../handler/handler.php";
 include_once "./../dao/user_dao.php";
 include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
+include_once "./../dao/slideshow_dao.php";
 include_once "./../config/path.php";
 class CreateService{
 	private $userDao=null;
 	private $columnDao=null;
 	private $newsDao=null;
+	private $slideshowDao=null;
 	function __construct(){
 		$this->userDao=new UserDao();
 		$this->columnDao=new ColumnDao();
 		$this->newsDao=new NewsDao();
+		$this->slideshowDao=new SlideshowDao();
 	}
 	/*
 	 * 创建管理员
@@ -89,6 +92,26 @@ class CreateService{
 			}
 		}else{
 			error("缺少必要信息：createNews");
+		}
+	}
+	public function createSlideshow($data){
+		if(isset($data["news_id"])){
+			$result_findSl=$this->slideshowDao->findSlideshowByNewsId($data["news_id"]);
+			if(count($result_findSl)>0){
+				error("设置轮播新闻失败：此轮播新闻已存在");
+			}
+			$data["index"]=isset($data["index"])? $data["index"]:0;
+			$data["is_status"]=isset($data["is_status"])? $data["is_status"]:0;
+			$data["creation_time"]=time();
+			$data["modify_time"]=time();
+			$result=$this->slideshowDao->createSlideshow($data);
+			if($result>0){
+				return true;
+			}else{
+				error("创建轮播新闻失败");
+			}
+		}else{
+			error("缺少必要信息：createSlideshow");
 		}
 	}
 	
