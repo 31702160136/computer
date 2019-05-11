@@ -21,12 +21,16 @@ class SelectService {
 		$page = null;
 		$size = null;
 		if (isset($data["page"]) && isset($data["size"])) {
-			if ($data["page"] <= 0) {
-				$data["page"] = 1;
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> userDao -> findUsers(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> userDao -> findUsers($page,$size);
 			}
-			$page = ($data["page"] - 1) * $data["size"];
-			$size = $data["size"];
-			$result = $this -> userDao -> findUsers($page,$size);
 		}else{
 			$result = $this -> userDao -> findUsers(0,10);
 		}
@@ -57,12 +61,16 @@ class SelectService {
 		$page = null;
 		$size = null;
 		if (isset($data["page"]) && isset($data["size"])) {
-			if ($data["page"] <= 0) {
-				$data["page"] = 1;
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> columnDao -> findColumns(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> columnDao -> findColumns($page,$size);
 			}
-			$page = ($data["page"] - 1) * $data["size"];
-			$size = $data["size"];
-			$result = $this -> columnDao -> findColumns($page,$size);
 		}else{
 			$result = $this -> columnDao -> findColumns(0,10);
 		}
@@ -76,12 +84,16 @@ class SelectService {
 		$page = null;
 		$size = null;
 		if (isset($data["page"]) && isset($data["size"])) {
-			if ($data["page"] <= 0) {
-				$data["page"] = 1;
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNews(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNews($page,$size);
 			}
-			$page = ($data["page"] - 1) * $data["size"];
-			$size = $data["size"];
-			$result_news = $this -> newsDao -> findNews($page,$size);
 		}else{
 			$result_news = $this -> newsDao -> findNews(0,10);
 		}
@@ -105,12 +117,16 @@ class SelectService {
 			$page = null;
 			$size = null;
 			if (isset($data["page"]) && isset($data["size"])) {
-				if ($data["page"] <= 0) {
-					$data["page"] = 1;
+				if($data["page"]==0&&$data["size"]==0){
+					$result_news = $this -> newsDao -> findNewsByColumnId($data["column_id"], null, null);
+				}else{
+					if ($data["page"] <= 0) {
+						$data["page"] = 1;
+					}
+					$page = ($data["page"] - 1) * $data["size"];
+					$size = $data["size"];
+					$result_news = $this -> newsDao -> findNewsByColumnId($data["column_id"], $page, $size);
 				}
-				$page = ($data["page"] - 1) * $data["size"];
-				$size = $data["size"];
-				$result_news = $this -> newsDao -> findNewsByColumnId($data["column_id"], $page, $size);
 			}else{
 				$result_news = $this -> newsDao -> findNewsByColumnId($data["column_id"], 0, 10);
 			}

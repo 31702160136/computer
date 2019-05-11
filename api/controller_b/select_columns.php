@@ -2,6 +2,7 @@
 include_once "./../handler/handler.php";
 include_once "./../service/select_service.php";
 include_once "./../utils/session_status.php";
+include_once "./../utils/tools.php";
 if(sessionIsLogin()){
 	$select_service = new SelectService();
 	$data=array(
@@ -9,7 +10,23 @@ if(sessionIsLogin()){
 		"size"=>@$_GET["size"]
 	);
 	$result = $select_service -> getColumns($data);
-	succeedOfInfo("获取栏目列表成功", $result);
+	$data_column_all=array(
+		"page"=>0,
+		"size"=>0
+	);
+	$result_column_all = $select_service ->getColumns($data_column_all);
+	if(isset($data["size"]) && $data["size"]!=0){
+		$size=$data["size"];
+	}else{
+		$size=10;
+	}
+	$page=getPage($result_column_all, $size);
+	//封装数据
+	$res_data=array(
+		"total_page"=>$page,
+		"data"=>$result
+	);
+	succeedOfInfo("获取栏目列表成功", $res_data);
 }else{
 	error("用户未登录");
 }
@@ -25,16 +42,19 @@ if(sessionIsLogin()){
     "status": true,
     "message": "获取栏目列表成功",
     "code": 200,
-    "data": [
-        {
-            "id": "5",
-            "title": "sadaaaa",
-            "index": "12",
-            "is_status": "1",
-            "creation_time": "1554366223",
-            "modify_time": "1555424211"
-        }
-    ]
+    "data": {
+        "total_page": 15,
+        "data": [
+            {
+                "id": "5",
+                "title": "2",
+                "index": "1",
+                "is_status": "1",
+                "creation_time": "1554366223",
+                "modify_time": "1557461627"
+            }
+        ]
+    }
 }
  * 
  * */
