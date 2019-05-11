@@ -35,31 +35,25 @@
 	<body>
 		<div class="x-body">
 			<form class="layui-form">
-				<div class="layui-form-item">
-					<label for="name" class="layui-form-label">新闻标题</label>
+				<!--<div class="layui-form-item">
+					<label for="title" class="layui-form-label">新闻标题</label>
 					<div class="layui-input-inline">
-						<input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input">
+						<input type="text" id="title" name="title" lay-verify="required" autocomplete="off" class="layui-input" style="width: 600px;">
 					</div>
-					<div class="layui-form-mid layui-word-aux"><span class="x-red">*</span>将会成为您在本系统的显示名称</div>
-				</div>
-				
+				</div>-->
 				
 				
 				<div class="layui-form-item">
-					<label for="username" class="layui-form-label">新闻内容</label>
+					<label for="content" class="layui-form-label">新闻内容</label>
 					<div class="layui-input-inline">
 						<!-- 加载编辑器的容器 -->	
-						<script id="container" name="content" type="text/plain" style="width: 900px;height: 500px;"></script>
-						 <!-- 实例化编辑器 -->
-						<script type="text/javascript">
-							var ue = UE.getEditor('container');
-						</script>
+						<script id="container" class="content" name="content" type="text/plain" style="width: 900px;height: 500px;">1111123</script>
 					</div>
 				</div>
 				
 				
 				
-				<div class="layui-form-item">
+				<!--<div class="layui-form-item">
 					<label for="L_pass" class="layui-form-label">所属栏目</label>
 					<div class="layui-input-inline">
 						<select id="newsID1" name="contrller" lay-filter="choiceNews">
@@ -81,10 +75,10 @@
 							<option id="broadCastNews" value="broadCastNews">轮播新闻</option>
 						</select>
 					</div>
-				</div>
+				</div>-->
 				
 				
-				<div id="coverPhoto" class="layui-form-item" hidden="hidden">
+				<!--<div id="coverPhoto" class="layui-form-item" hidden="hidden">
 					<label for="phone" class="layui-form-label">封面图片</label>
 					<div class="layui-input-inline">
 						<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
@@ -96,10 +90,10 @@
 					<div class="layui-input-inline">
 						<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
 					</div>
-				</div>
+				</div>-->
 				
 				
-				<div class="layui-form-item">
+				<!--<div class="layui-form-item">
 					<label class="layui-form-label">状态1</label>
 					<div class="layui-input-block">
 						<input type="checkbox" id="superAdmin" name="role" lay-skin="primary" title="喜讯" value="superAdmin">
@@ -113,7 +107,7 @@
 						<input type="radio" id="superAdmin" name="role" lay-skin="primary" title="开启" value="superAdmin">
 						<input type="radio" id="admin" name="role" lay-skin="primary" title="停用" checked="checked" value="admin">
 					</div>
-				</div>
+				</div>-->
 				
 				
 				
@@ -123,8 +117,19 @@
 					<input  class="layui-btn layui-btn-warm addbtn" type="reset" value="重  置" />
 				</div>
 			</form>
+			<button id="new_add" class="layui-btn addbtn">测试键</button>
 		</div>
 		<script>
+			//实例化编辑器			
+			var ue = UE.getEditor('container');
+			
+			$("#new_add").click(function(){
+				var test1 = ue.getContent();
+				var test2 = ue.getAllHtml();
+            	console.log(test1);
+            	console.log(test2);
+			});
+//			
 			/**	注册管理员
 			 * 
 			 */
@@ -155,7 +160,7 @@
 				    		break;
 				    }
 				});
-                
+            
                 
                 //自定义验证规则
                 form.verify({
@@ -173,8 +178,10 @@
            		});
            		
                 //监听提交
-//              form.on('submit(add)',function(data) {
-//              	var name = $("#name").val();
+                form.on('submit(add)',function(data) {
+                var test1 = ue.getContent();
+            	console.log(test1);
+   //             	console.log(name+"1");
 //					var username = $("#username").val();
 //					var password1 = $("#password1").val();
 //					var password2 = $("#password2").val();
@@ -219,7 +226,7 @@
 //              });
 
             });
-			
+		}); 
 			
 			
 			

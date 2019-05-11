@@ -95,12 +95,13 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								layer.msg('密码修改成功，请重新登录',{icon: 1,time:1000});
-								// 获得frame索引
-								//var index = parent.layer.getFrameIndex(window.name);
+								alert("密码已成功修改，当前登录已过期！");
 								//关闭当前frame
-								//parent.layer.close(index);
-								window.location.href = "login.html";
+								x_admin_close();
+								//退出登录
+								out_login();
+								// 对父窗口进行刷新 
+								x_admin_father_reload();
 							}else{
 								layer.msg('密码修改失败',{icon: 2,time:2000});
 							}
@@ -115,7 +116,25 @@
             });
 			
 			
-			
+			/**
+			 * 	退出登录
+			 */
+			function out_login(){
+				$.ajax({
+					type:"get",
+					url: host + "controller_b/out_login.php",
+					async:true,
+					success: function(data){
+						var res=JSON.parse(data);
+						if(res.status){
+							window.location.href="login.html";
+						}
+					},
+				 	error : function () {
+				      	document.write("error");
+				    }
+				});		
+			}
 			
 		</script>
 	</body>

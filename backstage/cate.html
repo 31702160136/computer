@@ -83,7 +83,7 @@
 						<td>2017.12.12</td>
 						<td>2018.12.12</td>
 						<td><input type="text" class="layui-input x-sort" id="sort" value="1"></td>
-						<td class="td-status"><span id="is_start" class="layui-btn layui-btn-normal layui-btn-mini" custom="0">已停用</span></td>
+						<td class="td-status"><span id="is_status" class="layui-btn layui-btn-normal layui-btn-mini" custom="0">已停用</span></td>
 						<td class="td-manage">
 							<button class="layui-btn layui-btn layui-btn-xs" onclick="member_edit(this,'sadasd')"><i class="layui-icon">&#xe642;</i>编辑</button>
 							<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'要删除的id')" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>
@@ -212,8 +212,8 @@
 			 * 		开启，停用
 			 * 		改变栏目状态
 			 * */
-	      	function member_stop(obj,id,is_start){
-	      		if(is_start == 0){
+	      	function member_stop(obj,id,is_status){
+	      		if(is_status == 0){
 		      		layer.confirm('确认要启用吗？',function(index){
 		                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-warm');
 		                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-normal').html('已启用');
@@ -363,9 +363,9 @@
 								var title = item.title;
 								var creation_time = item.creation_time;
 								var index = item.index;
-								var is_start = item.is_start;
+								var is_status = item.is_status;
 								var str=JSON.stringify(item);
-								if (is_start == 0) {
+								if (is_status == 0) {
 									$("#columnList").append(
 										"<tr cate-id='1' fid='0'>\
 											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
@@ -374,7 +374,7 @@
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td><input type='text' class='layui-input x-sort' onchange=\"member_sort(this,"+id+")\"  value="+index+"></td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_start+")\">已停用</span></td>\
+											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_status+")\">已停用</span></td>\
 											<td class='td-manage'>\
 											<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class='layui-icon'>&#xe642;</i>编辑</button>\
 											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
@@ -389,7 +389,7 @@
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td><input type='text' class='layui-input x-sort' onchange=\"member_sort(this,"+id+")\" value="+index+"></td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_start+")\">已启用</span></td>\
+											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_status+")\">已启用</span></td>\
 											<td class='td-manage'>\
 											<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class='layui-icon'>&#xe642;</i>编辑</button>\
 											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
@@ -453,7 +453,59 @@
 		   		var page=parseInt($("#"+id).prop("innerHTML"));
 		   		window.location.href=window.location.origin+window.location.pathname+"?page="+page;
 		   	}
-	      	
+			//初始化
+			function init(){
+				var page=getQueryVariable("page");
+				//页数初始化
+				if(page){
+					$("#page1").text(parseInt(page)-1);
+			 		$("#page2").text(parseInt(page));
+			 		$("#page3").text(parseInt(page)+1);
+			 		$("#page4").text(parseInt(page)+2);
+				}else{
+					page=1;
+				}
+				//页数初始化
+				$.ajax({
+			 			url:host+"",
+			 			success:function(res){
+			   				var data=JSON.parse(res);
+			   				pageSum=parseInt(data.data);
+			   				//页数范围控制
+			   				if(pageSum=>4){
+			   					$("#sum").text(data.data);
+			   				}else if(pageSum==2){
+			   					$("#page1").text(parseInt(page)-1);
+			   					$("#page2").text(parseInt(page));
+			   					$("#page3").text(parseInt(page)+1);
+			   					$("#page4").hide();
+			   					$("#sum").hide();
+			   				}else if(pageSum==1){
+			   					$("#page1").text(parseInt(page)-1);
+			   					$("#page2").text(parseInt(page));
+			   					$("#page3").hide();
+			   					$("#page4").hide();
+			   					$("#sum").hide();
+			   				}
+			   				var page2=parseInt($("#page2").prop("innerHTML"));
+			   			if((page2+2)===pageSum||(page2+1)===pageSum){
+			   				$("#page4").hide();
+			   				$("#sum").hide();
+			   			}
+			   			if(page2===pageSum){
+			   				$("#page3").hide();
+			   				$("#page4").hide();
+			   				$("#sum").hide();
+			   			}
+			   			if(page2===1){
+			   				$("#page1").hide();
+			   			}
+			   			//页数范围控制
+			 			}
+			 		});
+		   		}
+		   	
+		   	
 			//渲染多选框事件
 			$(document).on('click', '#icheckbox',function() {
 				if($(this).hasClass('layui-form-checked')) {

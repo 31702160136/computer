@@ -5,11 +5,12 @@ $.ajax({
 	success: function(data){
 		var res=JSON.parse(data);
 		if (res.status == false) {
-			alert("用户未登录");
+			console.log("index");
+			alert("用户登录已过期，请重新登录！");
 			window.location.href = "login.html";
 			return;
 		}
-  	},
+	},
     error : function () {
       	document.write("error");
     }
