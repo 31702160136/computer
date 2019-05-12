@@ -18,7 +18,7 @@ class SlideshowDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
-	public function findSlideshowByTitle($title,$page,$size){
+	public function searchSlideshowByTitle($title,$page,$size){
 		if(isset($page)&&isset($size)){
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 

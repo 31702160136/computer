@@ -3,15 +3,18 @@ include_once "./../dao/user_dao.php";
 include_once "./../handler/handler.php";
 include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
+include_once "./../dao/slideshow_dao.php";
 include_once "./../config/path.php";
 class SelectService {
 	private $userDao = null;
 	private $columnDao = null;
 	private $newsDao = null;
+	private $slideshowDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
 		$this -> newsDao = new NewsDao();
+		$this -> slideshowDao = new SlideshowDao();
 	}
 	/*
 	 * 获取用户信息
@@ -133,13 +136,46 @@ class SelectService {
 			
 			//当前http链接拼接到图片路径
 			for ($i = 0; $i < count($result_news); $i++) {
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+				if($result_news[$i]["cover"]!=""){
+					$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+				}
+				if($result_news[$i]["slideshow_cover"]!=""){
+					$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+				}
 			}
 			return $result_news;
 		} else {
 			error("缺少信息");
 		}
+	}
+	/*
+	 * 获取轮播新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getSlideshows($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> slideshowDao ->findSlideshow(null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> slideshowDao ->findSlideshow($page, $size);
+			}
+		}else{
+			$result = $this -> slideshowDao ->findSlideshow(0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result); $i++) {
+			if($result[$i]["slideshow_cover"]!=""){
+				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
+			}
+		}
+		return $result;
 	}
 
 }
