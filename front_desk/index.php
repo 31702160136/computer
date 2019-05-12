@@ -88,9 +88,11 @@
    <a class="item" href="#"><img src="images/4.jpg" alt=""></a>
 </div>
 <!--轮播图 end-->
-<hr />
+
 <!--图片新闻 start-->
-<div class="container pic_news">
+<div style="background: rgb(243, 241, 244);">
+<div class="container pic_news mb20">
+	<hr />
 	<div class="row">
 		<div class="col-sm-5 col-md-5 visible-lg-inline visible-md-inline  pic_news_left">
 			<a href="#">
@@ -111,7 +113,7 @@
 		   	</div>
 		   	<div>
 		   		<a href="#">
-		   			<img src="images/p2.png" class="img-responsive img-rounded"/>
+		   			<img src="images/p3.png" class="img-responsive img-rounded"/>
 		   			<div>			   
 		   				<p>[喜讯]我系学生荣获“4G全网建设技术”技能竞赛三等奖</p>
 		   				<time class="pull-left "><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>2019/5/5</time>
@@ -121,7 +123,7 @@
 		   	</div>
 		   	<div>
 		   		<a href="#">
-		   			<img src="images/p2.png" class="img-responsive img-rounded"/>
+		   			<img src="images/p4.png" class="img-responsive img-rounded"/>
 		   			<div>			   
 		   				<p>[喜讯]我系学生荣获“4G全网建设技术”技能竞赛三等奖</p>
 		   				<time class="pull-left"><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>2019/5/5</time>
@@ -132,77 +134,102 @@
 		  
 		</div>
 	</div>
+	<hr />
+</div>
 </div>
 <!--图片新闻 end-->
 
 <!--文字新闻 strat-->
-<section class="container">	
+
+<section class="container" >	
+	
 	<div class="row ">
 		<div class="col-md-4 news " >
 			<div class="news_title">
 				<h3>系部新闻</h3>
 				<small>Department news</small>
-				<span class="label label-primary pull-right">more+</span>
+				<span class="label label-primary pull-right"><a href="#">more+</a></span>
 			</div>
 			<ul>
-				<li>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</li>
-				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
-				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+				<li><a href=""><time>2019/5/5</time>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</a></li>
+				<li><a href=""><time>2019/5/3</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
+				<li><a href=""><time>2019/5/1</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
+				<li><a href=""><time>2019/5/1</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
+				<li><a href=""><time>2019/5/1</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
 			</ul>		
 		</div>
-		<div class="col-md-4 news " >
+		<div class="col-md-4 news" >
 			<div class="news_title">
-				<h3>系部新闻</h3>
-				<small>Department news</small>
-				<span class="label label-primary pull-right">more+</span>
+				<h3>招生就业</h3>
+				<small>Enrollment and employment</small>
+				<span class="label label-primary pull-right"><a href="#">more+</a></span>
 			</div>
 			<ul>
-				<li>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</li>
-				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
-				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+				<li><a href=""><time>2019/5/3</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
+				<li><a href=""><time>2019/5/5</time>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</a></li>
+				<li><a href=""><time>2019/5/3</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
+				<li><a href=""><time>2019/5/2</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
+				<li><a href=""><time>2019/5/3</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
 			</ul>	
 		</div>
-		<div class="col-md-4 news ">
+		<div class="col-md-4 news">
 			<div class="news_title">
-				<h3>系部新闻</h3>
-				<small>Department news</small>
-				<span class="label label-primary pull-right">more+</span>
+				<h3>技能竞赛</h3>
+				<small>Skills Competition</small>
+				<span class="label label-primary pull-right"><a href="#">more+</a></span>
 			</div>
 			<ul>
-				<li><a href="">春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</a></li>
-				<li>计算机工程系“双创”在行动——4.15与小广告大作战</li>
-				<li>茂名市公安局新闻中心到我系开展交流座谈</li>
+				<li><a href=""><time>2019/5/5</time>春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</a></li>
+				<li><a href=""><time>2019/5/2</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
+				<li><a href=""><time>2019/5/3</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
+				<li><a href=""><time>2019/5/2</time>计算机工程系“双创”在行动——4.15与小广告大作战</a></li>
+				<li><a href=""><time>2019/5/3</time>茂名市公安局新闻中心到我系开展交流座谈</a></li>
 			</ul>	
 		</div>
 	</div>
 </section>
+
 <!--文字新闻 end-->
 
 <!--通知 科研 start-->
 <section class="container mt20 mb20">
 	<div class="row">
-		<div class="col-sm-12 col-md-3  mb20" style=" height: 200px; background: #999;">
-			<h3>通知公告</h3>
-			<p>这是通知</p>
-			<p>这是通知</p>
-			<p>这是通知</p>
+		<div class="col-md-3 mb20 inform" >
+			<div class="inform_title">
+				<h3>通知公告</h3>
+				<span class="label pull-right"><a href="#">更多>></a></span>
+			</div>
+			<ul class="clearfix">
+				<li>
+					<time><span class="day">08</span><span class="month">2019-05</span></time>
+					<a href="#">计算机工程系召开期中教学管理座谈会</a>
+				</li>
+				<li>
+					<time><span class="day">08</span><span class="month">2019-05</span></time>
+					<a href="#">茂名市公安局新闻中心到我系开展交流座谈</a>
+				</li>
+				<li>
+					<time><span class="day">08</span><span class="month">2019-05</span></time>
+					<a href="#">计算机工程系召开期中教学管理座谈会茂名市公安局新闻中心到我系开展交流座谈茂名市公安局新闻中心到我系开展交流座谈</a>
+				</li>
+			</ul>
 		</div>
-	  <div class="col-sm-6 col-md-5">
-	    <div class="thumbnail">
-	      <img src="images/ky2.jpg" alt="">
+	  <div class=" col-md-5">
+	    <div class="thumbnail teaching">
+	      <img src="images/ky2.jpg" alt="" style="height: 320px;">
 	      <div class="caption">
-	        <h3>Thumbnail label</h3>
-	        <p>example</p>
+	        <h4>计算机工程系召开期中教学管理座谈会</h4>
+	        <p>2018/4/9</p>
 	        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
 	      </div>
 	    </div>
 	  </div>
-	  <div class="col-sm-6 col-md-4 deviation">
-	    <div class="thumbnail">
-	      <img src="images/ky1.jpg" alt="">
+	  <div class=" col-md-4 deviation">
+	    <div class="thumbnail teaching">
+	      <img src="images/ky1.jpg" alt="" style="height: 200px;">
 	      <div class="caption">
-	        <h3>Thumbnail label</h3>
-	        <p>example</p>
+	        <h4>茂名青廷科技有限公司到访我系工作室探讨“校企合作，互助共赢”</h4>
+	        <p>2019/3/1</p>
 	        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
 	      </div>
 	    </div>

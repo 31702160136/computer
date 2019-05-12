@@ -18,7 +18,22 @@ span {
 }
 
 body {
-	background: #FFFFFF;
+	background-color: rgba(244, 244, 244, .4) !important;
+}
+
+.news h3 {
+	font-size: 22px;
+}
+
+h2 b {
+	height: 1px;
+	width: 10%;
+	background: #000000;
+	display: inline-block;
+	vertical-align: middle;
+	opacity: 0.5;
+	margin: 0 20px;
+	font-weight: bold
 }
 
 #header-bg-blue {
@@ -30,6 +45,7 @@ body {
 }
 
 .header-logo {
+	height: 120px;
 	padding-bottom: 15px;
 	padding-top: 15px;
 }
@@ -39,6 +55,7 @@ body {
 	font-size: 48px;
 	color: #FFFFFF;
 }
+
 
 /*图片新闻*/
 
@@ -63,25 +80,27 @@ body {
 	display: block;
 	bottom: 0;
 	background: url(../images/news_p_gb.png);
-    height: 68px;
-    line-height: 68px;
-    padding: 0 20px;
-    color: #fff;
-    font-size: 20px;
-    font-weight: normal;
+	height: 68px;
+	line-height: 68px;
+	padding: 0 20px;
+	color: #fff;
+	font-size: 20px;
+	font-weight: normal;
 }
+
+
 }
-.pic_news_right{
-	position: relative;	
+.pic_news_right {
+	position: relative;
 }
-.pic_news_right>div{
+.pic_news_right>div {
 	position: relative;
 	padding: 2px;
 	width: 100%;
 	height: 33%;
 	overflow: hidden;
 }
-.pic_news_right a{
+.pic_news_right a {
 	position: relative;
 	display: inline-block;
 	width: 100%;
@@ -93,23 +112,23 @@ body {
 	float: left;
 	overflow: hidden;
 }
-.pic_news_right a div{
+.pic_news_right a div {
 	position: relative;
 	float: left;
-	width:75%;
+	width: 75%;
 	height: 100%;
 	font-size: 14px;
-    font-weight: normal;
+	font-weight: normal;
 	padding: 8px 15px;
 	border-bottom: 1px dashed #999;
 }
-.pic_news_right a p{
-	height: 40px;	
+.pic_news_right a p {
+	color: #000000;
+	height: 40px;
 }
-.pic_news_right a i{
- 	color: rgb(127, 36, 161);	
+.pic_news_right a i {
+	color: rgb(127, 36, 161);
 }
-
 .pic_news_right a span {
 	position: absolute;
 	bottom: 2px;
@@ -124,44 +143,141 @@ body {
 	font-size: 14px;
 	color: #999;
 }
-/*文字新闻*/
 
+/*文字新闻*/
 .news {
 	color: rgb(12, 126, 216);
-	padding-right: 50px;
 }
-
 .news_title {
+	
 	padding-bottom: 2px;
 	border-bottom: 2px solid rgb(12, 126, 216);
 }
-
 .news_title h3 {
 	font-weight: bold;
 	margin-bottom: 0;
 }
-
-.news li {
-	padding-top: 10px;
+.news_title a {
+	text-decoration: none;
+	color: white;
+}
+.news ul li {
 	color: #000000;
 	height: 50px;
+	line-height: 50px;
 	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis
+}
+.news ul li time {
+	margin-right: 15px;
+	color: #999;
+}
+.news ul li a {
+	color: #000000;
+	text-decoration: none;
+}
+.news ul li a:hover {
+	color: rgb(127, 36, 161);
 }
 
+/*通知公告*/
+.inform {
+	background: rgb(243, 241, 244);
+	padding: 10px 0;
+}
+.inform_title{
+	border-bottom: 5px solid #b5c4d2;
+	height: 48px;
+	line-height: 40px;
+	font-size: 22px;
+	font-weight: bold;
+	color: rgb(12, 126, 216);
+}
+.inform_title h3{
+	float: left;
+	color: #7988d2;
+	margin: 0;
+	line-height: 43px;
+
+}
+.inform_title span{
+	font-size: 12px;
+	margin-top:15px;
+}
+.inform_title a{
+	color: #777;
+}
+.inform ul{
+    width: 100%;
+    list-style-type: none;
+}
+.inform ul li{
+	float: left;
+    height: 4.3em;
+    margin-top: 1.25em;
+    width: 100%;
+    border-bottom: 1px solid #b5c4d2;
+    
+}
+.inform ul li time {
+	display: block;
+	box-sizing: border-box;
+	height: 60px;
+	width: 60px;
+	border: #b5c4d2 solid 3px;
+	color: #7390a1;
+	background-color: #ffffff;
+	float: left;
+	text-align: center;
+}
+.inform ul li time span {
+	display: block;
+	width: 100%;
+}
+.inform .day{
+	font-size: 22px;
+	display: block;
+}
+.inform .month{
+	font-size: 12px;
+	display: block;
+}
+.inform ul li a{
+    font-size: 1em;
+    float: left;
+    color: #010100;
+    width: calc(100% - 80px);
+    margin-left: 10px;
+    height: 100%;	
+    padding-top: 4px;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical; 
+	-webkit-line-clamp: 2; 
+	line-height: 20px;
+	max-height: 40px;
+	overflow: hidden;
+
+}
+/*教学科研*/
+.teaching h4 {
+	text-indent: 25px;
+}
+.teaching .caption p:first-child{
+	text-indent: 25px;	
+}
 
 /*底部区域*/
-
 .footer {
 	color: #FFFFFF;
 	background: rgb(127, 36, 161);
 }
-
 .footer img {
 	margin-top: 15px;
 	margin-left: 15px;
 	width: 100%;
 }
-
 .footer p {
 	padding-left: 10px;
 }

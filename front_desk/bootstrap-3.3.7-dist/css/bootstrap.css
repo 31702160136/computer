@@ -1602,7 +1602,27 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
+    width: 1070px;
+  }
+}
+@media (min-width: 1300px) {
+  .container {
     width: 1170px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    width: 1270px;
+  }
+}
+@media (min-width: 1500px) {
+  .container {
+    width: 1370px;
+  }
+}
+@media (min-width: 1600px) {
+  .container {
+    width: 1420px;
   }
 }
 .container-fluid {
@@ -4170,7 +4190,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   min-height: 50px;
   margin-bottom: 20px;
-  border: 1px solid transparent;
+
 }
 @media (min-width: 768px) {
   .navbar {
@@ -6770,9 +6790,6 @@ button.close {
   
 }
 @media only screen and (min-width: 992px) {
-	.news-left{
-  	margin-left: 5%;
-  }
   .pic_news_right a p{
   	padding: 2px;
   	 font-size: 16px;
@@ -6788,12 +6805,19 @@ button.close {
 	 	.pic_news_right>div{
 	 		padding: 5px 0px;
 	 	}
+	 	
 	}
 	@media only screen and (max-width: 768px) {
 		.pic_news_right a img {
 			width: 80px;
 			height: 65px;
 		}
+	}
+	@media (min-width: 768px) and (max-width: 992px) {
+		.pic_news_right a div{
+			height: 87px;
+		}
+	 	
 	}
 	
 /*# sourceMappingURL=bootstrap.css.map */
