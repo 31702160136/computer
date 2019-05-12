@@ -115,18 +115,6 @@ class CreateService{
 		}
 	}
 	
-	public function uploadImage($name){
-		if(isset($_FILES[$name])){
-			$tmpimg=$_FILES[$name]["tmp_name"];//获取临时文件路径
-			$name=$_FILES[$name]["name"];//文件名
-			$result=move_uploaded_file($tmpimg, "../../images/".$name);
-			if($result>0){
-				return getImagesPath().$name;
-			}else{
-				return null;
-			}
-		}
-		return "";
-	}
+
 }
 ?>

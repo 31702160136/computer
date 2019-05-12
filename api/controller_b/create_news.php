@@ -3,17 +3,18 @@ include_once "./../handler/handler.php";
 include_once "./../service/create_service.php";
 include_once "./../service/select_service.php";
 include_once "./../utils/session_status.php";
+include_once "./../utils/tools.php";
 include_once "./../config/path.php";
 if(sessionIsLogin()){
 	$create_service = new CreateService();
 	$select_service=new SelectService();
 	//上传封面并获取图片路径
-	$cover=$create_service->uploadImage("cover");
+	$cover=uploadImage("cover");
 	if(!isset($cover)){
 		error("文章保存失败：上传封面图片失败");
 	}
 	//上传轮播图并获取图片路径
-	$slideshow_cover=$create_service->uploadImage("slideshow_cover");
+	$slideshow_cover=uploadImage("slideshow_cover");
 	if(!isset($slideshow_cover)){
 		error("文章保存失败：上传封面轮播图失败");
 	}

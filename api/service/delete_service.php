@@ -4,17 +4,20 @@ include_once "./../handler/handler.php";
 include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
 include_once "./../dao/slideshow_dao.php";
+include_once "./../dao/recycle_bin_dao.php";
 include_once "./../config/path.php";
 class DeleteService {
 	private $userDao = null;
 	private $columnDao = null;
 	private $newsDao = null;
 	private $slideshowDao = null;
+	private $recycleBinDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
 		$this -> newsDao = new NewsDao();
 		$this -> slideshowDao = new SlideshowDao();
+		$this -> recycleBinDao = new RecycleBinDao();
 	}
 	/*
 	 * 通过用户id删除用户
@@ -53,6 +56,17 @@ class DeleteService {
 	 * */
 	function delNewsById($data) {
 		if (isset($data)&&is_array($data)) {
+			for($i=0;$i<count($data);$i++){
+				//查询需要删除的新闻
+				$result_news = $this -> newsDao->findNewsById($data[$i]);
+				if(count($result_news)>0){
+					$result_news[0]["recycle_time"]=time();
+					unset($result_news[0]["id"]);
+					//把需要删除的新闻写入回收站
+					$result_recycle=$this -> recycleBinDao->createRecycleBin($result_news[0]);
+				}
+			}
+			//删除新闻
 			$result = $this -> newsDao ->deleteNewsById($data);
 			//判断是否删除成功
 			if ($result > 0) {
