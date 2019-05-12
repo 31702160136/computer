@@ -220,7 +220,7 @@
 		                layer.msg('已启用!',{icon: 6,time:1000});
 		                $.ajax({
 							type:"post",
-							url: host + "controller_b/modify_column_start.php",
+							url: host + "controller_b/modify_column_status.php",
 							async:true,
 							data:{
 								"id": id
@@ -245,7 +245,7 @@
 		                layer.msg('已停用!',{icon: 5,time:1000});
 			             $.ajax({
 							type:"post",
-							url: host + "controller_b/modify_column_start.php",
+							url: host + "controller_b/modify_column_status.php",
 							async:true,
 							data:{
 								"id": id

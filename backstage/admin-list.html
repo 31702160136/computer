@@ -192,15 +192,15 @@
 			 * 		开启，停用
 			 * 		改变用户状态
 			 * */
-	      	function member_stop(obj,id,is_start){
-	      		if(is_start == 0){
+	      	function member_stop(obj,id,is_status){
+	      		if(is_status == 0){
 		      		layer.confirm('确认要启用吗？',function(index){
 		                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-warm');
 		                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-normal').html('已启用');
 		                layer.msg('已启用!',{icon: 6,time:1000});
 		                $.ajax({
 							type:"post",
-							url: host + "controller_b/modify_user_start.php",
+							url: host + "controller_b/modify_user_status.php",
 							async:true,
 							data:{
 								"id": id
@@ -225,7 +225,7 @@
 		                layer.msg('已停用!',{icon: 5,time:1000});
 			             $.ajax({
 							type:"post",
-							url: host + "controller_b/modify_user_start.php",
+							url: host + "controller_b/modify_user_status.php",
 							async:true,
 							data:{
 								"id": id
@@ -277,10 +277,10 @@
 								var role = item.role;
 								var phone = item.phone;
 								var email = item.email;
-								var is_start = item.is_start;
+								var is_status = item.is_status;
 								var creation_time = item.creation_time;
 								var modify_time = item.modify_time;
-								if (is_start == 0) {
+								if (is_status == 0) {
 									$("#userList").append(
 										"<tr cate-id='1' fid='0'>\
 											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
@@ -292,7 +292,7 @@
 											<td>"+role+"</td>\
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td>"+getMyDate(modify_time)+"</td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_start+")\">已停用</span></td>\
+											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_status+")\">已停用</span></td>\
 											<td class='td-manage'>\
 											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+","+"'"+role+"'"+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
 										</td></tr>"
@@ -309,7 +309,7 @@
 											<td>"+role+"</td>\
 											<td>"+getMyDate(creation_time)+"</td>\
 											<td>"+getMyDate(modify_time)+"</td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_start+")\">已启用</span></td>\
+											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_status+")\">已启用</span></td>\
 											<td class='td-manage'>\
 											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+","+"'"+role+"'"+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
 										</td></tr>"
