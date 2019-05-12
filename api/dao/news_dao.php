@@ -13,6 +13,11 @@ class NewsDao{
 		}
 		$result=$this->sql->query($sql);
 		return $result;
+	}
+	public function findNewsSum(){
+		$sql = "select count(id) as sum from `news`";
+		$result=$this->sql->query($sql);
+		return $result;
 	} 
 	public function findNewsById($id){
 		$sql = "select * from `news` where `id`=" . $id;

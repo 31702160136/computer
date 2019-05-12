@@ -17,7 +17,12 @@ if (sessionIsLogin()) {
 		"email"=>$result["email"],
 		"creation_time"=>$result["creation_time"]
 	);
-	succeedOfInfo("获取用户信息成功", $data);
+	//封装数据
+	$res_data=array(
+		"total_page"=>1,
+		"data"=>$data
+	);
+	succeedOfInfo("获取用户信息成功", $res_data);
 } else {
 	error("用户未登录");
 }
@@ -30,22 +35,20 @@ if (sessionIsLogin()) {
  * 返回数量：单条
 {
     "status": true,
-    "message": "获取用户成功",
+    "message": "获取用户信息成功",
     "code": 200,
-    "data": [
-        {
-            "id": "1",
-            "name": "超级管理员",
-            "username": "admin",
-            "password": "admin",
-            "role": "超级管理员",
+    "data": {
+        "total_page": 1,
+        "data": {
+            "id": "4",
+            "name": "小4",
+            "username": "1233",
+            "role": "admin",
             "phone": null,
             "email": null,
-            "is_status": "1",
-            "creation_time": "1553779168",
-            "modify_time": "1553779168"
+            "creation_time": "1553779527"
         }
-    ]
+    }
 }
  * 
  * */
