@@ -28,7 +28,7 @@ if(sessionIsLogin()){
 		"contributor"=>@$_POST["contributor"],
 		"is_hot"=>isset($_POST["is_hot"]) ? $_POST["is_hot"]:null,
 		"is_top"=>isset($_POST["is_top"]) ? $_POST["is_top"]:null,
-		"is_start"=>isset($_POST["is_start"]) ? $_POST["is_start"]:null,
+		"is_status"=>isset($_POST["is_status"]) ? $_POST["is_status"]:null,
 		"column_id"=>@$_POST["column_id"],
 		"user_id"=>getSessionId()
 	);
