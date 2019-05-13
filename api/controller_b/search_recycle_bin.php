@@ -6,7 +6,6 @@ include_once "./../utils/tools.php";
 if (sessionIsLogin()) {
 	$select_service = new SelectService();
 	$data=array(
-		"title"=>isset(@$_GET["title"])? @$_GET["title"]:null,
 		"page"=>@$_GET["page"],
 		"size"=>@$_GET["size"]
 	);
