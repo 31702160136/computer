@@ -7,18 +7,31 @@ class NewsDao{
 	}
 	public function findNews($page,$size){
 		if(isset($page)&&isset($size)){
-			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.column_id=c.id limit ".$page.",".$size;
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` limit ".$page.",".$size;
 		}else{
-			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.column_id=c.id";
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id`";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
 	}
-	public function findNewsSum(){
-		$sql = "select count(id) as sum from `news`";
+	public function searchNewsByColumnTitle($columnTitle,$page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and c.`title` like '%".$columnTitle."%' limit ".$page.",".$size;
+		}else{
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and c.`title` like '%".$columnTitle."%'";
+		}
 		$result=$this->sql->query($sql);
 		return $result;
-	} 
+	}
+	public function searchNewsByTitle($title,$page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`title` like '%".$title."%' limit ".$page.",".$size;
+		}else{
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`title` like '%".$title."%'";
+		}
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	public function findNewsById($id){
 		$sql = "select * from `news` where `id`=" . $id;
 		$result=$this->sql->query($sql);

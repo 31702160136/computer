@@ -115,6 +115,70 @@ class SelectService {
 		return $result_news;
 	}
 	/*
+	 * 通过新闻标题搜索新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsByTitle($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> searchNewsByTitle($data["title"], null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> searchNewsByTitle($data["title"], $page, $size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> searchNewsByTitle($data["title"], 0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+	/*
+	 * 通过栏目标题搜索新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsByColumnTitle($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> searchNewsByColumnTitle($data["column_title"], null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> searchNewsByColumnTitle($data["column_title"], $page, $size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> searchNewsByColumnTitle($data["column_title"], 0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+	/*
 	 * 通过栏目id获取新闻信息
 	 * 返回数量：多条
 	 * */
@@ -181,7 +245,7 @@ class SelectService {
 		return $result;
 	}
 	/*
-	 * 获取轮播新闻信息
+	 * 获取回收站信息
 	 * 返回数量：多条
 	 * */
 	public function getRecycleBins($data) {
@@ -200,6 +264,38 @@ class SelectService {
 			}
 		}else{
 			$result = $this -> recycleBinDao ->findRecycleBin(0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result); $i++) {
+			if($result[$i]["cover"]!=""){
+				$result[$i]["cover"] = getLink() . $result[$i]["cover"];
+			}
+			if($result[$i]["slideshow_cover"]!=""){
+				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
+			}
+		}
+		return $result;
+	}
+	/*
+	 * 通过标题搜索回收站信息
+	 * 返回数量：多条
+	 * */
+	public function searchRecycleBinsByTitle($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> recycleBinDao ->searchRecycleBinByTitle($data["title"], null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> recycleBinDao ->searchRecycleBinByTitle($data["title"], $page, $size);
+			}
+		}else{
+			$result = $this -> recycleBinDao ->searchRecycleBinByTitle($data["title"], 0, 10);
 		}
 		//当前http链接拼接到图片路径
 		for ($i = 0; $i < count($result); $i++) {

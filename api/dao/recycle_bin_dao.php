@@ -31,7 +31,7 @@ class RecycleBinDao{
 		$result=$this->sql->insert($array);
 		return $result;
 	}
-	//删除用户
+	//删除回收新闻
 	function deleteRecycleBinById($data){
 		$array=array(
 			"table"=>"recycle_bin",
