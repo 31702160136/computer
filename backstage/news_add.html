@@ -34,29 +34,29 @@
 
 	<body>
 		<div class="x-body">
-			<form class="layui-form">
-				<!--<div class="layui-form-item">
+			<form id="uploadForm" class="layui-form" enctype="multipart/form-data" method="post">
+				<div class="layui-form-item">
 					<label for="title" class="layui-form-label">新闻标题</label>
 					<div class="layui-input-inline">
 						<input type="text" id="title" name="title" lay-verify="required" autocomplete="off" class="layui-input" style="width: 600px;">
 					</div>
-				</div>-->
+				</div>
 				
 				
 				<div class="layui-form-item">
 					<label for="content" class="layui-form-label">新闻内容</label>
 					<div class="layui-input-inline">
 						<!-- 加载编辑器的容器 -->	
-						<script id="container" class="content" name="content" type="text/plain" style="width: 900px;height: 500px;">1111123</script>
+						<script id="container" class="content" name="content" type="text/plain" style="width: 900px;height: 500px;"></script>
 					</div>
 				</div>
 				
 				
 				
-				<!--<div class="layui-form-item">
+				<div class="layui-form-item">
 					<label for="L_pass" class="layui-form-label">所属栏目</label>
 					<div class="layui-input-inline">
-						<select id="newsID1" name="contrller" lay-filter="choiceNews">
+						<select id="columnName" name="contrller" lay-filter="choiceNews">
 							<option id="generalNews1" value="generalNews1" selected="selected">请选择</option>
 							<option id="generalNews1" value="generalNews1">系部首页</option>
 							<option id="tabloid1" value="tabloid1">系部新闻</option>
@@ -71,26 +71,26 @@
 					<div class="layui-input-inline">
 						<select id="newsID" name="contrller" lay-filter="choiceNews">
 							<option id="generalNews" value="generalNews" selected="selected">普通新闻</option>
-							<option id="tabloid" value="tabloid">图片新闻</option>
 							<option id="broadCastNews" value="broadCastNews">轮播新闻</option>
 						</select>
 					</div>
-				</div>-->
+				</div>
 				
 				
-				<!--<div id="coverPhoto" class="layui-form-item" hidden="hidden">
+				<div id="coverPhoto" class="layui-form-item">
 					<label for="phone" class="layui-form-label">封面图片</label>
 					<div class="layui-input-inline">
-						<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+						<input type="file" name="coverPhotoclick" id="coverPhotoclick" value="" />
+						<!--<button type="button" id="coverPhotoclick" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>-->
 					</div>
 				</div>
 				
 				<div id="rotationPhoto" class="layui-form-item" hidden="hidden">
 					<label for="phone" class="layui-form-label">轮播图片</label>
 					<div class="layui-input-inline">
-						<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+						<button type="button" id="rotationPhotoclick" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
 					</div>
-				</div>-->
+				</div>
 				
 				
 				<!--<div class="layui-form-item">
@@ -99,15 +99,15 @@
 						<input type="checkbox" id="superAdmin" name="role" lay-skin="primary" title="喜讯" value="superAdmin">
 						<input type="checkbox" id="admin" name="role" lay-skin="primary" title="置顶" value="admin">
 					</div>
-				</div>
+				</div>-->
 				
 				<div class="layui-form-item">
-					<label class="layui-form-label">状态2</label>
+					<label class="layui-form-label">是否发布</label>
 					<div class="layui-input-block">
-						<input type="radio" id="superAdmin" name="role" lay-skin="primary" title="开启" value="superAdmin">
-						<input type="radio" id="admin" name="role" lay-skin="primary" title="停用" checked="checked" value="admin">
+						<input type="radio" name="release" title="是" value="1">
+						<input type="radio" name="release" title="否" checked="checked" value="0">
 					</div>
-				</div>-->
+				</div>
 				
 				
 				
@@ -125,9 +125,11 @@
 			
 			$("#new_add").click(function(){
 				var test1 = ue.getContent();
-				var test2 = ue.getAllHtml();
             	console.log(test1);
-            	console.log(test2);
+            	 var coverPhotoclick = $("#coverPhotoclick").val();
+                console.log(coverPhotoclick);
+                var release = $("[name='release']").filter(":checked").attr("value"); 
+					console.log(release);
 			});
 //			
 			/**	注册管理员
@@ -142,17 +144,10 @@
 				    var choiceNews = data1.value;
 				    switch (choiceNews){
 				    	case "generalNews":
-				    		console.log("这是textNews");
-				    		$('#coverPhoto').attr("hidden","hidden");
-				    		$('#rotationPhoto').attr("hidden","hidden");
-				    		break;
-				    	case "tabloid":
-				    		console.log("这是tabloid");
 				    		$('#coverPhoto').removeAttr("hidden");
 				    		$('#rotationPhoto').attr("hidden","hidden");
 				    		break;
 			    		case "broadCastNews":
-			    			console.log("这是broadCastNews");
 			    			$('#rotationPhoto').removeAttr("hidden");
 			    			$('#coverPhoto').attr("hidden","hidden");
 			    			break;
@@ -179,51 +174,61 @@
            		
                 //监听提交
                 form.on('submit(add)',function(data) {
-                var test1 = ue.getContent();
-            	console.log(test1);
-   //             	console.log(name+"1");
-//					var username = $("#username").val();
-//					var password1 = $("#password1").val();
-//					var password2 = $("#password2").val();
-//					var phone = $("#phone").val();
-//					var email = $("#email").val();
-//					var role = $("[name='role']").filter(":checked").attr("value"); 
-//					$.ajax({
-//						type:"post",
-//						url: host + "controller_b/create_admin.php",
-//						async:true,
-//						data:{
-//							"name": name,
-//							"username": username,
-//							"password": password1,
-//							"phone": phone,
-//							"email": email,
-//							"role": role
-//						},
-//						success: function(data){
-//							var res=JSON.parse(data);
-//							if (res.status) {
-//								layer.alert("注册成功", {
-//									icon: 1
-//								}, 
-//								function() {
-//									// 获得frame索引
-//									var index = parent.layer.getFrameIndex(window.name);
-//									//关闭当前frame
-//									parent.layer.close(index);
-//									// 可以对父窗口进行刷新 
-//									x_admin_father_reload();
-//								});
-//							}else{
-//								layer.msg('注册失败，名称重复',{icon: 2,time:2000});
-//							}
-//				      	},
-//					    error : function () {
-//					      	document.write("请联系维护人员");
-//					    }
-//					});
-//                 	return false;
-//              });
+                	//获取编辑器内容
+	                var newsContent = ue.getContent();
+	                var title = $("#title").val();
+	                var coverPhotoclick = $("#coverPhotoclick").val();
+					var release = $("[name='release']").filter(":checked").attr("value"); 
+
+// * 参数：title					新闻标题
+// * 参数：describe					新闻描述
+// * 参数：content					新闻内容
+// * 参数：cover					新闻封面：图片(选填)
+// * 参数：slideshow_cover			新闻轮播：图片(选填)
+// * 参数：type						新闻类型
+// * 参数：contributor				新闻投稿者即作者
+// * 参数：is_hot					火热状态(选填)
+// * 参数：is_top					顶置状态(选填)
+// * 参数：is_start					启动状态(选填)
+// * 参数：column_id				栏目id
+					$.ajax({
+						type:"post",
+						url: host + "controller_b/create_news.php",
+						async:true,
+						data:{
+							"title": title,
+							"describe": "测试描述",
+							"content": newsContent,
+							"cover": coverPhotoclick,
+							"type": "测试类型",
+							"contributor": "测试作者",
+							"is_status": release,
+							"column_id": 53
+						},
+						success: function(data){
+							console.log(data);
+							var res=JSON.parse(data);
+							if (res.status) {
+								layer.alert("添加新闻成功", {
+									icon: 1
+								}, 
+								function() {
+									// 获得frame索引
+									var index = parent.layer.getFrameIndex(window.name);
+									//关闭当前frame
+									parent.layer.close(index);
+									// 可以对父窗口进行刷新 
+									x_admin_father_reload();
+								});
+							}else{
+								layer.msg('添加失败',{icon: 2,time:2000});
+							}
+				      	},
+					    error : function () {
+					      	document.write("请联系维护人员");
+					    }
+					});
+                   	return false;
 
             });
 		}); 
