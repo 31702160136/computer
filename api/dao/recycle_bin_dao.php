@@ -14,6 +14,25 @@ class RecycleBinDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
+	public function findRecycleBinByIds($ids,$page,$size){
+		if(count($ids)>0){
+			$str="";
+			for($i=0;$i<count($ids);$i++){
+				if($i==0){
+					$str.=" where ";
+				}
+				$str.="`id`='".$ids[$i]."' or ";
+			}
+			$where=substr($str,0,strlen($str)-3);
+		}
+		if(isset($page)&&isset($size)){
+			$sql = "select * from recycle_bin ".$where." limit ".$page.",".$size;
+		}else{
+			$sql = "select * from recycle_bin ".$where;
+		}
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	public function searchRecycleBinByTitle($title,$page,$size){
 		if(isset($page)&&isset($size)){
 			$sql = "select * from recycle_bin where `title` like '%".$title."%' limit ".$page.",".$size;

@@ -54,6 +54,14 @@ class NewsDao{
 		$result=$this->sql->insert($array);
 		return $result;
 	}
+	public function createNewss($datas){
+		$array=array(
+			"table"=>"news",
+			"data"=>$datas
+		);
+		$result=$this->sql->inserts($array);
+		return $result;
+	}
 	//修改新闻
 	function modifyNews($data, $id) {
 		$array = array("id" => $id, "table" => "news", "data" => $data);

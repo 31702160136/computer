@@ -79,7 +79,7 @@ class DeleteService {
 		}
 	}
 	/*
-	 * 通过新闻id删除新闻
+	 * 通过新闻id删除轮播新闻
 	 * */
 	function delSlideshowById($data) {
 		if (isset($data)&&is_array($data)) {
@@ -92,6 +92,22 @@ class DeleteService {
 			}
 		}else{
 			error("缺少参数：delSlideshowById");
+		}
+	}
+	/*
+	 * 通过回收新闻id删除回收新闻
+	 * */
+	function delRecycleBinById($data) {
+		if (isset($data)&&is_array($data)) {
+			$result = $this -> recycleBinDao ->deleteRecycleBinById($data);
+			//判断是否删除成功
+			if ($result > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}else{
+			error("缺少参数：delRecycleBinById");
 		}
 	}
 
