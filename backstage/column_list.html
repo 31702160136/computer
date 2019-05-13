@@ -348,7 +348,8 @@
 					datatype:'json',
 					success: function(data){
 						var res=JSON.parse(data);
-						var category = res.data;
+						var total_page=res.data.total_page;
+						var category=res.data.data;
 						if (res.status) {
 							//绑定tbody列表ID
 							var columnList = document.getElementById('columnList');
@@ -362,39 +363,33 @@
 								var id = item.id;
 								var title = item.title;
 								var creation_time = item.creation_time;
+								var modify_time = item.modify_time;
 								var index = item.index;
 								var is_status = item.is_status;
-								var str=JSON.stringify(item);
-								if (is_status == 0) {
-									$("#columnList").append(
-										"<tr cate-id='1' fid='0'>\
-											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
-											<td>"+id+"</td>\
-											<td><i class='layui-icon x-show' status='true'></i>"+title+"</td>\
-											<td>"+getMyDate(creation_time)+"</td>\
-											<td>"+getMyDate(creation_time)+"</td>\
-											<td><input type='text' class='layui-input x-sort' onchange=\"member_sort(this,"+id+")\"  value="+index+"></td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-warm' onclick=\"member_stop(this,"+id+","+is_status+")\">已停用</span></td>\
-											<td class='td-manage'>\
-											<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class='layui-icon'>&#xe642;</i>编辑</button>\
-											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
-										</td></tr>"
-									);
-								} else{
-									$("#columnList").append(
-										"<tr cate-id='1' fid='0'>\
-											<td><div id='icheckbox' class='layui-unselect layui-form-checkbox' lay-skin='primary' data-id="+id+"><i class='layui-icon'>&#xe605;</i></div></td>\
-											<td>"+id+"</td>\
-											<td><i class='layui-icon x-show' status='true'></i>"+title+"</td>\
-											<td>"+getMyDate(creation_time)+"</td>\
-											<td>"+getMyDate(creation_time)+"</td>\
-											<td><input type='text' class='layui-input x-sort' onchange=\"member_sort(this,"+id+")\" value="+index+"></td>\
-											<td class=\"td-status\"><span class='layui-btn layui-btn-normal' onclick=\"member_stop(this,"+id+","+is_status+")\">已启用</span></td>\
-											<td class='td-manage'>\
-											<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class='layui-icon'>&#xe642;</i>编辑</button>\
-											<button class=\"layui-btn-danger layui-btn layui-btn-xs\" onclick=\"member_del(this,"+id+")\" href=\"javascript:;\"><i class=\"layui-icon\">&#xe640;</i>删除</button>\
-										</td></tr>"
-									);
+								var list = 
+									'<tr>'+
+										'<td>'+
+											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
+												'<i class="layui-icon">&#xe605;</i>'+
+											'</div>'+
+										'</td>'+
+										'<td>'+id+'</td>'+
+										'<td>'+title+'</td>'+
+										'<td>'+getMyDate(creation_time)+'</td>'+
+										'<td>'+getMyDate(modify_time)+'</td>'+
+										'<td>'+
+											'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
+										'</td>'+
+										'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
+										'<td class="td-manage">'+
+											'<button class="layui-btn layui-btn-xs" onclick="member_edit(this,'+id+',"+"'+title+'"+")"><i class="layui-icon">&#xe642;</i>编辑</button>'+
+											'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
+										'</td>'+
+									'</tr>';
+								$("#columnList").append(list);
+								if(is_status==1){
+									$("#status"+id).removeClass('layui-btn-warm');
+									$("#status"+id).addClass('layui-btn-normal').html('已启用');
 								}
 							});
 						}else{
