@@ -35,7 +35,7 @@
     	$("#btn_OK").click(function(){
 				var img = $("#img").prop('files');//获取图片信息
 				var data=new FormData();
-				data.append("s",img[0]);//获取图片
+				data.append("cov",img[0]);//获取图片
 				data.append("f",1);//表单数据
 				$.ajax({
 					type:"POST",
