@@ -62,7 +62,7 @@
         <ul id="nav">
         	
         	<li>
-                <a _href="user_list.php">
+                <a _href="admin_list.php">
                     <i class="iconfont">&#xe726;</i>
                     <cite>用户管理</cite>
                     <!--<i class="iconfont nav_right">&#xe697;</i>-->
@@ -78,14 +78,6 @@
                 </a>
             </li>
         	
-        	<li>
-                <a _href="news_list.php">
-                    <i class="iconfont">&#xe723;</i>
-                    <cite>新闻管理</cite>
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
-                </a>
-            </li>
-            
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
@@ -94,7 +86,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="general_news_list.php">
+                        <a _href="news_general_list.php">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>普通新闻</cite>
                         </a>
@@ -102,9 +94,17 @@
                 </ul>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="slideshow_news_list.php">
+                        <a _href="news_slideshow_list.php">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>轮播新闻</cite>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="news_recycle_bin.php">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>回收站</cite>
                         </a>
                     </li>
                 </ul>

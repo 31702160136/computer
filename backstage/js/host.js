@@ -1,1 +1,1 @@
-var host = "http://localhost:8080/computer/api/";
+var host = window.location.origin + "/computer/api/";
