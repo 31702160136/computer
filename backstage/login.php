@@ -51,7 +51,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								window.location.href = "index.html";
+								window.location.href = "index.php";
 							}else{
 								layer.msg('密码错误',{icon: 5,time:1000});
 							}
@@ -62,37 +62,7 @@
 					});
 				}
 			});
-//      $(function  () {
-//          layui.use('form', function(){
-//            var form = layui.form;
-//            // layer.msg('玩命卖萌中', function(){
-//            //   //关闭后的操作
-//            //   });
-//            //监听提交
-//            form.on('submit(login)', function(data){
-//              // alert(888)
-//              layer.msg(JSON.stringify(data.field),function(){
-//                  location.href='index.html'
-//              });
-//              return false;
-//            });
-//          });
-//      })
-
-        
     </script>
-
-    
     <!-- 底部结束 -->
-    <script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
 </body>
 </html>

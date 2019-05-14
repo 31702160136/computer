@@ -46,7 +46,7 @@
             <a href="javascript:;">admin</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-              <dd><a onclick="x_admin_show('修改密码','admin_ChangPwd.html',500,300)" target="_parent">修改密码</a></dd>
+              <dd><a onclick="x_admin_show('修改密码','admin_chang_pwd.php',500,300)" target="_parent">修改密码</a></dd>
               <dd><a id="out_login">退出</a></dd>
             </dl>
           </li>
@@ -62,7 +62,7 @@
         <ul id="nav">
         	
         	<li>
-                <a _href="user_list.html">
+                <a _href="user_list.php">
                     <i class="iconfont">&#xe726;</i>
                     <cite>用户管理</cite>
                     <!--<i class="iconfont nav_right">&#xe697;</i>-->
@@ -71,7 +71,7 @@
         	
         	
         	<li>
-                <a _href="column_list.html">
+                <a _href="column_list.php">
                     <i class="iconfont">&#xe723;</i>
                     <cite id="chaxunlanmu">栏目管理</cite>
                     <!--<i class="iconfont nav_right">&#xe697;</i>-->
@@ -79,7 +79,7 @@
             </li>
         	
         	<li>
-                <a _href="news_list.html">
+                <a _href="news_list.php">
                     <i class="iconfont">&#xe723;</i>
                     <cite>新闻管理</cite>
                     <!--<i class="iconfont nav_right">&#xe697;</i>-->
@@ -94,7 +94,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="general_news_list.php">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>普通新闻</cite>
                         </a>
@@ -102,7 +102,7 @@
                 </ul>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="slideshow_news_list.php">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>轮播新闻</cite>
                         </a>
@@ -223,7 +223,7 @@
 				success: function(data){
 					var res=JSON.parse(data);
 					if(res.status){
-						window.location.href="login.html";
+						window.location.href="login.php";
 					}
 				},
 			 	error : function () {

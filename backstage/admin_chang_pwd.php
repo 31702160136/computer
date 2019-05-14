@@ -127,7 +127,7 @@
 					success: function(data){
 						var res=JSON.parse(data);
 						if(res.status){
-							window.location.href="login.html";
+							window.location.href="login.php";
 						}
 					},
 				 	error : function () {

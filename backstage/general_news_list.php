@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 	<head>
 		<meta charset="UTF-8">
-		<title>新闻管理</title>
+		<title>欢迎页面-X-admin2.1</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -27,7 +27,7 @@
 			
 			.Omission {
 				/*width: 100%;
-    			height: 100%;*/
+    		height: 100%;*/
 				background-color: #0000FF;
 				/*强制不换行*/
 				white-space: nowrap;
@@ -72,7 +72,7 @@
 
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-				<button class="layui-btn" onclick="x_admin_show('添加新闻','./news_add.html',1200)"><i class="layui-icon"></i>添加</button>
+				<button class="layui-btn" onclick="x_admin_show('添加新闻','./news_add.php',1200)"><i class="layui-icon"></i>添加</button>
 				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
 			<table class="layui-table x-admin">
@@ -113,11 +113,18 @@
 			layui.use(['form','laydate'], function() {
 				var laydate = layui.laydate;
 				var form = layui.form;
+				//执行一个laydate实例
+				laydate.render({
+					elem: '#start' //指定元素
+				});
 				form.on('select(choiceNews)', function(data1){
 				    var choiceNews = data1.value;
 				    switch (choiceNews){
 				    	case "generalNews":
 				    		query_generalNews();
+				    		break;
+				    	case "tabloid":
+				    		query_tabloid();
 				    		break;
 			    		case "broadCastNews":
 			    			query_broadCastNews();
@@ -419,10 +426,15 @@
 				}
 			});
 		</script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 592460a0048ed22ba7c78f6fa1b5135082dc63cd
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
 	</body>
 
 </html>

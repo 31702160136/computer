@@ -7,7 +7,7 @@ $.ajax({
 		if (res.status == false) {
 			console.log("index");
 			alert("用户登录已过期，请重新登录！");
-			window.location.href = "login.html";
+			window.location.href = "login.php";
 			return;
 		}
 	},
