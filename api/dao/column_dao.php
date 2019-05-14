@@ -15,16 +15,6 @@ class ColumnDao {
 		$result = $this -> sql -> query($sql);
 		return $result;
 	}
-	
-	public function findColumnsStatusTrue($page,$size) {
-		if(isset($page)&&isset($size)){
-			$sql = "select * from `column` where `is_status`='1' limit ".$page.",".$size;
-		}else{
-			$sql = "select * from `column` where `is_status`='1' ";
-		}
-		$result = $this -> sql -> query($sql);
-		return $result;
-	}
 
 	function findColumnById($id) {
 		$sql = "select * from `column` where `id`=" . $id;

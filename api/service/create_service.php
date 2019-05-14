@@ -82,7 +82,6 @@ class CreateService{
 			//检测栏目的id是否存在，如果存在就创建
 			//
 			if((count($result_column)>0)){
-				$data["count"]=0;
 				$data["creation_time"]=time();
 				$data["modify_time"]=time();
 				$result=$this->newsDao->createNews($data);
