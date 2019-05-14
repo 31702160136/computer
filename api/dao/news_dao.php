@@ -14,6 +14,17 @@ class NewsDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
+	
+	public function findNewsStatusTrue($page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`is_status`='1' limit ".$page.",".$size;
+		}else{
+			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`is_status`='1'";
+		}
+		$result=$this->sql->query($sql);
+		return $result;
+	}
+	
 	public function searchNewsByColumnTitle($columnTitle,$page,$size){
 		if(isset($page)&&isset($size)){
 			$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and c.`title` like '%".$columnTitle."%' limit ".$page.",".$size;

@@ -347,6 +347,8 @@
 					async:true,
 					datatype:'json',
 					success: function(data){
+						
+						console.log(data);
 						var res=JSON.parse(data);
 						var total_page=res.data.total_page;
 						var category=res.data.data;
