@@ -67,7 +67,7 @@
 			</div>
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-				<button class="layui-btn" onclick="x_admin_show('添加新闻','./news_add.php',1200)"><i class="layui-icon"></i>添加</button>
+				<button class="layui-btn" onclick="x_admin_show('添加新闻','news_add.php',1200)"><i class="layui-icon"></i>添加</button>
 				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
 			
@@ -81,13 +81,13 @@
 						<th width="100px" style="text-align: center;">封面</th>
 						<th width="" style="text-align: center;">标题</th>
 						<th width="80px" style="text-align: center;">所属栏目</th>
-						<th width="80px" style="text-align: center;">发布人</th>
+						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
 						<th width="165px" style="text-align: center;">状态</th>
 						<th width="215px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
-				<tbody id="newsList">
+				<tbody id="newsList" value="123">
 
 				</tbody>
 			</table>
@@ -151,6 +151,7 @@
 								var id = item.id;
 								var title = item.title;
 								var content = item.content;
+								var contributor = item.contributor;
 								var cover = item.cover;
 								if(cover == "") {
 									var cover = window.location.host + "/computer/backstage/images/no_photo.jpg";
@@ -174,16 +175,16 @@
 										'<td><img src="http://'+cover+'" /></td>'+
 										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 										'<td>'+column+'</td>'+
-										'<td>'+user_id+'</td>'+
+										'<td>'+contributor+'</td>'+
 										'<td>'+getMyDate(creation_time)+'</td>'+
 										'<td class="td-manage">'+
-											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" title="热点">热点</button>'+
-											'<button id="top'+id+'" class="layui-btn layui-btn-disabled" title="置顶">置顶</button>'+
-											'<button id="status'+id+'" class="layui-btn layui-btn-xs layui-btn-disabled" title="开启/停用" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
+											'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
+											'<button id="top'+id+'" class="layui-btn layui-btn-disabled" onclick="top_edit(this,'+id+','+is_top+')">置顶</button>'+
+											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">热点</button>'+
 										'</td>'+
 										'<td class="td-manage">'+
 											'<button class="layui-btn layui-btn-normal"><i class="iconfont">&#xe6ac; </i>查看</button>'+
-											'<button class="layui-btn layui-btn-xs"><i class="layui-icon">&#xe642;</i>编辑</button>'+
+											'<button class="layui-btn layui-btn-xs" onclick="x_admin_show(\'修改新闻\',\'news_general_modify.php\',1200)"><i class="layui-icon">&#xe642;</i>编辑</button>'+
 											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
 										'</td>'+
 									'</tr>';
@@ -200,7 +201,7 @@
 								}
 								if(is_status==1){
 									$("#status"+id).removeClass('layui-btn-disabled');
-									$("#status"+id).addClass('layui-btn-warm').html('启用');
+									$("#status"+id).addClass('layui-btn-xs').html('启用');
 								}
 							});
 						} else {
@@ -313,6 +314,169 @@
 					}
 				}
 			});
+			
+				      	/* 新闻编辑：
+		  	 * 
+			 * 		是否开启
+			 * 		改变新闻开停状态
+			 * */
+	      	function status_edit(obj,id,is_status){
+	      		if(is_status == 0){
+		      		layer.confirm('确认要启用此新闻吗？',function(index){
+		                layer.msg('新闻已启用!',{icon: 6,time:1000});
+		                $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_status.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+		         	});
+		      	}else{
+		      		layer.confirm('确认要停用此新闻吗？',function(index){
+		                layer.msg('新闻已停用!',{icon: 5,time:1000});
+			             $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_status.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+			        });
+		     	}
+	      	}	
+	      	/* 新闻编辑：
+		  	 * 
+			 * 		是否置顶
+			 * 		改变新闻置顶状态
+			 * */
+	      	function top_edit(obj,id,is_top){
+	      		if(is_top == 0){
+		      		layer.confirm('确认要置顶此新闻吗？',function(index){
+		                layer.msg('新闻已置顶!',{icon: 6,time:1000});
+		                $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_top.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+		         	});
+		      	}else{
+		      		layer.confirm('确认要对此新闻取消置顶吗？',function(index){
+		                layer.msg('已取消置顶!',{icon: 5,time:1000});
+			             $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_top.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+			        });
+		     	}
+	      	}			
+	      	/* 新闻编辑：
+		  	 * 
+			 * 		是否设为热点
+			 * 		改变新闻状态
+			 * */
+	      	function hot_edit(obj,id,is_hot){
+	      		if(is_hot == 0){
+		      		layer.confirm('确认对此新闻将设为热点新闻吗？',function(index){
+		                layer.msg('已设为热点新闻!',{icon: 6,time:1000});
+		                $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_hot.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+		         	});
+		      	}else{
+		      		layer.confirm('确认取消此新闻为热点新闻？',function(index){
+		                layer.msg('已取消热点新闻!',{icon: 5,time:1000});
+			             $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_news_hot.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_generalNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+			        });
+		     	}
+	      	}	
 		</script>
 	</body>
 
