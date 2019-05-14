@@ -143,6 +143,29 @@ class ModifyService {
 			error("缺少必要信息：modifyNewsState");
 		}
 	}
+	/*
+	 * 修改新闻
+	 * */
+	public function modifyNews($data) {
+		if (isset($data["id"])) {
+			$id = $data["id"];
+			$result = $this -> newsDao -> findNewsById($id);
+			if (count($result) > 0) {
+				unset($data["id"]);
+				$data["modify_time"] = time();
+				$result = $this -> newsDao ->modifyNews($data, $id);
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("没有此新闻");
+			}
+		} else {
+			error("缺少必要信息：modifyNews");
+		}
+	}
 	public function addOneNewsNumBer($data){
 		if (isset($data["id"])) {
 			$id = $data["id"];
