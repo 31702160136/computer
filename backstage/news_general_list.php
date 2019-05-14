@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
+		<script src="js/time_stamp_date.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
@@ -24,7 +25,6 @@
 				/*float: right;*/
 				/*margin-bottom: 20px;*/
 			}
-			
 			.Omission {
 				/*width: 100%;
     		height: 100%;*/
@@ -60,21 +60,17 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12 x-so">
 					<div class="layui-input-inline">
-						<select name="contrller" lay-filter="choiceNews">
-							<option id="generalNews" value="generalNews" selected="selected">普通新闻</option>
-							<!--<option id="tabloid" value="tabloid">图片新闻</option>-->
-							<option id="broadCastNews" value="broadCastNews">轮播新闻</option>
-						</select>
+						<input id="" class="layui-input" placeholder="请输入">
 					</div>
 					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
 				</form>
 			</div>
-
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 				<button class="layui-btn" onclick="x_admin_show('添加新闻','./news_add.php',1200)"><i class="layui-icon"></i>添加</button>
 				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
+			
 			<table class="layui-table x-admin">
 				<thead>
 					<tr>
@@ -117,22 +113,22 @@
 				laydate.render({
 					elem: '#start' //指定元素
 				});
-				form.on('select(choiceNews)', function(data1){
-				    var choiceNews = data1.value;
-				    switch (choiceNews){
-				    	case "generalNews":
-				    		query_generalNews();
-				    		break;
-				    	case "tabloid":
-				    		query_tabloid();
-				    		break;
-			    		case "broadCastNews":
-			    			query_broadCastNews();
-			    			break;
-				    	default:
-				    		break;
-				    }
-				});
+//				form.on('select(choiceNews)', function(data1){
+//				    var choiceNews = data1.value;
+//				    switch (choiceNews){
+//				    	case "generalNews":
+//				    		query_generalNews();
+//				    		break;
+//				    	case "tabloid":
+//				    		query_tabloid();
+//				    		break;
+//			    		case "broadCastNews":
+//			    			query_broadCastNews();
+//			    			break;
+//				    	default:
+//				    		break;
+//				    }
+//				});
 			});
 			
 			/**
@@ -218,89 +214,6 @@
 			}
 			
 			/**
-			 * 	查询轮播新闻
-			 *		query_broadCastNews()
-			 */
-			function query_broadCastNews(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_news.php",
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var category = res.data.data;
-						if(res.status) {
-							clear_tr();
-							$.each(category, function(index, item) {
-								var id = item.id;
-								var title = item.title;
-								var cover = item.cover;
-								var slideshow_cover = item.slideshow_cover; //轮播图片
-								var is_hot = item.is_hot;
-								var is_top = item.is_top;
-								var is_status = item.is_status;
-								var column = item.column;
-								var column_id = item.column_id;
-								var user_id = item.user_id;
-								var creation_time = item.creation_time;
-								var list = 
-									'<tr>'+
-										'<td>'+
-											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-												'<i class="layui-icon">&#xe605;</i>'+
-											'</div>'+
-										'</td>'+
-										'<td>'+id+'</td>'+
-										'<td><img src="http://'+slideshow_cover+'" /></td>'+
-										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
-										'<td>'+column+'</td>'+
-										'<td>'+user_id+'</td>'+
-										'<td>'+getMyDate(creation_time)+'</td>'+
-										'<td class="td-manage">'+
-											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" title="热点">热点</button>'+
-											'<button id="top'+id+'" class="layui-btn layui-btn-disabled" title="置顶">置顶</button>'+
-											'<button id="status'+id+'" class="layui-btn layui-btn-xs layui-btn-disabled" title="开启/停用" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
-										'</td>'+
-										'<td class="td-manage">'+
-											'<button class="layui-btn layui-btn-normal"><i class="iconfont">&#xe6ac; </i>查看</button>'+
-											'<button class="layui-btn layui-btn-xs"><i class="layui-icon">&#xe642;</i>编辑</button>'+
-											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
-										'</td>'+
-									'</tr>';
-								if (slideshow_cover != "") {
-									$("#newsList").append(list);
-									if(is_hot==1){
-										$("#hot"+id).removeClass('layui-btn-disabled');
-										$("#hot"+id).addClass('layui-btn-danger');
-									}
-									if(is_top==1){
-										$("#top"+id).removeClass('layui-btn-disabled');
-										$("#top"+id).addClass('layui-btn-normal');
-									}
-									if(is_status==1){
-										$("#status"+id).removeClass('layui-btn-disabled');
-										$("#status"+id).addClass('layui-btn-warm');
-									}
-								}
-								
-							});
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-					}
-				});
-			}
-			
-			
-			
-			
-			
-			/**
 			 * 	每次刷新删除原数据
 			 * 		clear_tr()
 			 */
@@ -314,31 +227,6 @@
 					$("#newsList").find('tr').remove();
 				}
 			}
-			
-			
-			/*	时间戳转日期
-			 * 
-			 **/
-			function getMyDate(str){
-				//时间戳为十位数，*1000转换为13位
-	            var oDate = new Date(str*1000),  
-	            oYear = oDate.getFullYear(),  
-	            oMonth = oDate.getMonth()+1,  
-	            oDay = oDate.getDate(),  
-	            oHour = oDate.getHours(),  
-	            oMin = oDate.getMinutes(),  
-	            oSen = oDate.getSeconds(),  
-	            oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间  
-	            return oTime;  
-	        }; 
-	        //补0操作
-	      	function getzf(num){  
-		        if(parseInt(num) < 10){
-		            num = '0'+num;  
-		        }  
-		    	return num;  
-	     	}
-
 
 			/* 单条新闻删除：
 			 * 
@@ -425,15 +313,6 @@
 					}
 				}
 			});
-		</script>
-		<script>
-			var _hmt = _hmt || [];
-			(function() {
-				var hm = document.createElement("script");
-				hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-				var s = document.getElementsByTagName("script")[0];
-				s.parentNode.insertBefore(hm, s);
-			})();
 		</script>
 	</body>
 
