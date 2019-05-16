@@ -68,43 +68,21 @@
 				</thead>
 
 				<tbody id="userList">
-					<!--<tr>
-						<td>
-							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-						</td>
-						<td>1</td>
-						<td>superadmin</td>
-						<td>18925139194</td>
-						<td>113664000@qq.com</td>
-						<td>超级管理员</td>
-						<td>2017-01-01 11:11:42</td>
-						<td class="td-status"><span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-						<td class="td-manage">
-							<a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
-								<i class="layui-icon">&#xe601;</i>
-							</a>
-							<a title="编辑" onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
-								<i class="layui-icon">&#xe642;</i>
-							</a>
-							<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-								<i class="layui-icon">&#xe640;</i>
-							</a>
-						</td>
-					</tr>-->
 
 				</tbody>
 			</table>
+			
 			<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>
-
+		        <div>
+			          <a class="prev"  onclick="jian()" style="cursor:pointer">&lt;&lt;</a>
+			          <a id="page1" class="num" onclick="pageOn('page1')" style="cursor:pointer">0</a>
+			          <span id="page2" class="current" onclick="pageOn('page2')" style="cursor:pointer">1</span>
+			          <a id="page3" class="num" onclick="pageOn('page3')" style="cursor:pointer">2</a>
+			          <a id="page4" class="num" onclick="pageOn('page4')" style="cursor:pointer">3</a>
+			          <a id="sum" class="num" onclick="pageOn('sum')" style="cursor:pointer">489</a>
+			          <a class="next"  onclick="jia()" style="cursor:pointer">&gt;&gt;</a>
+		        </div>
+		    </div>
 		</div>
 		<script>
 			select_user();
@@ -254,6 +232,10 @@
 				$.ajax({
 					type:"get",
 					url: host + "controller_b/select_users.php",
+					data:{
+						page: getQueryVariable("page"),
+						size: 10
+					},
 					async:true,
 					datatype:'json',
 					success: function(data){
@@ -317,6 +299,8 @@
 									);
 								}
 							});
+							//分页
+							pagefun(total_page);
 						}else{
 							alert("栏目获取失败");
 						}
@@ -349,6 +333,89 @@
 		        }  
 		    	return num;  
 	     	}
+			
+			
+				      	
+	      	//  页数变量
+		    var pageSum=0;
+		    //页数加
+		   	function jia(){
+		   		if(parseInt($("#page2").prop("innerHTML"))<pageSum){
+		   			var page=parseInt($("#page2").prop("innerHTML"))+1;
+		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
+		   		}
+		   	}
+		   	//页数减
+		   	function jian(){
+		   		if(parseInt($("#page2").prop("innerHTML"))>1){
+		   			var page=parseInt($("#page2").prop("innerHTML"))-1;
+		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
+		   		}
+		   	}
+		   	//跳页
+		   	function pageOn(id){
+		   		var page=parseInt($("#"+id).prop("innerHTML"));
+		   		window.location.href=window.location.origin+window.location.pathname+"?page="+page;
+		   	}
+		   	init();
+			//初始化
+			function init(){
+				var page=getQueryVariable("page");
+				//页数初始化
+				if(page){
+					$("#page1").text(parseInt(page)-1);
+			 		$("#page2").text(parseInt(page));
+			 		$("#page3").text(parseInt(page)+1);
+			 		$("#page4").text(parseInt(page)+2);
+				}else{
+					page=1;
+				}
+		   	}
+		   	//获取链接get参数
+			function getQueryVariable(variable){
+		        var query = window.location.search.substring(1);
+		        var vars = query.split("&");
+		        for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+		       }
+		       return(false);
+			}
+		   	function pagefun(pageVar){
+		   		pageSum=parseInt(pageVar);
+   				//页数范围控制
+   				if(pageSum=>4){
+   					$("#sum").text(pageSum);
+   				}else if(pageSum==2){
+   					$("#page1").text(parseInt(page)-1);
+   					$("#page2").text(parseInt(page));
+   					$("#page3").text(parseInt(page)+1);
+   					$("#page4").hide();
+   					$("#sum").hide();
+   				}else if(pageSum==1){
+   					$("#page1").text(parseInt(page)-1);
+   					$("#page2").text(parseInt(page));
+   					$("#page3").hide();
+   					$("#page4").hide();
+   					$("#sum").hide();
+   				}
+   				var page2=parseInt($("#page2").prop("innerHTML"));
+	   			if((page2+2)===pageSum||(page2+1)===pageSum){
+	   				$("#page4").hide();
+	   				$("#sum").hide();
+	   			}
+	   			if(page2===pageSum){
+	   				$("#page3").hide();
+	   				$("#page4").hide();
+	   				$("#sum").hide();
+	   			}
+	   			if(page2===1){
+	   				$("#page1").hide();
+	   			}
+		   	}
+			
+			
+			
 			
 			//渲染多选框事件
 			$(document).on('click', '#icheckbox',function() {

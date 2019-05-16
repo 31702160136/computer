@@ -95,14 +95,12 @@
 				
 				<div class="layui-form-item">
 					<label for="btn" class="layui-form-label"></label>
-					<button class="layui-btn addbtn" lay-filter="add" lay-filter="add" lay-submit="">添  加</button>
+					<button class="layui-btn addbtn" lay-filter="add" lay-submit="">添  加</button>
 					<input  class="layui-btn layui-btn-warm addbtn" type="reset" value="重  置" />
 				</div>
 			</form>
 		</div>
 		<script>
-			
-			
 			//实例化编辑器			
 			var ue = UE.getEditor('container');
 			
@@ -188,11 +186,11 @@
 					}					
 					var data = new FormData();
 					data.append("title",title);
-					data.append("describe","测试描述");
+					data.append("describe","测试");
 					data.append("content",newsContent);
 					data.append("cover",coverPhotoclick[0]);
 					data.append("slideshow_cover",rotationPhotoclick[0]);
-					data.append("type","测试类型");
+					data.append("type","测试");
 					data.append("contributor",contributor);
 					data.append("is_status",release);
 					data.append("column_id",column_id);
@@ -205,7 +203,6 @@
 	                	processData: false,
 	                	contentType: false,
 						success: function(data){
-							console.log(data);
 							var res=JSON.parse(data);
 							if (res.status) {
 								layer.alert("添加新闻成功", {

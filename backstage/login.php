@@ -53,7 +53,7 @@
 							if (res.status) {
 								window.location.href = "index.php";
 							}else{
-								layer.msg('密码错误',{icon: 5,time:1000});
+								layer.msg(res.message,{icon: 5,time:2000});
 							}
 				      	},
 					    error : function () {

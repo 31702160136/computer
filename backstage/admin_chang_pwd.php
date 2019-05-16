@@ -95,7 +95,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								alert("密码已成功修改，当前登录已过期！");
+								alert("密码修改成功，请重新登录！");
 								//关闭当前frame
 								x_admin_close();
 								//退出登录
@@ -103,7 +103,7 @@
 								// 对父窗口进行刷新 
 								x_admin_father_reload();
 							}else{
-								layer.msg('密码修改失败',{icon: 2,time:2000});
+								layer.msg(res.message,{icon: 2,time:2000});
 							}
 				      	},
 					    error : function () {

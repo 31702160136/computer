@@ -84,13 +84,16 @@
 						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
 						<th width="165px" style="text-align: center;">状态</th>
-						<th width="215px" style="text-align: center;">操作</th>
+						<th width="180px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
 				<tbody id="newsList" value="123">
 
 				</tbody>
 			</table>
+			
+			
+			
 			<div class="page">
 				<div>
 					<a class="prev" href="">&lt;&lt;</a>
@@ -106,31 +109,65 @@
 		<script>
 			query_generalNews();
 			
+			/*
+			 * 	设置轮播新闻按钮监听
+			 */
+			function uploadFile(obj,id){
+				//弹窗html
+				var strfile = 
+					'<form class="layui-form" enctype="multipart/form-data" method="post">'+
+						'<div style="padding: 10px 0px 0px 20px">'+
+							'<input type="file" name="rotationPhotoclick" id="rotationPhotoclick" />'+
+							'<div class="layui-form-item" style="text-align: right; padding: 25px 15px 0px 0px">'+
+								'<button class="layui-btn addbtn" lay-filter="modify" lay-submit="">确定</button>'+
+							'</div>'+
+						'</div>'
+					'</form>';	
+			    layer.open({
+			          type: 1,
+			          title: '添加轮播图片',
+					  skin: 'layui-layer-demo', //样式类名
+					  closeBtn: 2, //不显示关闭按钮
+					  anim: 2,
+					  shadeClose: true, //开启遮罩关闭
+					  content: strfile
+			    });
 			layui.use(['form','laydate'], function() {
 				var laydate = layui.laydate;
 				var form = layui.form;
-				//执行一个laydate实例
-				laydate.render({
-					elem: '#start' //指定元素
-				});
-//				form.on('select(choiceNews)', function(data1){
-//				    var choiceNews = data1.value;
-//				    switch (choiceNews){
-//				    	case "generalNews":
-//				    		query_generalNews();
-//				    		break;
-//				    	case "tabloid":
-//				    		query_tabloid();
-//				    		break;
-//			    		case "broadCastNews":
-//			    			query_broadCastNews();
-//			    			break;
-//				    	default:
-//				    		break;
-//				    }
-//				});
+				var layer = layui.layer;
+                //监听提交
+                form.on('submit(modify)',function(data) {
+	                //获取图片信息
+	                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
+					var data = new FormData();
+					data.append("id",id);
+					data.append("slideshow_cover",rotationPhotoclick[0]);
+					$.ajax({
+						type:"post",
+						url: host + "controller_b/modify_news.php",
+						async:true,
+						data: data,
+						cache: false,
+	                	processData: false,
+	                	contentType: false,
+						success: function(data){
+							console.log(data);
+							var res=JSON.parse(data);
+							if (res.status) {
+								layer.msg('设置轮播新闻成功',{icon: 1,time:2000});
+							}else{
+								layer.msg('添加失败',{icon: 2,time:2000});
+							}
+				      	},
+					    error : function () {
+					      	document.write("请联系维护人员");
+					    }
+					});
+                   	return false;
+            });
 			});
-			
+		}	
 			/**
 			 * 	查询普通新闻
 			 *		query_generalNews()
@@ -164,6 +201,7 @@
 								var column_id = item.column_id;
 								var user_id = item.user_id;
 								var creation_time = item.creation_time;
+								var doEditItem=JSON.stringify(item);
 								var list = 
 									'<tr>'+
 										'<td>'+
@@ -171,11 +209,11 @@
 												'<i class="layui-icon">&#xe605;</i>'+
 											'</div>'+
 										'</td>'+
-										'<td>'+id+'</td>'+
+										'<td align="center">'+id+'</td>'+
 										'<td><img src="http://'+cover+'" /></td>'+
 										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
-										'<td>'+column+'</td>'+
-										'<td>'+contributor+'</td>'+
+										'<td align="center">'+column+'</td>'+
+										'<td align="center">'+contributor+'</td>'+
 										'<td>'+getMyDate(creation_time)+'</td>'+
 										'<td class="td-manage">'+
 											'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
@@ -183,8 +221,7 @@
 											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">热点</button>'+
 										'</td>'+
 										'<td class="td-manage">'+
-											'<button class="layui-btn layui-btn-normal"><i class="iconfont">&#xe6ac; </i>查看</button>'+
-											'<button class="layui-btn layui-btn-xs" onclick="x_admin_show(\'修改新闻\',\'news_general_modify.php\',1200)"><i class="layui-icon">&#xe642;</i>编辑</button>'+
+											'<button id='+id+' class="layui-btn layui-btn-warm" onclick="uploadFile(this,'+id+')"><i class="layui-icon">&#xe642;</i>设为轮播新闻</button>'+
 											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
 										'</td>'+
 									'</tr>';
@@ -197,11 +234,11 @@
 								}
 								if(is_top==1){
 									$("#top"+id).removeClass('layui-btn-disabled');
-									$("#top"+id).addClass('layui-btn-normal');
+									$("#top"+id).addClass('layui-btn-xs');
 								}
 								if(is_status==1){
 									$("#status"+id).removeClass('layui-btn-disabled');
-									$("#status"+id).addClass('layui-btn-xs').html('启用');
+									$("#status"+id).addClass('layui-btn-normal').html('启用');
 								}
 							});
 						} else {
@@ -213,6 +250,7 @@
 					}
 				});
 			}
+
 			
 			/**
 			 * 	每次刷新删除原数据

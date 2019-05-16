@@ -40,73 +40,59 @@
 	<body>
 		<div class="x-body">
 			<form class="layui-form" enctype="multipart/form-data" method="post">
-				<div class="layui-form-item">
-					<label for="newTitle" class="layui-form-label">新闻标题</label>
-					<div class="layui-input-inline">
-						<input type="text" id="title" name="title" lay-verify="required" autocomplete="off" class="layui-input" style="width: 700px;">
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label for="newContent" class="layui-form-label">新闻内容</label>
-					<div class="layui-input-inline">
-						<!-- 加载编辑器的容器 -->	
-						<script id="container" type="text/plain" style="width: 900px;height: 500px;"></script>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label for="newColumn" class="layui-form-label">所属栏目</label>
-					<div class="layui-input-inline columnNameList">
-						<select id="columnNameList">
-							<option id="columnChoice" selected="selected">请选择</option>
-						</select>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label for="contributor" class="layui-form-label">投稿者</label>
-					<div class="layui-input-inline">
-						<input type="text" id="contributor" name="contributor" lay-verify="required" autocomplete="off" class="layui-input">
-					</div>
-				</div>
-				
-				<div id="coverPhoto" class="layui-form-item">
-					<label for="coverPhotoLabel" class="layui-form-label">封面图片</label>
-					<div class="layui-input-inline">
-						<input type="file" name="coverPhotoclick" id="coverPhotoclick" />
-					</div>
-				</div>
-				
-				<div id="rotationPhoto" class="layui-form-item">
-					<label for="rotationPhotoLabel" class="layui-form-label">轮播图片</label>
-					<div class="layui-input-inline">
+				<!--<div id="rotationPhoto" class="layui-form-item">-->
+					<!--<label for="rotationPhotoLabel" class="layui-form-label">轮播图片</label>-->
+					<!--<div class="layui-input-inline">-->
 						<input type="file" name="rotationPhotoclick" id="rotationPhotoclick" />
-					</div>
-				</div>
+					<!--</div>-->
+				<!--</div>-->
 				
-				<div class="layui-form-item">
-					<label class="layui-form-label">是否发布</label>
-					<div class="layui-input-block">
-						<input type="radio" name="release" title="是" value="1">
-						<input type="radio" name="release" title="否" checked="checked" value="0">
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label for="btn" class="layui-form-label"></label>
-					<button class="layui-btn addbtn" lay-filter="add" lay-filter="add" lay-submit="">添  加</button>
-					<input  class="layui-btn layui-btn-warm addbtn" type="reset" value="重  置" />
+				<div class="layui-form-item" style="text-align: right;">
+					<!--<label for="btn" class="layui-form-label"></label>-->
+					<button class="layui-btn addbtn" lay-filter="modify" lay-submit="">确定</button>
 				</div>
 			</form>
 		</div>
 		<script>
-			var test = $("#newsList",window.parent.document);
-			console.log(test);
+//			window.parent.openWin();
+//			var sub_page = $(id,window.parent.document);
+//			console.log(sub_page.html());
+			
+//			var newsId = sub_page.attr('newsId');
+//			var newsTitle = sub_page.attr('newsTitle');
+//			var newsContent = sub_page.attr('Content');
+//			var newsColumn = sub_page.attr('newsColumn');
+//			var newsContributor = sub_page.attr('newsContributor');
+//			console.log(newsId);
+//			console.log(newsTitle);
+//			console.log(newsContent);
+//			console.log(newsColumn);
+//			console.log(newsContributor);
 			//实例化编辑器			
 			var ue = UE.getEditor('container');
 			
-			column();
+			//column();
+//			newsData();
+//			var newsDataAll;
+//			function newsData(){
+//				$.ajax({
+//					type: "get",
+//					url: host + "controller_b/select_news.php",
+//					async: false,
+//					datatype: 'json',
+//					success: function(data) {
+//						var res = JSON.parse(data);
+//						var total_page = res.data.total_page;
+//						var category = res.data.data;
+//						newsDataAll = category;
+//					},
+//					error: function() {
+//						document.write("error");
+//					}
+//				});
+//			}
+//			console.log(newsDataAll[0].id);
+			
 			
 			/*
 			 * 	获取栏目信息
@@ -171,7 +157,7 @@
            		});
            		
                 //监听提交
-                form.on('submit(add)',function(data) {
+                form.on('submit(modify)',function(data) {
                 	//获取编辑器内容
 	                var newsContent = ue.getContent();
 	                var title = $("#title").val();

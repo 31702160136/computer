@@ -74,21 +74,7 @@
 						<th width="150">操作</th>
 				</thead>
 				<tbody class="x-cate" id="columnList">
-					<!--<tr cate-id='1' fid='0'>
-						<td>
-							<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-						</td>
-						<td>01</td>
-						<td id=""><i class="layui-icon x-show" status='true'></i> 系部首页</td>
-						<td>2017.12.12</td>
-						<td>2018.12.12</td>
-						<td><input type="text" class="layui-input x-sort" id="sort" value="1"></td>
-						<td class="td-status"><span id="is_status" class="layui-btn layui-btn-normal layui-btn-mini" custom="0">已停用</span></td>
-						<td class="td-manage">
-							<button class="layui-btn layui-btn layui-btn-xs" onclick="member_edit(this,'sadasd')"><i class="layui-icon">&#xe642;</i>编辑</button>
-							<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'要删除的id')" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>
-						</td>
-					</tr>-->
+				
 				</tbody>
 			</table>
 			
@@ -172,10 +158,9 @@
 	      	 * 
 	      	 * 		修改栏目名称
 	      	 **/
-	      	member_edit = function(obj,id,title){
+	      	function member_edit(obj,id,title){
 			//JQ的member_edit(this,"+系部概括+")转换成js就是member_edit(this,系部概括)，
 			//因为英文和中文要用引号括住，所以JQ要这样写："member_edit(this,"+"'"+title+"'"+")转换成js就是member_edit(this,"系部概括")
-				console.log(title);
 				layer.prompt({
 					formType: 0,
 					value: title,
@@ -346,6 +331,10 @@
 					url: host + "controller_b/select_columns.php",
 					async:true,
 					datatype:'json',
+					data:{
+						page: getQueryVariable("page"),
+						size: 10
+					},
 					success: function(data){
 						var res=JSON.parse(data);
 						var total_page=res.data.total_page;
@@ -382,7 +371,7 @@
 										'</td>'+
 										'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
 										'<td class="td-manage">'+
-											'<button class="layui-btn layui-btn-xs" onclick="member_edit(this,'+id+',"+"'+title+'"+")"><i class="layui-icon">&#xe642;</i>编辑</button>'+
+											"<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe642;</i>编辑</button>"+
 											'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
 										'</td>'+
 									'</tr>';
@@ -392,6 +381,8 @@
 									$("#status"+id).addClass('layui-btn-normal').html('已启用');
 								}
 							});
+							//分页
+							pagefun(total_page);
 						}else{
 							alert("栏目获取失败");
 						}
@@ -448,6 +439,7 @@
 		   		var page=parseInt($("#"+id).prop("innerHTML"));
 		   		window.location.href=window.location.origin+window.location.pathname+"?page="+page;
 		   	}
+		   	init();
 			//初始化
 			function init(){
 				var page=getQueryVariable("page");
@@ -460,46 +452,49 @@
 				}else{
 					page=1;
 				}
-				//页数初始化
-				$.ajax({
-			 			url:host+"",
-			 			success:function(res){
-			   				var data=JSON.parse(res);
-			   				pageSum=parseInt(data.data);
-			   				//页数范围控制
-			   				if(pageSum=>4){
-			   					$("#sum").text(data.data);
-			   				}else if(pageSum==2){
-			   					$("#page1").text(parseInt(page)-1);
-			   					$("#page2").text(parseInt(page));
-			   					$("#page3").text(parseInt(page)+1);
-			   					$("#page4").hide();
-			   					$("#sum").hide();
-			   				}else if(pageSum==1){
-			   					$("#page1").text(parseInt(page)-1);
-			   					$("#page2").text(parseInt(page));
-			   					$("#page3").hide();
-			   					$("#page4").hide();
-			   					$("#sum").hide();
-			   				}
-			   				var page2=parseInt($("#page2").prop("innerHTML"));
-			   			if((page2+2)===pageSum||(page2+1)===pageSum){
-			   				$("#page4").hide();
-			   				$("#sum").hide();
-			   			}
-			   			if(page2===pageSum){
-			   				$("#page3").hide();
-			   				$("#page4").hide();
-			   				$("#sum").hide();
-			   			}
-			   			if(page2===1){
-			   				$("#page1").hide();
-			   			}
-			   			//页数范围控制
-			 			}
-			 		});
-		   		}
-		   	
+		   	}
+		   	//获取链接get参数
+			function getQueryVariable(variable){
+		        var query = window.location.search.substring(1);
+		        var vars = query.split("&");
+		        for (var i=0;i<vars.length;i++) {
+                var pair = vars[i].split("=");
+                if(pair[0] == variable){return pair[1];}
+		       }
+		       return(false);
+			}
+		   	function pagefun(pageVar){
+		   		pageSum=parseInt(pageVar);
+   				//页数范围控制
+   				if(pageSum=>4){
+   					$("#sum").text(pageSum);
+   				}else if(pageSum==2){
+   					$("#page1").text(parseInt(page)-1);
+   					$("#page2").text(parseInt(page));
+   					$("#page3").text(parseInt(page)+1);
+   					$("#page4").hide();
+   					$("#sum").hide();
+   				}else if(pageSum==1){
+   					$("#page1").text(parseInt(page)-1);
+   					$("#page2").text(parseInt(page));
+   					$("#page3").hide();
+   					$("#page4").hide();
+   					$("#sum").hide();
+   				}
+   				var page2=parseInt($("#page2").prop("innerHTML"));
+	   			if((page2+2)===pageSum||(page2+1)===pageSum){
+	   				$("#page4").hide();
+	   				$("#sum").hide();
+	   			}
+	   			if(page2===pageSum){
+	   				$("#page3").hide();
+	   				$("#page4").hide();
+	   				$("#sum").hide();
+	   			}
+	   			if(page2===1){
+	   				$("#page1").hide();
+	   			}
+		   	}
 		   	
 			//渲染多选框事件
 			$(document).on('click', '#icheckbox',function() {

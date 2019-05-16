@@ -6,7 +6,7 @@ $.ajax({
 		var res=JSON.parse(data);
 		if (res.status == false) {
 			console.log("index");
-			alert("用户登录已过期，请重新登录！");
+			alert(res.message);
 			window.location.href = "login.php";
 			return;
 		}
