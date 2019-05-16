@@ -79,10 +79,10 @@
 							<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
 						</th>
 						<th width="50px" style="text-align: center;">ID</th>
-						<th width="100px" style="text-align: center;">封面</th>
+						<th width="100px" style="text-align: center;">轮播图</th>
 						<th width="" style="text-align: center;">标题</th>
 						<th width="80px" style="text-align: center;">所属栏目</th>
-						<th width="80px" style="text-align: center;">发布人</th>
+						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
 						<th width="165px" style="text-align: center;">状态</th>
 						<th width="215px" style="text-align: center;">操作</th>
@@ -126,6 +126,7 @@
 							$.each(category, function(index, item) {
 								var id = item.id;
 								var title = item.title;
+								var contributor = item.contributor;
 								var cover = item.cover;
 								var slideshow_cover = item.slideshow_cover; //轮播图片
 								var is_hot = item.is_hot;
@@ -146,7 +147,7 @@
 										'<td><img src="http://'+slideshow_cover+'" /></td>'+
 										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 										'<td>'+column+'</td>'+
-										'<td>'+user_id+'</td>'+
+										'<td>'+contributor+'</td>'+
 										'<td>'+getMyDate(creation_time)+'</td>'+
 										'<td class="td-manage">'+
 											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" title="热点">热点</button>'+

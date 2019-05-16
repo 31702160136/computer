@@ -350,25 +350,6 @@
 		    	return num;  
 	     	}
 			
-			
-			
-			layui.use('laydate', function() {
-				var laydate = layui.laydate;
-
-				//执行一个laydate实例
-				laydate.render({
-					elem: '#start' //指定元素
-				});
-
-				//执行一个laydate实例
-				laydate.render({
-					elem: '#end' //指定元素
-				});
-			});
-
-
-			
-			
 			//渲染多选框事件
 			$(document).on('click', '#icheckbox',function() {
 				if($(this).hasClass('layui-form-checked')) {
