@@ -9,11 +9,24 @@ class SlideshowDao{
 		if(isset($page)&&isset($size)){
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
-							where s.`news_id`=n.`id` and n.`column_id`=c.`id` limit ".$page.",".$size;
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` ORDER BY s.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
-							where s.`news_id`=n.`id` and n.`column_id`=c.`id`";
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` ORDER BY s.`creation_time` desc";
+		}
+		$result=$this->sql->query($sql);
+		return $result;
+	}
+	public function findSlideshowStatusTrue($page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
+						from `slideshow` s,`news` n,`column` c 
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`creation_time` desc limit ".$page.",".$size;
+		}else{
+			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
+						from `slideshow` s,`news` n,`column` c 
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -23,12 +36,12 @@ class SlideshowDao{
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
 							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and n.title 
-								like '%".$title."%' limit ".$page.",".$size;
+								like '%".$title."%' ORDER BY s.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
 							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and n.title 
-								like '%".$title."%'";
+								like '%".$title."%' ORDER BY s.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;

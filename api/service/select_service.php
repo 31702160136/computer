@@ -115,6 +115,102 @@ class SelectService {
 		return $result_news;
 	}
 	/*
+	 * 获取已发布的新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsStatusTrue($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNewsStatusTrue(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNewsStatusTrue($page,$size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> findNewsStatusTrue(0,10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+	/*
+	 * 根据标题获取已发布的新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsStatusTrueByColumnTitle($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"]) && isset($data["column_title"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrue($data["column_title"],null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrue($data["column_title"],$page,$size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrue($data["column_title"],0,10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+/*
+	 * 获取已发布带有封面图片的新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsStatusTrueOfCover($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"]) && isset($data["column_title"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNewsStatusTrueOfCover(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNewsStatusTrueOfCover($page,$size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> findNewsStatusTrueOfCover(0,10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+	/*
 	 * 通过新闻标题搜索新闻信息
 	 * 返回数量：多条
 	 * */
@@ -235,6 +331,35 @@ class SelectService {
 			}
 		}else{
 			$result = $this -> slideshowDao ->findSlideshow(0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result); $i++) {
+			if($result[$i]["slideshow_cover"]!=""){
+				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
+			}
+		}
+		return $result;
+	}
+	/*
+	 * 获取轮播新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getSlideshowsStatusTrue($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> slideshowDao ->findSlideshowStatusTrue(null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> slideshowDao ->findSlideshowStatusTrue($page, $size);
+			}
+		}else{
+			$result = $this -> slideshowDao ->findSlideshowStatusTrue(0, 10);
 		}
 		//当前http链接拼接到图片路径
 		for ($i = 0; $i < count($result); $i++) {
