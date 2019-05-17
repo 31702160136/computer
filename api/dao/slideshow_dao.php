@@ -54,6 +54,11 @@ class SlideshowDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
+	public function findSlideshowById($id){
+		$sql = "select * from `slideshow` where `id`='".$id."'";
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	public function createSlideshow($data){
 		$array=array(
 			"table"=>"slideshow",

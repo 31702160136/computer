@@ -3,14 +3,16 @@ include_once "./../dao/user_dao.php";
 include_once "./../dao/column_dao.php";
 include_once "./../handler/handler.php";
 include_once "./../dao/news_dao.php";
+include_once "./../dao/slideshow_dao.php";
 include_once "./../utils/session_status.php";
 class ModifyService {
 	private $userDao = null;
 	private $columnDao = null;
+	private $slideshowDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
-		$this -> newsDao = new NewsDao();
+		$this -> slideshowDao = new SlideshowDao();
 	}
 
 	/*
@@ -164,6 +166,30 @@ class ModifyService {
 			}
 		} else {
 			error("缺少必要信息：modifyNews");
+		}
+	}
+	/*
+	 * 修改轮播新闻状态
+	 * */
+	public function modifySlideshowStatus($data) {
+		if (isset($data["id"])) {
+			$id = $data["id"];
+			$result = $this -> slideshowDao -> findSlideshowById($id);
+			if (count($result) > 0) {
+				unset($data["id"]);
+				$data["is_status"]=$result[0]["is_status"] == 0 ? 1 : 0;
+				$data["modify_time"] = time();
+				$result = $this -> slideshowDao ->modifySlideshow($data, $id);
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("没有此轮播新闻");
+			}
+		} else {
+			error("缺少必要信息：modifySlideshowStatus");
 		}
 	}
 	public function addOneNewsNumBer($data){
