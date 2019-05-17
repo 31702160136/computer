@@ -78,12 +78,12 @@
 					</div>
 				</div>
 				
-				<div id="rotationPhoto" class="layui-form-item">
+				<!--<div id="rotationPhoto" class="layui-form-item">
 					<label for="rotationPhotoLabel" class="layui-form-label">轮播图片</label>
 					<div class="layui-input-inline">
 						<input type="file" name="rotationPhotoclick" id="rotationPhotoclick" />
 					</div>
-				</div>
+				</div>-->
 				
 				<div class="layui-form-item">
 					<label class="layui-form-label">是否发布</label>
@@ -176,7 +176,7 @@
 	                var contributor = $("#contributor").val();
 	                //获取图片信息
 	                var coverPhotoclick = $("#coverPhotoclick").prop('files');
-	                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
+//	                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
 	                //获取status状态选项，是否发布
 					var release = $("[name='release']").filter(":checked").attr("value"); 
 	                //获取option选中状态的动态添加id
@@ -189,7 +189,7 @@
 					data.append("describe","测试");
 					data.append("content",newsContent);
 					data.append("cover",coverPhotoclick[0]);
-					data.append("slideshow_cover",rotationPhotoclick[0]);
+//					data.append("slideshow_cover",rotationPhotoclick[0]);
 					data.append("type","测试");
 					data.append("contributor",contributor);
 					data.append("is_status",release);

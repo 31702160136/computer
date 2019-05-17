@@ -27,22 +27,22 @@
         <a href="">首页</a>
         <a href="">演示</a>
         <a>
-          <cite>管理员</cite></a>
+          <cite>用户管理</cite></a>
       </span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-				<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
-			<div class="layui-row">
+			<!--<div class="layui-row">
 				<form class="layui-form layui-col-md12 x-so">
 					<input class="layui-input" placeholder="开始日" name="start" id="start">
 					<input class="layui-input" placeholder="截止日" name="end" id="end">
 					<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
 					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
 				</form>
-			</div>
+			</div>-->
 
-			<blockquote class="layui-elem-quote" style="color: red;">此页面为后台管理员管理页面，请务必慎重操作！</blockquote>
+			<!--<blockquote class="layui-elem-quote" style="color: red;">此页面为后台管理员管理页面，请务必慎重操作！</blockquote>-->
 
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>

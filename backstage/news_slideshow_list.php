@@ -10,6 +10,7 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
+		<script src="js/select_news.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
@@ -49,13 +50,13 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
+		        <a href="">首页</a>
+		        <a href="">演示</a>
+		        <a>
+		          <cite>轮播新闻</cite></a>
+		      </span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-				<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
 			<div class="layui-row">
@@ -68,7 +69,6 @@
 			</div>
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-				<button class="layui-btn" onclick="x_admin_show('添加新闻','./news_add.php',1200)"><i class="layui-icon"></i>添加</button>
 				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
 			
@@ -82,10 +82,10 @@
 						<th width="100px" style="text-align: center;">轮播图</th>
 						<th width="" style="text-align: center;">标题</th>
 						<th width="80px" style="text-align: center;">所属栏目</th>
-						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
-						<th width="165px" style="text-align: center;">状态</th>
-						<th width="215px" style="text-align: center;">操作</th>
+						<th width="70px" style="text-align: center;">排序</th>
+						<th width="50px" style="text-align: center;">状态</th>
+						<th width="50px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
 				<tbody id="newsList">
@@ -104,179 +104,153 @@
 			</div>
 
 		</div>
+		
 		<script>
+			/**
+			 * 	查询轮播通新闻
+			 */
 			query_broadCastNews();
+
 			
-			/**
-			 * 	查询轮播新闻
-			 *		query_broadCastNews()
-			 */
-			function query_broadCastNews(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_news.php",
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var category = res.data.data;
-						if(res.status) {
-							clear_tr();
-							$.each(category, function(index, item) {
-								var id = item.id;
-								var title = item.title;
-								var contributor = item.contributor;
-								var cover = item.cover;
-								var slideshow_cover = item.slideshow_cover; //轮播图片
-								var is_hot = item.is_hot;
-								var is_top = item.is_top;
-								var is_status = item.is_status;
-								var column = item.column;
-								var column_id = item.column_id;
-								var user_id = item.user_id;
-								var creation_time = item.creation_time;
-								var list = 
-									'<tr>'+
-										'<td>'+
-											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-												'<i class="layui-icon">&#xe605;</i>'+
-											'</div>'+
-										'</td>'+
-										'<td>'+id+'</td>'+
-										'<td><img src="http://'+slideshow_cover+'" /></td>'+
-										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
-										'<td>'+column+'</td>'+
-										'<td>'+contributor+'</td>'+
-										'<td>'+getMyDate(creation_time)+'</td>'+
-										'<td class="td-manage">'+
-											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" title="热点">热点</button>'+
-											'<button id="top'+id+'" class="layui-btn layui-btn-disabled" title="置顶">置顶</button>'+
-											'<button id="status'+id+'" class="layui-btn layui-btn-xs layui-btn-disabled" title="开启/停用" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
-										'</td>'+
-										'<td class="td-manage">'+
-											'<button class="layui-btn layui-btn-normal"><i class="iconfont">&#xe6ac; </i>查看</button>'+
-											'<button class="layui-btn layui-btn-xs"><i class="layui-icon">&#xe642;</i>编辑</button>'+
-											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
-										'</td>'+
-									'</tr>';
-								if (slideshow_cover != "") {
-									$("#newsList").append(list);
-									if(is_hot==1){
-										$("#hot"+id).removeClass('layui-btn-disabled');
-										$("#hot"+id).addClass('layui-btn-danger');
-									}
-									if(is_top==1){
-										$("#top"+id).removeClass('layui-btn-disabled');
-										$("#top"+id).addClass('layui-btn-normal');
-									}
-									if(is_status==1){
-										$("#status"+id).removeClass('layui-btn-disabled');
-										$("#status"+id).addClass('layui-btn-warm');
-									}
-								}
-								
-							});
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-					}
-				});
-			}
-			
-			
-			
-			
-			
-			/**
-			 * 	每次刷新删除原数据
-			 * 		clear_tr()
-			 */
-			function clear_tr(){
-				//绑定tbody列表ID
-				var newsList = document.getElementById('newsList');
-				//获取columnList的tr属性长度
-				var len = $("#newsList").find("tr").length;
-				//如果len长度大于0，删除所有行数
-				if(len > 0) {
-					$("#newsList").find('tr').remove();
-				}
-			}
-			
-			
-			/* 单条新闻删除：
+			/* 删除轮播新闻：
 			 * 
-			 * 		member_del（）
+			 * 		cancel_slideshow（）
 			 * */
-			function member_del(obj, id) {
-				layer.confirm('确认要删除吗？', function(index) {
+			function cancel_slideshow(obj, id, news_id) {
+				layer.confirm('确认删除该轮播新闻吗？', function(index) {
 					$.ajax({
 						type:"post",
-						url: host + "controller_b/delete_news.php",
+						url: host + "controller_b/delete_slideshow.php",
 						async:true,
 						data:{
 							"ids[]": id
 						},
 						success: function(data){
-							var res = JSON.parse(data);
+							var res=JSON.parse(data);
 							if (res.status) {
-								query_generalNews();
-								layer.msg('已删除!', {
-									icon: 1,
-									time: 1000
+								/*
+								 * 删除轮播图
+								 */
+								$.ajax({
+									type:"post",
+									url: host + "controller_b/delete_news_img.php",
+									async:true,
+									data: {
+										id: news_id,
+										img: "slideshow_cover"
+									},
+									success: function(data){
+										var res=JSON.parse(data);
+										if (res.status) {
+												//关闭所有页面层
+												layer.closeAll('page');
+												query_broadCastNews();
+												//parent.location.reload();//刷新页面
+												layer.msg('删除轮播新闻成功',{icon: 1,time:2000});
+										}else{
+											layer.msg('删除轮播新闻失败',{icon: 2,time:2000});
+										}
+							      	},
+								    error : function () {
+								      	document.write("请联系维护人员");
+								    }
 								});
-							} else{
-								layer.msg('删除失败!', {
-									icon: 2,
-									time: 2000
-								});
+									
+							}else{
+								layer.msg(res.message,{icon: 2,time:2000});
 							}
-						},
-						error:function(){
-							document.write("error");
-						}
+				      	},
+					    error : function () {
+					      	document.write("请联系维护人员");
+					    }
 					});
-					
 				});
 			}
 			
-			/* 多条新闻删除：
-			 * 
-			 * 		delAll（）
+			/*	轮播新闻编辑：
+			 * 		
+			 * 		修改轮播新闻的排序
 			 * */
-			function delAll(argument) {
-				var arrayData = tableCheck.getData();
-				layer.confirm('确认要删除ID为 '+arrayData+' 的新闻吗？', function(index) {
-					$.ajax({
-						type:"post",
-						url:host+"controller_b/delete_news.php",
-					  	data:{
-					  		"ids":arrayData
-					  	},
-					  	success:function(data){
-					        	var res=JSON.parse(data);
-					        	if (res.status) {
-									query_generalNews();
-									layer.msg('已删除!', {
-										icon: 1,
-										time: 1000
-									});
-								} else{
-									layer.msg('请选择要删除的新闻', {
-										icon: 2,
-										time: 2000
-									});
-								}
-					    },
-					    error:function(){
-							document.write("error");
+			function index_edit(obj,id){
+				var indexval = $(obj).val();
+				$.ajax({
+					type:"post",
+					url: host + "controller_b/modify_slideshow.php",
+					async:true,
+					data:{
+						"id": id,
+						"index": indexval
+					},
+					success:function(data){
+						var res=JSON.parse(data);
+						if (res.status) {
+							//刷新轮播新闻列表
+							query_broadCastNews();
+							layer.msg('修改排序成功!',{icon: 1,time:1000});
+						} else{
+							layer.msg('修改排序失败，请联系维护人员',{icon: 2,time:2000});
 						}
-					});
+					},
+					error: function(){
+						document.write("请联系维护人员");
+					}
 				});
 			}
+			
+			/* 轮播编辑：
+		  	 * 
+			 * 		是否开启
+			 * 		改变轮播开停状态
+			 * */
+	      	function status_edit(obj,id,is_status){
+	      		if(is_status == 0){
+		      		layer.confirm('确认要启用此轮播新闻吗？',function(index){
+		                layer.msg('轮播新闻已启用!',{icon: 6,time:1000});
+		                $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_slideshow_status.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_broadCastNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+		         	});
+		      	}else{
+		      		layer.confirm('确认要停用此轮播新闻吗？',function(index){
+		                layer.msg('轮播新闻已停用!',{icon: 5,time:1000});
+			             $.ajax({
+							type:"post",
+							url: host + "controller_b/modify_slideshow_status.php",
+							async:true,
+							data:{
+								"id": id
+							},
+							success: function(data){
+								var res=JSON.parse(data);
+								if (res.status) {
+							      	query_broadCastNews();
+								}else{
+									alert("状态修改失败");
+								}
+					      	},
+						    error : function () {
+						      	document.write("error");
+						    }
+						});
+			        });
+		     	}
+	      	}	
 			
 			//渲染多选框事件
 			$(document).on('click', '#icheckbox',function() {

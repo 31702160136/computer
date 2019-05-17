@@ -8,9 +8,9 @@ class ColumnDao {
 
 	public function findColumns($page,$size) {
 		if(isset($page)&&isset($size)){
-			$sql = "select * from `column` limit ".$page.",".$size;
+			$sql = "select * from `column` ORDER BY `creation_time` desc limit ".$page.",".$size;
 		}else{
-			$sql = "select * from `column`";
+			$sql = "select * from `column` ORDER BY `creation_time` desc";
 		}
 		$result = $this -> sql -> query($sql);
 		return $result;
@@ -18,9 +18,9 @@ class ColumnDao {
 	
 	public function findColumnsStatusTrue($page,$size) {
 		if(isset($page)&&isset($size)){
-			$sql = "select * from `column` where `is_status`='1' limit ".$page.",".$size;
+			$sql = "select * from `column` where `is_status`='1'  ORDER BY `index` desc, `creation_time` desc limit ".$page.",".$size;
 		}else{
-			$sql = "select * from `column` where `is_status`='1' ";
+			$sql = "select * from `column` where `is_status`='1'  ORDER BY `index` desc, `creation_time` desc ";
 		}
 		$result = $this -> sql -> query($sql);
 		return $result;

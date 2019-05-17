@@ -20,8 +20,8 @@ body{
 }
 .login-bg{
     /*background: #eeeeee url() 0 0 no-repeat;*/
-     background:url(../images/bg.png) no-repeat center;
-    background-size: cover;
+ 	background:url(../images/bj.jpg);
+    /*background-size: cover;*/
     overflow: hidden;
 }
 .login{
@@ -46,7 +46,8 @@ body{
 .login .message {
     margin: 10px 0 0 -58px;
     padding: 18px 10px 18px 60px;
-    background: #189F92;
+    /*background: #189F92;*/
+ 	background:url(../images/bj.jpg);
     position: relative;
     color: #fff;
     font-size: 16px;
@@ -93,7 +94,8 @@ body{
     vertical-align: middle;
     cursor: pointer;
     color: #ffffff;
-    background-color: #189F92;
+    /*background-color: #189F92;*/
+ 	background:url(../images/bj.jpg);
     border-radius: 3px;
     border: none;
     -webkit-appearance: none;
@@ -228,7 +230,7 @@ xblock{
 .container .logo a{
     float: left;
     color: #fff;
-    font-size: 18px;
+    font-size: 15px;
     padding-left: 20px;
     line-height: 45px;
     width: 200px;

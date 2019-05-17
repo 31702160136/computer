@@ -15,7 +15,12 @@
     <script type="text/javascript" src="./js/cookie.js"></script>
      <link rel="stylesheet" href="./css/font.css">
 	<link rel="stylesheet" href="./css/xadmin.css">
-
+	
+	<style type="text/css">
+		.formclass{
+			background-image: url(images/bj.jpg);
+		}
+	</style>
 </head>
 <body class="login-bg">
     
@@ -23,7 +28,7 @@
         <div class="message">计算机工程系后台管理登录</div>
         <div id="darkbannerwrap"></div>
         
-        <form method="post" class="layui-form" >
+        <form method="post" class="layui-form formclass" >
             <input name="username" id="username" placeholder="用户名"  type="text" class="layui-input" >
             <hr class="hr15">
             <input name="password" id="password" placeholder="密码"  type="password" class="layui-input">
@@ -51,7 +56,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								window.location.href = "index.php";
+								window.location.href = "index.php?name="+res.data.name;
 							}else{
 								layer.msg(res.message,{icon: 5,time:2000});
 							}

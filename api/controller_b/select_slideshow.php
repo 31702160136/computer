@@ -41,30 +41,25 @@ if (sessionIsLogin()) {
  * 返回数量：多条
 {
     "status": true,
-    "message": "获取新闻列表成功",
+    "message": "获取轮播新闻列表成功",
     "code": 200,
     "data": {
-        "page": 1,
+        "total_page": 1,
         "data": [
             {
-                "id": "14",
-                "title": "我是新闻",
-                "describe": "撒旦",
-                "content": "阿斯蒂芬发",
-                "cover": "localhost:8080/computer/images/back3.png",
-                "slideshow_cover": "",
-                "type": "阿斯蒂芬",
-                "contributor": "案说法",
-                "is_hot": "0",
-                "is_top": "0",
+                "id": "6",
+                "index": "6",
                 "is_status": "0",
-                "column_id": "5",
-                "user_id": "1",
-                "creation_time": "1554393797",
-                "modify_time": "1554393797",
-                "column": "2"
+                "news_id": "44",
+                "creation_time": "1",
+                "modify_time": "1558057606",
+                "title": "计算机工程系简介",
+                "describe": "测试",
+                "slideshow_cover": "",
+                "column": "系部概况"
             }
-		]
+        ]
+    }
 }
  *  * 
  * 
