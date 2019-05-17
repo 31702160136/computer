@@ -112,7 +112,7 @@
 			/*
 			 * 	设置轮播新闻按钮监听
 			 */
-			function uploadFile(obj,id){
+			function uploadFile(obj,id,slide){
 				//弹窗html
 				var strfile = 
 					'<form class="layui-form" enctype="multipart/form-data" method="post">'+
@@ -132,42 +132,70 @@
 					  shadeClose: true, //开启遮罩关闭
 					  content: strfile
 			    });
-			layui.use(['form','laydate'], function() {
-				var laydate = layui.laydate;
-				var form = layui.form;
-				var layer = layui.layer;
-                //监听提交
-                form.on('submit(modify)',function(data) {
-	                //获取图片信息
-	                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
-					var data = new FormData();
-					data.append("id",id);
-					data.append("slideshow_cover",rotationPhotoclick[0]);
-					$.ajax({
-						type:"post",
-						url: host + "controller_b/modify_news.php",
-						async:true,
-						data: data,
-						cache: false,
-	                	processData: false,
-	                	contentType: false,
-						success: function(data){
-							console.log(data);
-							var res=JSON.parse(data);
-							if (res.status) {
-								layer.msg('设置轮播新闻成功',{icon: 1,time:2000});
-							}else{
-								layer.msg('添加失败',{icon: 2,time:2000});
-							}
-				      	},
-					    error : function () {
-					      	document.write("请联系维护人员");
-					    }
-					});
-                   	return false;
-            });
-			});
-		}	
+				layui.use(['form'], function() {
+					var form = layui.form;
+					var layer = layui.layer;
+	                //监听提交
+	                form.on('submit(modify)',function(data) {
+		                //获取图片信息
+		                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
+		                //判断有没有选择图片
+		                if (rotationPhotoclick.length == 0) {
+		                	layer.msg('请添加图片',{icon: 3,time:2000});
+		                }else{
+		                	var data = new FormData();
+							data.append("id",id);
+							data.append("slideshow_cover",rotationPhotoclick[0]);
+							$.ajax({
+								type:"post",
+								url: host + "controller_b/modify_news.php",
+								async:true,
+								data: data,
+								cache: false,
+			                	processData: false,
+			                	contentType: false,
+								success: function(data){
+									var res=JSON.parse(data);
+									if (res.status) {
+										
+										$.ajax({
+											type:"post",
+											url: host + "controller_b/create_slideshow.php",
+											async:true,
+											data:{
+												news_id: id
+											} ,
+											success: function(data){
+												var res=JSON.parse(data);
+												if (res.status) {
+//													$(id+"slideshow").removeClass('layui-btn-disabled');
+//													$("#status"+id).addClass('layui-btn-normal').html('启用');
+													//关闭所有页面层
+													layer.closeAll('page');
+													query_generalNews();
+													//parent.location.reload();//刷新页面
+													layer.msg('创建轮播新闻成功',{icon: 1,time:2000});
+												}else{
+													layer.msg('创建失败',{icon: 2,time:2000});
+												}
+									      	},
+										    error : function () {
+										      	document.write("请联系维护人员");
+										    }
+										});
+									}else{
+										layer.msg('上传图片失败',{icon: 2,time:2000});
+									}
+						      	},
+							    error : function () {
+							      	document.write("请联系维护人员");
+							    }
+							});
+		                }
+	                   	return false;
+	            	});
+				});
+			}	
 			/**
 			 * 	查询普通新闻
 			 *		query_generalNews()
@@ -201,7 +229,6 @@
 								var column_id = item.column_id;
 								var user_id = item.user_id;
 								var creation_time = item.creation_time;
-								var doEditItem=JSON.stringify(item);
 								var list = 
 									'<tr>'+
 										'<td>'+
@@ -221,11 +248,11 @@
 											'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">热点</button>'+
 										'</td>'+
 										'<td class="td-manage">'+
-											'<button id='+id+' class="layui-btn layui-btn-warm" onclick="uploadFile(this,'+id+')"><i class="layui-icon">&#xe642;</i>设为轮播新闻</button>'+
-											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
+											'<button class="layui-btn layui-btn-warm" onclick="uploadFile(this,'+id+')"><i class="layui-icon">&#xe642;</i>设置轮播新闻</button>'+
+											'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+',)"><i class="layui-icon">&#xe640;</i>删除</button>'+
 										'</td>'+
 									'</tr>';
-								if (slideshow_cover == "") {
+								if (slideshow_cover == null || slideshow_cover == "") {
 									$("#newsList").append(list);
 								}
 								if(is_hot==1){
@@ -353,7 +380,7 @@
 				}
 			});
 			
-				      	/* 新闻编辑：
+			/* 新闻编辑：
 		  	 * 
 			 * 		是否开启
 			 * 		改变新闻开停状态
