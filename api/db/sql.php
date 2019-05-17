@@ -43,6 +43,32 @@ class Sql{
 		mysqli_commit($this->link);
 		return $result;
 	}
+	function inserts($array){
+		$data=$array["data"];
+		$str1=null;
+		$str2=null;
+		$count=count($data);
+		for($i=0;$i<$count;$i++){
+			$str2.="(";
+			foreach($data[$i] as $key=>$value){
+				if($data[$i][$key]==null){
+					$data[$i][$key]="";
+				}
+				if($i==0){
+					$str1.="`".$key."`,";
+				}
+				$str2=$str2."'".$value."',";
+			}
+			$str2=substr($str2,0,strlen($str2)-1);
+			$str2.="),";
+		}
+		$key=substr($str1,0,strlen($str1)-1);
+		$value=substr($str2,0,strlen($str2)-1);
+		$sql="insert into `".$array['table']."` (".$key.") values ".$value;
+		$result = mysqli_query($this->link, $sql);
+		mysqli_commit($this->link);
+		return $result;
+	}
 	function modify($array){
 		$data=$array["data"];
 		$str=null;

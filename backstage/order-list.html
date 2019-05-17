@@ -77,17 +77,13 @@
             <th>
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>订单编号</th>
-            <th>收货人</th>
-            <th>总金额</th>
-            <th>应付金额</th>
-            <th>订单状态</th>
-            <th>支付状态</th>
-            <th>发货状态</th>
-            <th>支付方式</th>
-            <th>配送方式</th>
-            <th>下单时间</th>
-            <th >操作</th>
+            <th>ID</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th>所属栏目</th>
+            <th>发布人</th>
+            <th width="160px">状态</th>
+            <th width="210px">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -95,23 +91,41 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>2017009171822298053</td>
-            <td>老王:18925139194</td>
-            <td>7829.10</td>
-            <td>7854.10</td>
-            <td>待确认</td>
-            <td>未支付</td>
-            <td>未发货</td>
-            <td>其他方式</td>
-            <td>申通物流</td>
-            <td>2017-08-17 18:22</td>
+            <td>01</td>
+            <td>“春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</td>
+            <td>2019年4月20日，茂名职业技术学院青年志愿者协</td>
+            <td>系部新闻</td>
+            <td>admin</td>
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
-                <i class="layui-icon">&#xe63c;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
+            	<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger" title="热点" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe756;</i></button>
+              <button class="layui-btn layui-btn-radius layui-btn-normal" title="置顶" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6f2;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-warm" title="开启/停用" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6b1;</i></button>
+            </td>
+            <td class="td-manage">
+            	<button class="layui-btn layui-btn-normal" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6ac;</i>查看</button>
+              <button class="layui-btn layui-btn-xs" onclick="member_edit(this,'sadasd')"><i class="layui-icon">&#xe642;</i>编辑</button>
+							<button class="layui-btn layui-btn-danger" onclick="member_del(this,'要删除的id')" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>
+            </td>
+          </tr>
+          
+          <tr>
+            <td>
+              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+            </td>
+            <td>01</td>
+            <td>“春风送暖，筑爱夕阳”——仁爱颐养院爱心服务活动</td>
+            <td>2019年4月20日，茂名职业技术学院青年志愿者协</td>
+            <td>系部新闻</td>
+            <td>admin</td>
+            <td class="td-manage">
+            	<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" title="热点" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe756;</i></button>
+              <button class="layui-btn layui-btn-radius layui-btn-primary" title="置顶" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6f2;</i></button>
+              <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" title="开启/停用" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6b1;</i></button>
+            </td>
+            <td class="td-manage">
+            	<button class="layui-btn layui-btn-normal" onclick="member_edit(this,'sadasd')"><i class="iconfont">&#xe6ac;</i>查看</button>
+              <button class="layui-btn layui-btn-xs" onclick="member_edit(this,'sadasd')"><i class="layui-icon">&#xe642;</i>编辑</button>
+							<button class="layui-btn layui-btn-danger" onclick="member_del(this,'要删除的id')" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除</button>
             </td>
           </tr>
         </tbody>

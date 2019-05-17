@@ -5,11 +5,12 @@ $.ajax({
 	success: function(data){
 		var res=JSON.parse(data);
 		if (res.status == false) {
-			alert("用户未登录");
-			window.location.href = "login.html";
+			console.log("index");
+			alert(res.message);
+			window.location.href = "login.php";
 			return;
 		}
-  	},
+	},
     error : function () {
       	document.write("error");
     }

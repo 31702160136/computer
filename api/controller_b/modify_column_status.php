@@ -1,0 +1,33 @@
+<?php
+include_once "./../handler/handler.php";
+include_once "./../service/modify_service.php";
+include_once "./../service/select_service.php";
+if (sessionIsLogin()) {
+	$modify_service = new ModifyService();
+	$data = array(
+		"id"=>@$_POST["id"]
+	);
+	$result = $modify_service ->modifyColumnStatus($data);
+	if ($result) {
+		succeed("栏目状态修改成功");
+	} else {
+		error("栏目状态修改失败");
+	}
+} else {
+	error("用户未登录");
+}
+/*
+ * 切换栏目启动状态
+ * 接口状态：完成
+ * 类型：Post
+ * 参数：id					栏目id
+ * 返回：json
+ * 返回数量：单条
+{
+    "status": true,
+    "message": "栏目状态修改成功",
+    "code": 200
+}
+ * 
+ * */
+?>
