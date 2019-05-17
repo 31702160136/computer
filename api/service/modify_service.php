@@ -8,10 +8,12 @@ include_once "./../utils/session_status.php";
 class ModifyService {
 	private $userDao = null;
 	private $columnDao = null;
+	private $newsDao=null;
 	private $slideshowDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
+		$this -> newsDao = new NewsDao();
 		$this -> slideshowDao = new SlideshowDao();
 	}
 

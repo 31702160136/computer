@@ -8,7 +8,7 @@ $data=array(
 	"page"=>1,
 	"size"=>10
 );
-$res_column = $select_service -> getColumns($data);
+$res_column = $select_service -> getColumnsStatusTrue($data);
 $data["column_title"]="招生就业";
 $res_zhaosheng=$select_service->getNewsStatusTrueByColumnTitle($data);
 $data["column_title"]="系部新闻";
@@ -38,7 +38,7 @@ $res_data=array(
 
 succeedOfInfo("获取新闻列表成功", $res_data);
 /*
- * 获取新闻列表信息，如果不填页数默认获取10条
+ * 获取首页信息
  * 接口状态：完成
  * 类型：Get
  * 参数：title	//通过新闻标题搜索新闻（选填）

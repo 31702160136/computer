@@ -22,11 +22,11 @@ class SlideshowDao{
 		if(isset($page)&&isset($size)){
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
-							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`creation_time` desc limit ".$page.",".$size;
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`index` desc , s.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select s.*,n.`title`,n.`describe`,n.`slideshow_cover`,c.`title` as `column` 
 						from `slideshow` s,`news` n,`column` c 
-							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`creation_time` desc";
+							where s.`news_id`=n.`id` and n.`column_id`=c.`id` and s.`is_status`='1' ORDER BY s.`index` desc , s.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;

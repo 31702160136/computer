@@ -83,6 +83,29 @@ class SelectService {
 		return $result;
 	}
 	/*
+	 * 获取已启用的栏目信息
+	 * 返回数量：多条
+	 * */
+	public function getColumnsStatusTrue($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> columnDao -> findColumnsStatusTrue(null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> columnDao -> findColumnsStatusTrue($page,$size);
+			}
+		}else{
+			$result = $this -> columnDao -> findColumnsStatusTrue(0,10);
+		}
+		return $result;
+	}
+	/*
 	 * 获取新闻信息
 	 * 返回数量：多条
 	 * */
