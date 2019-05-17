@@ -10,6 +10,7 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
+		<script src="js/select_news.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
@@ -49,13 +50,13 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
+		        <a href="">首页</a>
+		        <a href="">演示</a>
+		        <a>
+		          <cite>轮播新闻</cite></a>
+		      </span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-				<i class="layui-icon" style="line-height:30px">ဂ</i></a>
+			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
 			<div class="layui-row">
@@ -103,73 +104,13 @@
 			</div>
 
 		</div>
+		
 		<script>
-			query_broadCastNews();
-			
 			/**
-			 * 	查询轮播新闻
-			 *		query_broadCastNews()
+			 * 	查询轮播通新闻
 			 */
-			function query_broadCastNews(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_slideshow.php",
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var category = res.data.data;
-						if(res.status) {
-							clear_tr();
-							$.each(category, function(index, item) {
-								var id = item.id;
-								var news_id = item.news_id;
-								var title = item.title;
-								var slideshow_cover = item.slideshow_cover; //轮播图片
-								var column = item.column;
-								var contributor = item.contributor;
-								var index = item.index;
-								var is_status = item.is_status;
-								var creation_time = item.creation_time;
-								var doEditItem=JSON.stringify(slideshow_cover);
-								var list = 
-									'<tr>'+
-										'<td>'+
-											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-												'<i class="layui-icon">&#xe605;</i>'+
-											'</div>'+
-										'</td>'+
-										'<td align="center">'+news_id+'</td>'+
-										'<td><img src="http://'+slideshow_cover+'" /></td>'+
-										'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
-										'<td align="center">'+column+'</td>'+
-										'<td>'+getMyDate(creation_time)+'</td>'+
-										'<td>'+
-											'<input type="text" class="layui-input x-sort" onchange="index_edit(this,'+id+')"  value='+index+'>'+
-										'</td>'+
-										'<td class="td-manage">'+
-											'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">已停用</button>'+
-										'</td>'+
-										'<td class="td-manage">'+
-											'<button class="layui-btn layui-btn-danger" onclick="cancel_slideshow(this,'+id+','+news_id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
-										'</td>'+
-									'</tr>';
-									$("#newsList").append(list);
-									if(is_status==1){
-										$("#status"+id).removeClass('layui-btn-disabled');
-										$("#status"+id).addClass('layui-btn-normal').html('已启用');
-									}
-							});
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-					}
-				});
-			}
+			query_broadCastNews();
+
 			
 			/* 删除轮播新闻：
 			 * 
@@ -226,22 +167,6 @@
 				});
 			}
 			
-			
-			/**
-			 * 	每次刷新删除原数据
-			 * 		clear_tr()
-			 */
-			function clear_tr(){
-				//绑定tbody列表ID
-				var newsList = document.getElementById('newsList');
-				//获取columnList的tr属性长度
-				var len = $("#newsList").find("tr").length;
-				//如果len长度大于0，删除所有行数
-				if(len > 0) {
-					$("#newsList").find('tr').remove();
-				}
-			}
-			
 			/*	轮播新闻编辑：
 			 * 		
 			 * 		修改轮播新闻的排序
@@ -259,6 +184,7 @@
 					success:function(data){
 						var res=JSON.parse(data);
 						if (res.status) {
+							//刷新轮播新闻列表
 							query_broadCastNews();
 							layer.msg('修改排序成功!',{icon: 1,time:1000});
 						} else{

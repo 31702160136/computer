@@ -9,6 +9,8 @@
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
+		<script src="js/time_stamp_date.js"></script>
+		<script src="js/checkbox.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
@@ -39,9 +41,8 @@
 		        <a href="">演示</a>
 	       		<a><cite>栏目管理</cite></a>
       		</span>
-			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right">
-				<i id="refresh" class="layui-icon" style="line-height:30px">ဂ刷新</i>
-			</a>
+      		<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
 			<div class="layui-row">
@@ -50,13 +51,12 @@
 				</form>
 			</div>
 			<div class="addBtn">
-				<button id="addColumnBtn" name="addColumnBtn" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button>
+				<button id="addColumnBtn" name="addColumnBtn" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>添加</button>
 			</div>
 			
-			<blockquote class="layui-elem-quote" style="color: red;">此页面为后台栏目管理页面，管理员务必慎重操作！</blockquote>
+			<!--<blockquote class="layui-elem-quote" style="color: red;">此页面为后台栏目管理页面，管理员务必慎重操作！</blockquote>-->
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
       </table>
 			<table class="layui-table x-admin">
@@ -94,6 +94,80 @@
 			//调用查询栏目刷新页面
 			select_column();
 			
+			/*	栏目查询：
+			 * 
+			 * 		select_column()
+			 * */
+			function select_column(){
+				$.ajax({
+					type:"get",
+					url: host + "controller_b/select_columns.php",
+					async:true,
+					datatype:'json',
+					data:{
+						page: getQueryVariable("page"),
+						size: 10
+					},
+					success: function(data){
+						var res=JSON.parse(data);
+						var total_page=res.data.total_page;
+						var category=res.data.data;
+						if (res.status) {
+							//防止每次刷新以后都添加一次
+             			    $("#columnList").html(""); 
+//							var columnList = document.getElementById('columnList');
+//							//获取columnList的tr属性长度
+//							var len = $("#columnList").find("tr").length;
+//							//如果len长度大于0，删除所有行数
+//							if(len >0){
+//								$("#columnList").find('tr').remove();
+//							}
+							$.each(category, function(index,item) {
+								var id = item.id;
+								var title = item.title;
+								var creation_time = item.creation_time;
+								var modify_time = item.modify_time;
+								var index = item.index;
+								var is_status = item.is_status;
+								var list = 
+									'<tr>'+
+										'<td>'+
+											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
+												'<i class="layui-icon">&#xe605;</i>'+
+											'</div>'+
+										'</td>'+
+										'<td>'+id+'</td>'+
+										'<td>'+title+'</td>'+
+										'<td>'+getMyDate(creation_time)+'</td>'+
+										'<td>'+getMyDate(modify_time)+'</td>'+
+										'<td>'+
+											'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
+										'</td>'+
+										'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
+										'<td class="td-manage">'+
+											"<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe642;</i>编辑</button>"+
+											'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
+										'</td>'+
+									'</tr>';
+								$("#columnList").append(list);
+								if(is_status==1){
+									$("#status"+id).removeClass('layui-btn-warm');
+									$("#status"+id).addClass('layui-btn-normal').html('已启用');
+								}
+							});
+							
+							//分页
+							pagefun(total_page);
+						}else{
+							alert("栏目获取失败");
+						}
+			      	},
+				    error : function () {
+				      	document.write("error");
+				    }
+				});
+			}
+			
 			/* 	栏目创建：
 			 * 		
 			 * */
@@ -129,7 +203,7 @@
 			 * 		
 			 * 		修改栏目排序
 			 * */
-			member_sort = function(obj,id){
+			function member_sort(obj,id){
 				var indexval = $(obj).val();
 				$.ajax({
 					type:"post",
@@ -321,103 +395,11 @@
 				});
 			}
 			    	
-			/*	栏目查询：
-			 * 
-			 * 		select_column()
-			 * */
-			function select_column(){
-				$.ajax({
-					type:"get",
-					url: host + "controller_b/select_columns.php",
-					async:true,
-					datatype:'json',
-					data:{
-						page: getQueryVariable("page"),
-						size: 10
-					},
-					success: function(data){
-						var res=JSON.parse(data);
-						var total_page=res.data.total_page;
-						var category=res.data.data;
-						if (res.status) {
-							//绑定tbody列表ID
-							var columnList = document.getElementById('columnList');
-							//获取columnList的tr属性长度
-							var len = $("#columnList").find("tr").length;
-							//如果len长度大于0，删除所有行数
-							if(len >0){
-								$("#columnList").find('tr').remove();
-							}
-							$.each(category, function(index,item) {
-								var id = item.id;
-								var title = item.title;
-								var creation_time = item.creation_time;
-								var modify_time = item.modify_time;
-								var index = item.index;
-								var is_status = item.is_status;
-								var list = 
-									'<tr>'+
-										'<td>'+
-											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-												'<i class="layui-icon">&#xe605;</i>'+
-											'</div>'+
-										'</td>'+
-										'<td>'+id+'</td>'+
-										'<td>'+title+'</td>'+
-										'<td>'+getMyDate(creation_time)+'</td>'+
-										'<td>'+getMyDate(modify_time)+'</td>'+
-										'<td>'+
-											'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
-										'</td>'+
-										'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
-										'<td class="td-manage">'+
-											"<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe642;</i>编辑</button>"+
-											'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
-										'</td>'+
-									'</tr>';
-								$("#columnList").append(list);
-								if(is_status==1){
-									$("#status"+id).removeClass('layui-btn-warm');
-									$("#status"+id).addClass('layui-btn-normal').html('已启用');
-								}
-							});
-							//分页
-							pagefun(total_page);
-						}else{
-							alert("栏目获取失败");
-						}
-			      	},
-				    error : function () {
-				      	document.write("error");
-				    }
-				});
-			}
-			
-			/*	时间戳转日期
-			 * 
-			 **/
-			function getMyDate(str){
-				//时间戳为十位数，*1000转换为13位
-	            var oDate = new Date(str*1000),  
-	            oYear = oDate.getFullYear(),  
-	            oMonth = oDate.getMonth()+1,  
-	            oDay = oDate.getDate(),  
-	            oHour = oDate.getHours(),  
-	            oMin = oDate.getMinutes(),  
-	            oSen = oDate.getSeconds(),  
-	            oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间  
-	            return oTime;  
-	        }; 
-	        //补0操作
-	      	function getzf(num){  
-		        if(parseInt(num) < 10){
-		            num = '0'+num;  
-		        }  
-		    	return num;  
-	     	}
-	      	
-	      	
-	      	
+			//渲染多选框事件
+		   	rendering_checkbox();
+			    	
+			    	
+			    	
 	      	//  页数变量
 		    var pageSum=0;
 		    //页数加
@@ -496,22 +478,6 @@
 	   			}
 		   	}
 		   	
-			//渲染多选框事件
-			$(document).on('click', '#icheckbox',function() {
-				if($(this).hasClass('layui-form-checked')) {
-					$(this).removeClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").removeClass('layui-form-checked');
-					}
-				} else {
-					$(this).addClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
-					}
-				}
-			});
-			
-      		
 		</script>
 	</body>
 </html>
