@@ -335,6 +335,43 @@ class SelectService {
 		}
 	}
 	/*
+	 * 通过栏目id获取已启动的新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsByColumnIdStatusTrue($data) {
+		if (isset($data["column_id"])) {
+			$page = null;
+			$size = null;
+			if (isset($data["page"]) && isset($data["size"])) {
+				if($data["page"]==0&&$data["size"]==0){
+					$result_news = $this -> newsDao -> findNewsByColumnIdStatusTrue($data["column_id"], null, null);
+				}else{
+					if ($data["page"] <= 0) {
+						$data["page"] = 1;
+					}
+					$page = ($data["page"] - 1) * $data["size"];
+					$size = $data["size"];
+					$result_news = $this -> newsDao -> findNewsByColumnIdStatusTrue($data["column_id"], $page, $size);
+				}
+			}else{
+				$result_news = $this -> newsDao -> findNewsByColumnIdStatusTrue($data["column_id"], 0, 10);
+			}
+			
+			//当前http链接拼接到图片路径
+			for ($i = 0; $i < count($result_news); $i++) {
+				if($result_news[$i]["cover"]!=""){
+					$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+				}
+				if($result_news[$i]["slideshow_cover"]!=""){
+					$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+				}
+			}
+			return $result_news;
+		} else {
+			error("缺少信息");
+		}
+	}
+	/*
 	 * 获取轮播新闻信息
 	 * 返回数量：多条
 	 * */

@@ -38,7 +38,7 @@ if(sessionIsLogin()){
  * 返回数量：单条
 {
     "status": true,
-    "message": "修改新闻成功",
+    "message": "删除图片成功",
     "code": 200
 }
  * 

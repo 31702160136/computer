@@ -9,12 +9,12 @@ if(sessionIsLogin()){
 		"page"=>@$_GET["page"],
 		"size"=>@$_GET["size"]
 	);
-	$result = $select_service -> getColumns($data);
+	$result = $select_service -> getColumnsStatusTrue($data);
 	$data_column_all=array(
 		"page"=>0,
 		"size"=>0
 	);
-	$result_column_all = $select_service ->getColumns($data_column_all);
+	$result_column_all = $select_service ->getColumnsStatusTrue($data_column_all);
 	if(isset($data["size"]) && $data["size"]!=0){
 		$size=$data["size"];
 	}else{

@@ -11,11 +11,11 @@ $data=array(
 $res_column = $select_service -> getColumnsStatusTrue($data);
 $data["column_title"]="招生就业";
 $res_zhaosheng=$select_service->getNewsStatusTrueByColumnTitle($data);
-$data["column_title"]="系部新闻";
+$data["column_title"]="新闻动态";
 $res_xibu=$select_service->getNewsStatusTrueByColumnTitle($data);
 $data["column_title"]="技能竞赛";
 $res_jineng=$select_service->getNewsStatusTrueByColumnTitle($data);
-$data["column_title"]="通知通告";
+$data["column_title"]="公告通知";
 $res_tongzhi=$select_service->getNewsStatusTrueByColumnTitle($data);
 //轮播新闻
 $res_slideshow=$select_service->getSlideshowsStatusTrue($data);
