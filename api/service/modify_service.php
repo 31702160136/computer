@@ -169,6 +169,29 @@ class ModifyService {
 		}
 	}
 	/*
+	 * 修改轮播新闻
+	 * */
+	public function modifySlideshow($data) {
+		if (isset($data["id"])) {
+			$id = $data["id"];
+			$result = $this -> slideshowDao -> findSlideshowById($id);
+			if (count($result) > 0) {
+				unset($data["id"]);
+				$data["modify_time"] = time();
+				$result = $this -> slideshowDao ->modifySlideshow($data, $id);
+				if ($result > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				error("没有此轮播新闻");
+			}
+		} else {
+			error("缺少必要信息：modifySlideshowStatus");
+		}
+	}
+	/*
 	 * 修改轮播新闻状态
 	 * */
 	public function modifySlideshowStatus($data) {
