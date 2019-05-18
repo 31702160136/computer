@@ -62,7 +62,7 @@ class NewsDao{
 		return $result;
 	}
 	public function findNewsById($id){
-		$sql = "select * from `news` where `id`=" . $id;
+		$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`id`=" . $id;
 		$result=$this->sql->query($sql);
 		return $result;
 	}

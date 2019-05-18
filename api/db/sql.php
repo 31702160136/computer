@@ -8,6 +8,7 @@ class Sql{
 		$this->link=$source->getSource();
 	}
 	function query($sql){
+		echo $sql;
 		$result = mysqli_query($this->link, $sql); //查询
 		$array=array();
 		if(mysqli_num_rows($result)>0){

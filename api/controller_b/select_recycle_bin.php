@@ -93,6 +93,7 @@ function notHaveParam($select_service,$data){
                 "is_top": "0",
                 "is_status": "0",
                 "column_id": "5",
+				"column": "公告通知",
                 "user_id": "4",
                 "creation_time": "1557642959",
                 "modify_time": "1557642959",
