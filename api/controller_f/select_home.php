@@ -6,7 +6,7 @@ include_once "./../utils/tools.php";
 $select_service = new SelectService();
 $data=array(
 	"page"=>1,
-	"size"=>1
+	"size"=>10
 );
 $res_column = $select_service -> getColumnsStatusTrue($data);
 $data["column_title"]="招生就业";
