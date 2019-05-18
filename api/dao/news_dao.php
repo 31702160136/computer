@@ -62,7 +62,7 @@ class NewsDao{
 		return $result;
 	}
 	public function findNewsById($id){
-		$sql = "select * from `news` where `id`=" . $id;
+		$sql = "select n.*,c.title as `column` from `news` n,`column` c where n.`column_id`=c.`id` and n.`id`=" . $id;
 		$result=$this->sql->query($sql);
 		return $result;
 	}
@@ -100,6 +100,21 @@ class NewsDao{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and c.`title`='" . $title."' 
+								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+		}
+		$result=$this->sql->query($sql);
+		return $result;
+	}
+	public function findNewsByColumnTitleStatusTrueOfCover($title,$page,$size){
+		if(isset($page)&&isset($size)){
+			$sql = "select n.*,c.title as `column` from 
+						`news` n,`column` c where n.`column_id`=c.`id` 
+							and n.`is_status`='1' and n.`cover` !='' and c.`title`='" . $title."' 
+								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+		}else{
+			$sql = "select n.*,c.title as `column` from 
+						`news` n,`column` c where n.`column_id`=c.`id` 
+							and n.`is_status`='1' and n.`cover` !='' and c.`title`='" . $title."' 
 								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);

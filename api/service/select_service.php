@@ -235,6 +235,38 @@ class SelectService {
 		return $result_news;
 	}
 /*
+	 * 根据标题获取已发布并且有封面图片的新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsStatusTrueByColumnTitleOfCover($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"]) && isset($data["column_title"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrueOfCover($data["column_title"],null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrueOfCover($data["column_title"],$page,$size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrueOfCover($data["column_title"],0,10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+/*
 	 * 获取已发布带有封面图片的新闻信息
 	 * 返回数量：多条
 	 * */

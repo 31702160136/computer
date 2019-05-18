@@ -125,6 +125,20 @@ class CreateService{
 				error("新闻恢复失败");
 			}
 			for($i=0;$i<count($result_recycle);$i++){
+				$res_column=$this->columnDao->findColumnByTitle($result_recycle[$i]["column"]);
+				if(!(count($res_column)>0)){
+					$column_data=array(
+						"title"=>$result_recycle[$i]["column"],
+						"creation_time"=>time(),
+						"modify_time"=>time()
+					);
+					$res_column2=$this->columnDao->createColumn($column_data);
+					if($res_column2>0){
+						$res_column3=$this->columnDao->findColumnByTitle($result_recycle[$i]["column"]);
+						$result_recycle[$i]["column_id"]=$res_column3[0]["id"];
+					}
+				}
+				unset($result_recycle[$i]["column"]);
 				unset($result_recycle[$i]["id"]);
 				unset($result_recycle[$i]["recycle_time"]);
 			}

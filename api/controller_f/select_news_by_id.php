@@ -3,16 +3,12 @@ include_once "./../handler/handler.php";
 include_once "./../service/select_service.php";
 include_once "./../utils/session_status.php";
 include_once "./../utils/tools.php";
-if (sessionIsLogin()) {
-	$select_service = new SelectService();
-	$data=array(
-		"id"=>@$_GET["id"]
-	);
-	$res_data=$select_service->getNewsById($data);
-	succeedOfInfo("获取新闻列表成功", $res_data);
-} else {
-	error("用户未登录");
-}
+$select_service = new SelectService();
+$data=array(
+	"id"=>@$_GET["id"]
+);
+$res_data=$select_service->getNewsById($data);
+succeedOfInfo("获取新闻列表成功", $res_data);
 /*
  * 通过新闻id获取新闻信息
  * 接口状态：完成
