@@ -167,7 +167,7 @@
           
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='./welcome.php' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
           <div id="tab_show"></div>

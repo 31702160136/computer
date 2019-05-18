@@ -37,7 +37,7 @@ if(sessionIsLogin()){
  * 参数：page
  * 参数：size
  * 返回：json
- * 返回数量：单条
+ * 返回数量：多条
 {
     "status": true,
     "message": "获取栏目列表成功",

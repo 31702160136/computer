@@ -83,6 +83,18 @@ class SelectService {
 		return $result;
 	}
 	/*
+	 * 统计栏目访问数量
+	 * 返回数量：多条
+	 * */
+	public function statisticsColumns($data) {
+		$result = $this -> columnDao -> statisticsColumns();
+		if(count($result)>0){
+			return $result;
+		}else{
+			error("无统计数据");
+		}
+	}
+	/*
 	 * 获取已启用的栏目信息
 	 * 返回数量：多条
 	 * */
@@ -136,6 +148,27 @@ class SelectService {
 			}
 		}
 		return $result_news;
+	}
+	/*
+	 * 通过新闻id获取新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsById($data) {
+		if (isset($data["id"])) {
+			$result_news = $this -> newsDao -> findNewsById($data["id"]);
+			//当前http链接拼接到图片路径
+			if(count($result_news)>0){
+				if($result_news[0]["cover"]!=""){
+					$result_news[0]["cover"] = getLink() . $result_news[0]["cover"];
+				}
+				if($result_news[0]["slideshow_cover"]!=""){
+					$result_news[0]["slideshow_cover"] = getLink() . $result_news[0]["slideshow_cover"];
+				}
+			}
+			return $result_news[0];
+		}else{
+			error("缺少必要参数：getNewsById");
+		}
 	}
 	/*
 	 * 获取已发布的新闻信息

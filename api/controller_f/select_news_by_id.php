@@ -6,49 +6,25 @@ include_once "./../utils/tools.php";
 if (sessionIsLogin()) {
 	$select_service = new SelectService();
 	$data=array(
-		"column_id"=>@$_GET["column_id"],
-		"page"=>@$_GET["page"],
-		"size"=>@$_GET["size"]
+		"id"=>@$_GET["id"]
 	);
-	$result = $select_service ->getNewsByColumnIdStatusTrue($data);
-	$data_news_all=array(
-		"column_id"=>@$_GET["column_id"],
-		"page"=>0,
-		"size"=>0
-	);
-	$result_news_all = $select_service ->getNewsByColumnIdStatusTrue($data_news_all);
-	if(isset($data["size"]) && $data["size"]!=0){
-		$size=$data["size"];
-	}else{
-		$size=10;
-	}
-	$page=getPage($result_news_all, $size);
-	//封装数据
-	$res_data=array(
-		"total_page"=>$page,
-		"data"=>$result
-	);
-	succeedOfInfo("获取新闻信息成功", $res_data);
+	$res_data=$select_service->getNewsById($data);
+	succeedOfInfo("获取新闻列表成功", $res_data);
 } else {
 	error("用户未登录");
 }
 /*
- * 通过栏目id获取新闻列表信息
+ * 通过新闻id获取新闻信息
  * 接口状态：完成
  * 类型：Get
- * 参数：column_id		//栏目id
- * 参数：page
- * 参数：size
+ * 参数：id	//新闻id
  * 返回：json
- * 返回数量：多条
+ * 返回数量：单条
 {
     "status": true,
     "message": "获取新闻信息成功",
     "code": 200,
     "data": {
-        "total_page": 8,
-        "data": [
-            {
                 "id": "49",						//新闻id
                 "title": "通信技术专业教学团队情况",	//新闻标题
                 "describe": "测试",				//新闻描述
@@ -68,9 +44,8 @@ if (sessionIsLogin()) {
                 "modify_time": "1558059314",
                 "column": "系部概况"				//栏目标题
             }
-        ]
-    }
 }
+ *  * 
  * 
  * */
 ?>

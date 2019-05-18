@@ -37,7 +37,7 @@ if(sessionIsLogin()){
  * 参数：page
  * 参数：size
  * 返回：json
- * 返回数量：单条
+ * 返回数量：多条
 {
     "status": true,
     "message": "获取栏目列表成功",
@@ -46,10 +46,10 @@ if(sessionIsLogin()){
         "total_page": 15,
         "data": [
             {
-                "id": "5",
-                "title": "2",
-                "index": "1",
-                "is_status": "1",
+                "id": "5",			//栏目id
+                "title": "教学科研",	//栏目标题
+                "index": "1",		//排序权重，可以不管，已经排序好
+                "is_status": "1",	//是否启动，默认获取启动栏目
                 "creation_time": "1554366223",
                 "modify_time": "1557461627"
             }

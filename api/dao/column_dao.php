@@ -15,7 +15,11 @@ class ColumnDao {
 		$result = $this -> sql -> query($sql);
 		return $result;
 	}
-	
+	public function statisticsColumns() {
+		$sql = "select c.*,sum(n.`count`) as `count` from `column` c,`news` n where n.`column_id`=c.`id` group by c.`id`";
+		$result = $this -> sql -> query($sql);
+		return $result;
+	}
 	public function findColumnsStatusTrue($page,$size) {
 		if(isset($page)&&isset($size)){
 			$sql = "select * from `column` where `is_status`='1'  ORDER BY `index` desc, `creation_time` desc limit ".$page.",".$size;
