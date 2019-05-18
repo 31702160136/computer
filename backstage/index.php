@@ -13,6 +13,7 @@
     <script type="text/javascript"src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>-->
 	<script src="js/host.js"></script>
 	<script src="js/is_login.js"></script>
+	<script src="js/tools.js"></script>
 	<script src="./lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="./js/xadmin.js"></script>
     <script type="text/javascript" src="./js/cookie.js"></script>
@@ -26,26 +27,14 @@
 <body>
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./index.html">计算机工程系后台管理</a></div>
+        <div class="logo"><a>计算机工程系后台管理</a></div>
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
-        <ul class="layui-nav left fast-add" lay-filter="">
-          <li class="layui-nav-item">
-            <a href="javascript:;">+新增</a>
-            <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('资讯','https://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
-              <dd><a onclick="x_admin_show('图片','https://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
-               <dd><a onclick="x_admin_show('用户 最大化','https://www.baidu.com','','',true)"><i class="iconfont">&#xe6b8;</i>用户最大化</a></dd>
-               <dd><a onclick="x_admin_add_to_tab('在tab打开','https://www.baidu.com',true)"><i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
-            </dl>
-          </li>
-        </ul>
         <ul class="layui-nav right" lay-filter="">
           <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a id="name"></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('修改密码','admin_chang_pwd.php',500,300)" target="_parent">修改密码</a></dd>
               <dd><a id="out_login">退出</a></dd>
             </dl>
@@ -65,7 +54,6 @@
                 <a _href="admin_list.php">
                     <i class="iconfont">&#xe726;</i>
                     <cite>用户管理</cite>
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
                 </a>
             </li>
         	
@@ -74,7 +62,6 @@
                 <a _href="column_list.php">
                     <i class="iconfont">&#xe723;</i>
                     <cite id="chaxunlanmu">栏目管理</cite>
-                    <!--<i class="iconfont nav_right">&#xe697;</i>-->
                 </a>
             </li>
         	
@@ -166,21 +153,6 @@
                     </li>
                 </ul>
             </li>-->
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="unicode.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
       </div>
     </div>
@@ -212,6 +184,10 @@
     
     <script src="js/host.js"></script>
     <script>
+    	
+    	
+		var name=decodeURI(getQueryVariable("name"));
+		$("#name").text(name);
     	/**
 		 * 退出登录
 		 */
