@@ -36,7 +36,7 @@ if (sessionIsLogin()) {
  * 通过栏目id获取新闻列表信息
  * 接口状态：完成
  * 类型：Get
- * 参数：column_id
+ * 参数：column_id		//栏目id
  * 参数：page
  * 参数：size
  * 返回：json

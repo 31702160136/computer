@@ -13,21 +13,24 @@
     </head>
     <body>
         <div class="x-body">
+        	<blockquote class="layui-elem-quote">
+              	茂名职业技术学院计算机工程系后台管理系统
+            </blockquote>
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
             <div id="main" style="width: 100%;height:400px;"></div>
         </div>
+        <script src="js/host.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.min.js" charset="utf-8"></script>
         <script src="//cdn.bootcss.com/echarts/3.3.2/extension/bmap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
-
         // 指定图表的配置项和数据
         option = {
             backgroundColor: '#2c343c',
-
             title: {
-                text: 'Customized Pie',
+                text: '访问统计',
                 left: 'center',
                 top: 20,
                 textStyle: {
@@ -54,13 +57,7 @@
                     type:'pie',
                     radius : '55%',
                     center: ['50%', '50%'],
-                    data:[
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'},
-                        {value:400, name:'搜索引擎'}
-                    ].sort(function (a, b) { return a.value - b.value}),
+                    data:[].sort(function (a, b) { return a.value - b.value}),
                     roseType: 'angle',
                     label: {
                         normal: {
@@ -89,8 +86,26 @@
                 }
             ]
         };
-
-
+		init();
+		function init(){
+			$.ajax({
+				type:"get",
+				url:host+"controller_b/statistics_columns.php",
+				async:true,
+				success:function(res){
+					var data=JSON.parse(res);
+					for(var i=0;i<data.data.length;i++){
+						var item={
+							value:parseInt(data.data[i].count),
+							name:data.data[i].title
+							
+						}
+						option.series[0].data.push(item);
+					}
+					myChart.setOption(option);
+				}
+			});
+		}
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
