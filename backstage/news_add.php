@@ -7,12 +7,11 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-		<script src="js/host.js"></script>
-		<!--<script src="js/is_login.js"></script>-->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
+		<script src="js/host.js"></script>
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
 		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
@@ -112,7 +111,7 @@
 			function column(){
 				$.ajax({
 					type:"get",
-					url: host + "controller_b/select_columns.php",
+					url: host + "controller_b/select_columns.php?page=1&size=100",
 					async:true,
 					datatype:'json',
 					success: function(data){
@@ -120,14 +119,8 @@
 						var total_page=res.data.total_page;
 						var category=res.data.data;
 						if (res.status) {
-							//绑定tbody列表ID
-							var columnList = document.getElementById('columnList');
-							//获取columnList的tr属性长度
-							var len = $("#columnList").find("tr").length;
-							//如果len长度大于0，删除所有行数
-							if(len >0){
-								$("#columnList").find('tr').remove();
-							}
+							//防止每次刷新以后都添加一次
+		      			 	$("#columnList").html(""); 
 							$.each(category, function(index,item) {
 								var id = item.id;
 								var title = item.title;
@@ -179,7 +172,7 @@
 //	                var rotationPhotoclick = $("#rotationPhotoclick").prop('files');
 	                //获取status状态选项，是否发布
 					var release = $("[name='release']").filter(":checked").attr("value"); 
-	                //获取option选中状态的动态添加id
+	                //获取option选中状态的动态id
 					var column_id = $("#columnNameList option:selected").attr("id");
 					if (column_id == "columnChoice") {
 						layer.msg('请选择此新闻所属栏目',{icon: 3,time:2000});

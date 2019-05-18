@@ -20,7 +20,7 @@
             <div id="main" style="width: 100%;height:400px;"></div>
         </div>
         <script src="js/host.js"></script>
-        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+   		<script type="text/javascript" src="js/jquery.min.js"></script>
         <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.min.js" charset="utf-8"></script>
         <script src="//cdn.bootcss.com/echarts/3.3.2/extension/bmap.min.js" type="text/javascript"></script>
         <script type="text/javascript">

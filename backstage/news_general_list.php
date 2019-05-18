@@ -2,18 +2,17 @@
 <html class="x-admin-sm">
 	<head>
 		<meta charset="UTF-8">
-		<title>欢迎页面-X-admin2.1</title>
+		<title>新闻管理==>所有新闻页面</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-		<script src="js/host.js"></script>
-		<script src="js/is_login.js"></script>
-		<script src="js/time_stamp_date.js"></script>
-		<script src="js/select_news.js"></script>
+ 	  	<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
+		<script src="js/host.js"></script>
+		<script src="js/is_login.js"></script>
+		<script src="js/time_stamp_date.js"></script>
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -21,38 +20,23 @@
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-		<style type="text/css">
-			.floatRight {
-				/*float: right;*/
-				/*margin-bottom: 20px;*/
-			}
-			.Omission {
-				/*width: 100%;
-    		height: 100%;*/
-				background-color: #0000FF;
-				/*强制不换行*/
-				white-space: nowrap;
-				/*超出显示省略号*/
-				text-overflow: ellipsis;
-				overflow: hidden;
-			}
-			
-			#prevModal {
-				width: 100%;
-				height: 100%;
-				text-align: center;
-				display: none;
-			}
-		</style>
 	</head>
-
+	<style type="text/css">
+		.floatRight{
+			float: right;
+		}
+		.floatLeft{
+			float: left;
+		}
+	</style>
+	
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
         <a href="">首页</a>
         <a href="">演示</a>
         <a>
-          <cite>普通新闻</cite></a>
+          <cite>所有新闻</cite></a>
       </span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
 				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -61,15 +45,26 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12 x-so">
 					<div class="layui-input-inline">
-						<input id="" class="layui-input" placeholder="请输入">
+						<select id="columnNameList" onchange="columnCilck()" lay-filter="select" lay-submit="">
+							<option selected="selected">所有新闻</option>
+							<option value="1" >所有新闻2</option>
+							<option value="2">所有新闻3</option>
+							<option value="3">所有新闻4</option>
+						</select>
 					</div>
-					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+					
+					<div class="floatRight">
+						<div class="layui-input-inline">
+						<input id="search_box" class="layui-input" placeholder="请输入要搜索的有关标题字段" style="width: 500px;">
+						</div>
+						<button class="layui-btn" id="search_btn" lay-filter="search" lay-submit=""><i class="layui-icon">&#xe615;</i></button>
+					</div>
+					
 				</form>
 			</div>
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 				<button class="layui-btn" onclick="x_admin_show('添加新闻','news_add.php',1200)"><i class="layui-icon"></i>添加</button>
-				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
 			
 			<table class="layui-table x-admin">
@@ -85,7 +80,7 @@
 						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
 						<th width="165px" style="text-align: center;">状态</th>
-						<th width="180px" style="text-align: center;">操作</th>
+						<th width="190px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
 				<tbody id="newsList" value="123">
@@ -105,7 +100,183 @@
 
 		</div>
 		<script>
+			
 			query_generalNews();
+			
+			/*
+			 * 	查询成功之后动态添加数据
+			 */
+			function dynamic_addition(category){
+				//防止每次刷新以后都添加一次
+		       	$("#newsList").html(""); 
+				$.each(category, function(index, item) {
+					var id = item.id;
+					var title = item.title;
+					var content = item.content;
+					var contributor = item.contributor;
+					var cover = item.cover;
+					if(cover == "") {
+						var cover = window.location.host + "/computer/backstage/images/no_photo.jpg";
+					}
+					var slideshow_cover = item.slideshow_cover; //轮播图片
+					var is_hot = item.is_hot;
+					var is_top = item.is_top;
+					var is_status = item.is_status;
+					var column = item.column;
+					var column_id = item.column_id;
+					var user_id = item.user_id;
+					var creation_time = item.creation_time;
+					var doEditItem=JSON.stringify(slideshow_cover);
+					var list = 
+						'<tr>'+
+							'<td>'+
+								'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
+									'<i class="layui-icon">&#xe605;</i>'+
+								'</div>'+
+							'</td>'+
+							'<td align="center">'+id+'</td>'+
+							'<td><img src="http://'+cover+'" /></td>'+
+							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
+							'<td align="center">'+column+'</td>'+
+							'<td align="center">'+contributor+'</td>'+
+							'<td>'+getMyDate(creation_time)+'</td>'+
+							'<td class="td-manage">'+
+								'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
+								'<button id="top'+id+'" class="layui-btn layui-btn-disabled" onclick="top_edit(this,'+id+','+is_top+')">置顶</button>'+
+								'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">热点</button>'+
+							'</td>'+
+							'<td class="td-manage">'+
+								'<button id="slideshow'+id+'" class="layui-btn layui-btn-warm" onclick="uploadFile(this,'+id+','+doEditItem.replace(/\"/g,"'")+')"><i class="layui-icon layui-icon-set" style="font-size: 10px; "></i>设置轮播新闻</button>'+
+								'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+',)"><i class="layui-icon">&#xe640;</i>删除</button>'+
+							'</td>'+
+						'</tr>';
+					$("#newsList").append(list);
+					if (slideshow_cover != null || slideshow_cover != "") {
+						$("#slideshow"+id).removeClass('layui-btn-warm');
+						$("#slideshow"+id).addClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 已设轮播新闻');
+					}
+					if (slideshow_cover == null || slideshow_cover == "") {
+						$("#slideshow"+id).removeClass('layui-btn-disabled');
+						$("#slideshow"+id).addClass('layui-btn-warm').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 设置轮播新闻');
+					}
+					if(is_hot==1){
+						$("#hot"+id).removeClass('layui-btn-disabled');
+						$("#hot"+id).addClass('layui-btn-danger');
+					}
+					if(is_top==1){
+						$("#top"+id).removeClass('layui-btn-disabled');
+						$("#top"+id).addClass('layui-btn-xs');
+					}
+					if(is_status==1){
+						$("#status"+id).removeClass('layui-btn-disabled');
+						$("#status"+id).addClass('layui-btn-normal').html('启用');
+					}
+				});
+			}
+			
+			/**
+			 * 	查询普通新闻
+			 *		query_generalNews()
+			 */
+			function query_generalNews(){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_news.php",
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var category = res.data.data;
+						if(res.status) {
+							dynamic_addition(category);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});		
+			}
+			
+			/**	
+			 * 	搜索新闻，根据栏目名称搜索
+			 */
+			layui.use(['form', 'layer'],function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                	layer = layui.layer;
+                
+                form.on('submit(select)',function(data) {
+                	//获取option选中状态的动态id
+					var column_name = $("#columnNameList option:selected").attr("value");
+			 		console.log(column_name);
+			 		console.log(data.value);
+                });
+                
+                
+                //监听提交
+                form.on('submit(search)',function(data) {
+					$.ajax({
+						type: "get",
+						url: host + "controller_b/select_news.php?title="+column_name,
+						async: true,
+						datatype: 'json',
+						success: function(data) {
+							var res = JSON.parse(data);
+							var total_page = res.data.total_page;
+							var category = res.data.data;
+							if(res.status) {
+								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
+								//添加数据
+								dynamic_addition(category);
+							} else {
+								alert("新闻获取失败");
+							}
+						},
+						error: function() {
+							document.write("error");
+						}
+					});
+					return false;
+            	});
+			});
+			
+			/**	
+			 * 	搜索新闻，根据新闻的标题搜索
+			 */
+			layui.use(['form', 'layer'],function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                	layer = layui.layer;
+                //监听提交
+                form.on('submit(search)',function(data) {
+                	var serach_box = $("#search_box").val();
+					$.ajax({
+						type: "get",
+						url: host + "controller_b/select_news.php?title="+serach_box,
+						async: true,
+						datatype: 'json',
+						success: function(data) {
+							var res = JSON.parse(data);
+							var total_page = res.data.total_page;
+							var category = res.data.data;
+							if(res.status) {
+								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
+								//添加数据
+								dynamic_addition(category);
+							} else {
+								alert("新闻获取失败");
+							}
+						},
+						error: function() {
+							document.write("error");
+						}
+					});
+					return false;
+            	});
+			});
 			
 			/*
 			 * 	设置轮播新闻按钮监听
