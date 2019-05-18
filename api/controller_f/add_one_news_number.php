@@ -2,19 +2,15 @@
 include_once "./../handler/handler.php";
 include_once "./../service/modify_service.php";
 include_once "./../service/select_service.php";
-if (sessionIsLogin()) {
-	$modify_service = new ModifyService();
-	$data = array(
-		"id"=>@$_POST["id"]
-	);
-	$result = $modify_service ->addOneNewsNumBer($data);
-	if ($result) {
-		succeed("增加新闻访问次数成功");
-	} else {
-		error("增加新闻访问次数失败");
-	}
+$modify_service = new ModifyService();
+$data = array(
+	"id"=>@$_POST["id"]
+);
+$result = $modify_service ->addOneNewsNumBer($data);
+if ($result) {
+	succeed("增加新闻访问次数成功");
 } else {
-	error("用户未登录");
+	error("增加新闻访问次数失败");
 }
 /*
  * 增加新闻访问次数接口
