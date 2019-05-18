@@ -37,10 +37,10 @@ if (sessionIsLogin()) {
  * 接口状态：完成
  * 类型：Get
  * 参数：column_id		//栏目id
- * 参数：page
- * 参数：size
+ * 参数：page				//页数(选填)
+ * 参数：size				//每页获取的数量(选填)
  * 返回：json
- * 返回数量：多条
+ * 返回数量：多条			//默认10条
 {
     "status": true,
     "message": "获取新闻信息成功",
