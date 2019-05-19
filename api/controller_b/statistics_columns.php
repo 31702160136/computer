@@ -6,7 +6,7 @@ include_once "./../utils/tools.php";
 if(sessionIsLogin()){
 	$select_service = new SelectService();
 	$result = $select_service -> statisticsColumns($data);
-	succeedOfInfo("获取栏目列表成功", $result);
+	succeedOfInfo("获取栏目统计成功", $result);
 }else{
 	error("用户未登录");
 }
