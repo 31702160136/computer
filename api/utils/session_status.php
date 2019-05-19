@@ -13,6 +13,7 @@ function sessionLogin($data) {
 	$_SESSION['id'] = $data["id"];
 	$_SESSION['username'] = $data["username"];
 	$_SESSION['role'] = $data["role"];
+	$_SESSION['name'] = $data["name"];
 }
 
 function getSessionUserName() {
@@ -22,6 +23,10 @@ function getSessionUserName() {
 function getSessionId() {
 	@session_start();
 	return $_SESSION['id'];
+}
+function getSessionName() {
+	@session_start();
+	return $_SESSION['name'];
 }
 function getSessionRole() {
 	@session_start();

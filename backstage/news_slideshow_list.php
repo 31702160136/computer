@@ -6,14 +6,13 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-		<script src="js/host.js"></script>
-		<script src="js/is_login.js"></script>
-		<script src="js/time_stamp_date.js"></script>
-		<script src="js/select_news.js"></script>
+   		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
 		<script type="text/javascript" src="./js/cookie.js"></script>
+		<script src="js/host.js"></script>
+		<script src="js/is_login.js"></script>
+		<script src="js/time_stamp_date.js"></script>
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -59,17 +58,8 @@
 			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
-			<div class="layui-row">
-				<form class="layui-form layui-col-md12 x-so">
-					<div class="layui-input-inline">
-						<input id="" class="layui-input" placeholder="请输入">
-					</div>
-					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-				</form>
-			</div>
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-				<span class="x-right" style="line-height:40px">共有数据：88 条</span>
 			</xblock>
 			
 			<table class="layui-table x-admin">
@@ -110,7 +100,81 @@
 			 * 	查询轮播通新闻
 			 */
 			query_broadCastNews();
-
+			
+			
+			/*
+			 * 	查询成功之后动态添加数据
+			 */
+			function dynamic_addition(category){
+				//防止每次刷新以后都添加一次
+       			$("#newsList").html(""); 
+				$.each(category, function(index, item) {
+					var id = item.id;
+					var news_id = item.news_id;
+					var title = item.title;
+					var slideshow_cover = item.slideshow_cover; //轮播图片
+					var column = item.column;
+					var contributor = item.contributor;
+					var index = item.index;
+					var is_status = item.is_status;
+					var creation_time = item.creation_time;
+					var doEditItem=JSON.stringify(slideshow_cover);
+					var list = 
+						'<tr>'+
+							'<td>'+
+								'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
+									'<i class="layui-icon">&#xe605;</i>'+
+								'</div>'+
+							'</td>'+
+							'<td align="center">'+news_id+'</td>'+
+							'<td><img src="http://'+slideshow_cover+'" /></td>'+
+							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
+							'<td align="center">'+column+'</td>'+
+							'<td>'+getMyDate(creation_time)+'</td>'+
+							'<td>'+
+								'<input type="text" class="layui-input x-sort" onchange="index_edit(this,'+id+')"  value='+index+'>'+
+							'</td>'+
+							'<td class="td-manage">'+
+								'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">已停用</button>'+
+							'</td>'+
+							'<td class="td-manage">'+
+								'<button class="layui-btn layui-btn-danger" onclick="cancel_slideshow(this,'+id+','+news_id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
+							'</td>'+
+						'</tr>';
+						$("#newsList").append(list);
+						if(is_status==1){
+							$("#status"+id).removeClass('layui-btn-disabled');
+							$("#status"+id).addClass('layui-btn-normal').html('已启用');
+						}
+				});
+			}
+			
+			/**
+			 * 	查询轮播新闻
+			 *		query_broadCastNews()
+			 */
+			function query_broadCastNews(){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_slideshow.php",
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var category = res.data.data;
+						if(res.status) {
+							dynamic_addition(category);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});
+			}
+			
 			
 			/* 删除轮播新闻：
 			 * 

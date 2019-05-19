@@ -16,7 +16,7 @@ class ColumnDao {
 		return $result;
 	}
 	public function statisticsColumns() {
-		$sql = "select c.*,sum(n.`count`) as `count` from `column` c,`news` n where n.`column_id`=c.`id` group by c.`id`";
+		$sql = "select c.*,sum(n.`count`) as `count`,count(n.`id`) as `news_sum` from `column` c,`news` n where n.`column_id`=c.`id` group by c.`id`";
 		$result = $this -> sql -> query($sql);
 		return $result;
 	}

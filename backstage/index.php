@@ -9,14 +9,12 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <script src="js/jquery.min.js"></script>
     <script src="js/md5.min.js"></script>
-    <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript"src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>-->
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
 	<script src="js/host.js"></script>
 	<script src="js/is_login.js"></script>
 	<script src="js/tools.js"></script>
-	<script src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
-    <script type="text/javascript" src="./js/cookie.js"></script>
     <link rel="stylesheet" href="./css/font.css">
 	<link rel="stylesheet" href="./css/xadmin.css">
     <script>
@@ -75,7 +73,7 @@
                     <li>
                         <a _href="news_general_list.php">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>普通新闻</cite>
+                            <cite>所有新闻</cite>
                         </a>
                     </li>
                 </ul>

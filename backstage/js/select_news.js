@@ -59,11 +59,11 @@ function query_generalNews(){
 				$("#newsList").append(list);
 				if (slideshow_cover != null || slideshow_cover != "") {
 					$("#slideshow"+id).removeClass('layui-btn-warm');
-					$("#slideshow"+id).addClass('layui-btn-disabled').html('已设轮播新闻');
+					$("#slideshow"+id).addClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 已设轮播新闻');
 				}
 				if (slideshow_cover == null || slideshow_cover == "") {
 					$("#slideshow"+id).removeClass('layui-btn-disabled');
-					$("#slideshow"+id).addClass('layui-btn-warm').html('设置轮播新闻');
+					$("#slideshow"+id).addClass('layui-btn-warm').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 设置轮播新闻');
 				}
 				if(is_hot==1){
 					$("#hot"+id).removeClass('layui-btn-disabled');

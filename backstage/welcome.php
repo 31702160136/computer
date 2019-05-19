@@ -12,17 +12,77 @@
         <link rel="stylesheet" href="./css/xadmin.css">
     </head>
     <body>
+    	<br />
+    	<fieldset class="layui-elem-field">
+    		<legend>管理员信息</legend>
+    		<div class="layui-field-box">
+                <table class="layui-table" lay-skin="line">
+                    <tbody>
+                        <tr>
+                            <td id="info_username">
+                               	账号：admin
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="info_name">
+                               	管理员：xxx
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="info_role">
+                               	角色：普通管理员
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    	</fieldset>
+    	<fieldset class="layui-elem-field">
+            <legend>数据统计</legend>
+            <div class="layui-field-box">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-carousel x-admin-carousel x-admin-backlog" lay-anim="" lay-indicator="inside" lay-arrow="none" style="width: 100%; height: 90px;">
+                                <div carousel-item="">
+                                    <ul class="layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>栏目数</h3>
+                                                <p>
+                                                    <cite id="column">66</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>文章数</h3>
+                                                <p>
+                                                    <cite id="news">12</cite></p>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs2">
+                                            <a href="javascript:;" class="x-admin-backlog-body">
+                                                <h3>总访问数</h3>
+                                                <p>
+                                                    <cite id="visit">99</cite></p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
         <div class="x-body">
-        	<blockquote class="layui-elem-quote">
-              	茂名职业技术学院计算机工程系后台管理系统
-            </blockquote>
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
             <div id="main" style="width: 100%;height:400px;"></div>
         </div>
         <script src="js/host.js"></script>
-        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.min.js" charset="utf-8"></script>
-        <script src="//cdn.bootcss.com/echarts/3.3.2/extension/bmap.min.js" type="text/javascript"></script>
+   		<script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="js/echarts.min.js" charset="utf-8"></script>
+        <script src="js/bmap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
@@ -48,7 +108,7 @@
                 min: 80,
                 max: 600,
                 inRange: {
-                    colorLightness: [0, 1]
+                    colorLightness: [0, 2]
                 }
             },
             series : [
@@ -62,14 +122,14 @@
                     label: {
                         normal: {
                             textStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
+                                color: 'rgba(255, 255, 255, 0.5)'
                             }
                         }
                     },
                     labelLine: {
                         normal: {
                             lineStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
+                                color: 'rgba(255, 255, 255, 0.5)'
                             },
                             smooth: 0.2,
                             length: 10,
@@ -94,15 +154,37 @@
 				async:true,
 				success:function(res){
 					var data=JSON.parse(res);
+					var column_sum=0;
+					var news_sum=0;
+					var visit_sum=0;
 					for(var i=0;i<data.data.length;i++){
+						//写入访问统计数据
 						var item={
 							value:parseInt(data.data[i].count),
 							name:data.data[i].title
-							
 						}
+						console.log(data.data[i].count);
+						//写入数据统计数据
+						column_sum++;
+						news_sum+=parseInt(data.data[i].news_sum);
+						visit_sum+=parseInt(data.data[i].count);
 						option.series[0].data.push(item);
 					}
 					myChart.setOption(option);
+					$("#column").text(column_sum);
+					$("#news").text(news_sum);
+					$("#visit").text(visit_sum);
+				}
+			});
+			$.ajax({
+				type:"get",
+				url:host+"controller_b/select_user.php",
+				async:true,
+				success:function(res){
+					var data=JSON.parse(res);
+					$("#info_username").text("账号："+data.data.username);
+					$("#info_name").text("姓名："+data.data.name);
+					$("#info_role").text("角色："+data.data.role);
 				}
 			});
 		}
@@ -110,14 +192,5 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-        </script>
     </body>
 </html>
