@@ -141,7 +141,7 @@
                 	var serach_box = $("#search_box").val();
 					$.ajax({
 						type: "get",
-						url: host + "controller_b/select_recycle_bin.php?title="+serach_box,
+						url: host + "controller_b/select_recycle_bin.php?page=1&size=100&title="+serach_box,
 						async: true,
 						datatype: 'json',
 						success: function(data) {

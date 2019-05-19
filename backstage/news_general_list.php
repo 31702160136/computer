@@ -42,24 +42,25 @@
 				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
-			<div class="layui-row">
-				<form class="layui-form layui-col-md12 x-so">
-					<div class="layui-input-inline">
-						<select id="columnNameList" onchange="columnCilck()" lay-filter="select" lay-submit="">
-							<option selected="selected">所有新闻</option>
-							<option value="1" >所有新闻2</option>
-							<option value="2">所有新闻3</option>
-							<option value="3">所有新闻4</option>
-						</select>
+			<form class="layui-form" id="form_type">
+				<div class="layui-row">
+					<div class="layui-form-item floatLeft">
+						<div class="layui-input-inline columnNameList" style="width: 150px;">
+							<select id="columnNameList">
+								<option selected="selected">所有新闻</option>
+							</select>
+						</div>	
+						<button class="layui-btn" id="search_btn" lay-filter="select" lay-submit="">确定</button>
 					</div>
+					
+					
 					
 					<div class="floatRight">
 						<div class="layui-input-inline">
-						<input id="search_box" class="layui-input" placeholder="请输入要搜索的有关标题字段" style="width: 500px;">
+							<input type="text" id="search_box" class="layui-input" placeholder="请输入要搜索的有关标题字段" style="width: 500px;">
 						</div>
 						<button class="layui-btn" id="search_btn" lay-filter="search" lay-submit=""><i class="layui-icon">&#xe615;</i></button>
 					</div>
-					
 				</form>
 			</div>
 			<xblock>
@@ -100,8 +101,37 @@
 
 		</div>
 		<script>
-			
 			query_generalNews();
+			column();
+			
+			function column(){
+				$.ajax({
+					type:"get",
+					url: host + "controller_b/select_columns.php?page=1&size=100",
+					async:true,
+					datatype:'json',
+					success: function(data){
+						var res=JSON.parse(data);
+						var total_page=res.data.total_page;
+						var category=res.data.data;
+						if (res.status) {
+							$.each(category, function(index,item) {
+								var id = item.id;
+								var title = item.title;
+								var list = 
+									'<option value="'+title+'" id="column'+id+'">'+title+'</option>';
+								$("#columnNameList").append(list);
+							});
+						}else{
+							alert("栏目获取失败");
+						}
+			      	},
+				    error : function () {
+				      	document.write("error");
+				    }
+				});
+			}
+			
 			
 			/*
 			 * 	查询成功之后动态添加数据
@@ -201,7 +231,7 @@
 			}
 			
 			/**	
-			 * 	搜索新闻，根据栏目名称搜索
+			 * 	搜索新闻，根据新闻的标题搜索
 			 */
 			layui.use(['form', 'layer'],function() {
                 $ = layui.jquery;
@@ -210,52 +240,19 @@
                 
                 form.on('submit(select)',function(data) {
                 	//获取option选中状态的动态id
-					var column_name = $("#columnNameList option:selected").attr("value");
-			 		console.log(column_name);
-			 		console.log(data.value);
+					var column_id = $("#columnNameList option:selected").attr("id");
+                	console.log(column_id);
+                	// 可以对父窗口进行刷新 
+					x_admin_father_reload();
+                	column();
                 });
                 
-                
-                //监听提交
-                form.on('submit(search)',function(data) {
-					$.ajax({
-						type: "get",
-						url: host + "controller_b/select_news.php?title="+column_name,
-						async: true,
-						datatype: 'json',
-						success: function(data) {
-							var res = JSON.parse(data);
-							var total_page = res.data.total_page;
-							var category = res.data.data;
-							if(res.status) {
-								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
-								//添加数据
-								dynamic_addition(category);
-							} else {
-								alert("新闻获取失败");
-							}
-						},
-						error: function() {
-							document.write("error");
-						}
-					});
-					return false;
-            	});
-			});
-			
-			/**	
-			 * 	搜索新闻，根据新闻的标题搜索
-			 */
-			layui.use(['form', 'layer'],function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                	layer = layui.layer;
                 //监听提交
                 form.on('submit(search)',function(data) {
                 	var serach_box = $("#search_box").val();
 					$.ajax({
 						type: "get",
-						url: host + "controller_b/select_news.php?title="+serach_box,
+						url: host + "controller_b/select_news.php?page=1&size=100&title="+serach_box,
 						async: true,
 						datatype: 'json',
 						success: function(data) {
@@ -276,6 +273,7 @@
 					});
 					return false;
             	});
+            	form.render();
 			});
 			
 			/*

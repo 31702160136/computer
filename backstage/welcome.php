@@ -21,8 +21,8 @@
         </div>
         <script src="js/host.js"></script>
    		<script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="//cdn.bootcss.com/echarts/3.3.2/echarts.min.js" charset="utf-8"></script>
-        <script src="//cdn.bootcss.com/echarts/3.3.2/extension/bmap.min.js" type="text/javascript"></script>
+        <script src="js/echarts.min.js" charset="utf-8"></script>
+        <script src="js/bmap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));
@@ -110,14 +110,5 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-        </script>
     </body>
 </html>

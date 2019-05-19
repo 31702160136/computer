@@ -119,8 +119,6 @@
 						var total_page=res.data.total_page;
 						var category=res.data.data;
 						if (res.status) {
-							//防止每次刷新以后都添加一次
-		      			 	$("#columnList").html(""); 
 							$.each(category, function(index,item) {
 								var id = item.id;
 								var title = item.title;
