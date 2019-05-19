@@ -4006,7 +4006,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 20px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -4060,7 +4060,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #555;
   cursor: default;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border-left: 3px solid cornflowerblue;
   border-bottom-color: transparent;
 }
 .nav-tabs.nav-justified {
@@ -5024,11 +5024,8 @@ a.badge:focus {
 }
 .thumbnail {
   display: block;
-  padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
-  border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border .2s ease-in-out;
        -o-transition: border .2s ease-in-out;
@@ -6794,8 +6791,9 @@ button.close {
   	padding: 2px;
   	 font-size: 16px;
   }
-  .deviation{
-  	margin-left: -80px;margin-top: 20px;
+ 
+	.deviation{
+  	margin-left: -80px;margin-top: 50px;
   }
 }
 @media only screen and (max-width: 992px) {
@@ -6805,19 +6803,11 @@ button.close {
 	 	.pic_news_right>div{
 	 		padding: 5px 0px;
 	 	}
-	 	
 	}
-	@media only screen and (max-width: 768px) {
-		.pic_news_right a img {
-			width: 80px;
-			height: 65px;
+	@media only screen and (max-width: 992px) {
+		.pic_news img{
+			height: 80px;
 		}
-	}
-	@media (min-width: 768px) and (max-width: 992px) {
-		.pic_news_right a div{
-			height: 87px;
-		}
-	 	
 	}
 	
 /*# sourceMappingURL=bootstrap.css.map */

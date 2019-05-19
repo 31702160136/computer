@@ -1,152 +1,430 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>茂名职业技术学院 - 计算机工程系</title>
-<meta name="Keywords" content="茂名职业技术学院,计算机工程系" />
-<meta name="Description" content="计算机工程系" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-	<link rel="stylesheet" href="js/bootstrap-3.3.7-dist/css/bootstrap.css">
-	<script src="js/jquery-3.3.1.js"></script>
-	<script src="js/bootstrap-3.3.7-dist/js/bootstrap.js"></script> 
-	
-	<link rel="stylesheet" href="OwlCarousel2-2.3.4/dist/assets/owl.carousel.css">
-	<link rel="stylesheet" href="OwlCarousel2-2.3.4/docs/assets/owlcarousel/assets/owl.theme.default.min.css">
-	<script src="OwlCarousel2-2.3.4/dist/owl.carousel.js"></script>
-	
-</head>
-<style type="text/css">
-	.hander-logo{
-		padding-bottom: 15px;
-		padding-top: 15px;
-	}
-	.hander-title{
-		font-family: "华文行楷";
-		font-size: 48px;
-	}
-	.care{
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>茂名职业技术学院 - 计算机工程系</title>
+		<meta name="Keywords" content="茂名职业技术学院,计算机工程系" />
+		<meta name="Description" content="计算机工程系" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	</head>
+	<style type="text/css">
 		
-		width: 200px;
-		height: 100px;
-		background: #999;
-	}
-</style>
-<body>
-<header>
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container"> 
-    	<div class="hander-logo">
-		    <div class="container">
-		      <div class="row">
-		        <div class="col-md-6">
-		        	<img class="img-responsive" src="http://www.mmvtc.cn/templet/jsjgcx/images/logoarea.png"/></div>
-		        <div class="col-md-6"> 
-		         	<div class="hander-title">计算机工程系</div>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-
-    <div class="navbar-header col-lg-12">
-        
-        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target="#example-navbar-collapse">
-            <span class="sr-only">切换导航</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="collapse navbar-collapse col-lg-12" id="example-navbar-collapse">
-        <ul class="nav navbar-nav navbar-right" >
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-            	 <li class="active"><a href="#">iOS</a></li>
-            	 <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-             <li class="active"><a href="#">iOS</a></li>
-            <li><a href="#">SVN</a></li>
-        </ul>
-    </div>
-    </div>
-</nav>
-</header>
-<!--轮播图-->
-<div id="owl-demo" class="owl-carousel owl-theme">
-   <a class="item" href="#"><img src="images/1.jpg" alt=""></a> 
-   <a class="item" href="#"><img src="images/2.jpg" alt=""></a> 
-   <a class="item" href="#"><img src="images/3.jpg" alt=""></a>
-   <a class="item" href="#"><img src="images/4.jpg" alt=""></a>
-</div>
-
-
-
-<section id="news" class="container-fluid">	
-	<div class="row">
-		<div class="col-md-3" style="background: #999;">
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-		</div>
-		<div class="col-md-3 col-md-offset-1" style="background: #999;">
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-		</div>
-		<div class="col-md-3 col-md-offset-1" style="background: #999;">
-			<h3>这是新闻区域</h3>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-			<p>这是新闻</p>
-		</div>
-	</div>
-</section>
-
-<script>
-	$(function(){
-		// 初始化轮播
-		$(".start-slide").click(function(){
-			$("#myCarousel").carousel('cycle');
-		});
-		// 停止轮播
-		$(".pause-slide").click(function(){
-			$("#myCarousel").carousel('pause');
-		});
-		// 循环轮播到上一个项目
-		$(".prev-slide").click(function(){
-			$("#myCarousel").carousel('prev');
-		});
-		// 循环轮播到下一个项目
-		$(".next-slide").click(function(){
-			$("#myCarousel").carousel('next');
-		});
-		// 循环轮播到某个特定的帧 
-		$(".slide-one").click(function(){
-			$("#myCarousel").carousel(0);
-		});
-		$(".slide-two").click(function(){
-			$("#myCarousel").carousel(1);
-		});
-		$(".slide-three").click(function(){
-			$("#myCarousel").carousel(2);
-		});
+		body {
+			background-color: #1b1b1b
+		}
 		
-		$("#owl-demo").owlCarousel({
-			items:1,
-			autoPlay:true
-		});
+		.header {
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
+			height: 50px;
+			padding: 0 30px;
+			background: rgba(28, 35, 39, .8)
+		}
 		
-	});
-</script>
-</body>
+		.header .left {
+			width: 12%
+		}
+		
+		.header .left a img {
+			height: 40px;
+			margin-top: 6px
+		}
+		
+		.header .left .img2 {
+			display: none
+		}
+		
+		.header .nav {
+			-webkit-transition: .5s;
+			-moz-transition: .5s;
+			-o-transition: .5s;
+			transition: .5s;
+			height: 100%;
+			line-height: 50px;
+			display: block
+		}
+		
+		.header .navbar_nav li {
+			float: left;
+			position: relative;
+			display: block
+		}
+		
+		.header .navbar_nav li:after {
+			content: "";
+			width: 0;
+			height: 2px;
+			background: #ff4500;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			transition: all .5s ease 0s
+		}
+		
+		.header .navbar_nav li:hover:after {
+			width: 100%
+		}
+		
+		.header .navbar_nav li a {
+			text-decoration: none;
+			height: 100%;
+			padding: 0 25px;
+			display: block;
+			-webkit-transition: .5s;
+			-moz-transition: .5s;
+			-o-transition: .5s;
+			transition: .5s;
+			color: #fff;
+			font-size: 16px
+		}
+		
+		.header .navbar_nav li:hover a {
+			color: #ff4500
+		}
+		
+		.header .navbar_nav li.dropdown {
+			display: inherit;
+			position: relative
+		}
+		
+		.header .navbar_nav li.dropdown .jt {
+			width: 20px;
+			height: 20px;
+			background: url(i/top.png) no-repeat;
+			background-size: 100% 100%;
+			display: block
+		}
+		
+		.header .navbar_nav li.dropdown .dropdown_menu {
+			display: none;
+			position: absolute;
+			top: 50px;
+			width: 100%;
+			background: #fff;
+			box-shadow: 0 15px 27px 0 rgba(167, 165, 165, .38);
+			width: 120%;
+			left: -10%
+		}
+		
+		.header .navbar_nav li.dropdown .dropdown_menu a {
+			font-size: 14px;
+			color: #666;
+			padding: 0 10px;
+			line-height: 40px;
+			text-align: center;
+			background: #fff;
+			margin-bottom: 2px
+		}
+		
+		.header .navbar_nav li.dropdown:hover .dropdown_menu {
+			display: block;
+			background: #f3f3f3;
+			-webkit-transition: .5s;
+			-moz-transition: .5s;
+			-o-transition: .5s;
+			transition: .5s
+		}
+		
+		.header .navbar_nav li.dropdown:hover .dropdown_menu a {
+			color: #666
+		}
+		
+		.header .navbar_nav li.dropdown:hover .dropdown_menu a:hover {
+			color: #fff;
+			background: orange
+		}
+		
+		.header.on {
+			background: #fff;
+			border-bottom: 1px solid #ccc
+		}
+		
+		.header.on .left .img1 {
+			display: none
+		}
+		
+		.header.on .left .img2 {
+			display: block
+		}
+		
+		.header.on .navbar_nav li a {
+			color: #333
+		}
+		
+		.header.on .navbar_nav li:hover a {
+			color: #ff4500
+		}
+		
+		#navToggle {
+			display: none
+		}
+		
+		.m_nav {
+			position: fixed;
+			top: 0;
+			box-shadow: 0 15px 27px 0 rgba(167, 165, 165, .38);
+			width: 100%;
+			height: 100%;
+			background: #fff;
+			transition: all ease .5s;
+			-webkit-transition: all ease .5s;
+			z-index: 1000;
+			opacity: 1;
+			visibility: visible;
+			margin-top: 0;
+			overflow-y: auto;
+			transition: all .6s cubic-bezier(.77, 0, .175, 1) 0ms;
+			top: 0;
+			transform: translateX(100%)
+		}
+		
+		.m_nav.open {
+			transform: translateX(0)
+		}
+		
+		.m_nav .top {
+			height: 60px;
+			padding: 20px;
+			box-sizing: border-box
+		}
+		
+		.m_nav .top .closed {
+			width: 30px;
+			height: 30px;
+			vertical-align: middle;
+			float: right;
+			cursor: pointer
+		}
+		
+		.m_nav .logo {
+			width: 100%;
+			margin: 0 auto
+		}
+		
+		.m_nav .logo img {
+			height: 50px;
+			display: block;
+			margin: 30px auto
+		}
+		
+		.m_nav .ul {
+			margin-top: 30px
+		}
+		
+		.m_nav .ul li {
+			padding: 0 20px;
+			border-bottom: 1px solid #f5f5f5;
+			transform: translateY(0);
+			-webkit-transform: translateY(100%);
+			transform: translateY(100%);
+			-webkit-transition: all .6s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all .6s cubic-bezier(.77, 0, .175, 1) 0ms;
+			opacity: 0
+		}
+		
+		.m_nav.open .ul li {
+			opacity: 1;
+			-webkit-transform: translateY(0);
+			transform: translateY(0)
+		}
+		
+		.m_nav .ul li:nth-child(1) {
+			-webkit-transition: all .2s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all .2s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li:nth-child(2) {
+			-webkit-transition: all .4s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all .4s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li:nth-child(3) {
+			-webkit-transition: all .6s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all .6s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li:nth-child(4) {
+			-webkit-transition: all .8s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all .8s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li:nth-child(5) {
+			-webkit-transition: all 1s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all 1s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li:nth-child(6) {
+			-webkit-transition: all 1.2s cubic-bezier(.77, 0, .175, 1) 0ms;
+			transition: all 1.2s cubic-bezier(.77, 0, .175, 1) 0ms
+		}
+		
+		.m_nav .ul li a {
+			display: block;
+			text-decoration: none;
+			color: #333;
+			font-size: 16px;
+			height: 50px;
+			line-height: 50px;
+			width: 100%
+		}
+		
+		.m_nav .ul li .dropdown_menu {
+			display: none
+		}
+		
+		.m_nav .ul li.dropdown.active .dropdown_menu {
+			display: block
+		}
+		
+		.m_nav .ul li .dropdown_menu a {
+			display: block;
+			height: 50px;
+			line-height: 50px;
+			padding: 0 40px;
+			box-sizing: border-box;
+			border-bottom: 1px solid #f5f5f5
+		}
+		
+		.m_nav .ul li .dropdown_menu a:last-child {
+			border: 0
+		}
+		
+		.banner {
+			width: 100%
+		}
+		
+		.banner img {
+			width: 100%
+		}
+		
+		@media screen and (max-width:992px) {
+			.header {
+				padding: 0 10px
+			}
+			.header #navToggle {
+				height: 100%;
+				padding: 9px 15px;
+				margin-right: -15px;
+				display: inline-block;
+				float: right
+			}
+			.header #navToggle span {
+				position: relative;
+				width: 25px;
+				height: 1px;
+				margin-top: 19px
+			}
+			.header #navToggle span:before,
+			.header #navToggle span:after {
+				content: '';
+				position: relative;
+				width: 100%;
+				height: 1px;
+				left: 0
+			}
+			.header #navToggle span,
+			.header #navToggle span:before,
+			.header #navToggle span:after {
+				-webkit-transition: .3s;
+				-moz-transition: .3s;
+				-o-transition: .3s;
+				transition: .3s;
+				display: block;
+				background: #4f4f4f
+			}
+			.header #navToggle span:before {
+				top: 8px
+			}
+			.header #navToggle span:after {
+				bottom: 10px
+			}
+			.header #navToggle.open span:before {
+				top: 10px;
+				-webkit-transform: translateY(-11px) rotate(-45deg);
+				-moz-transform: translateY(-11px) rotate(-45deg);
+				-ms-transform: translateY(-11px) rotate(-45deg);
+				-o-transform: translateY(-11px) rotate(-45deg);
+				transform: translateY(-11px) rotate(-45deg)
+			}
+			.header #navToggle.open span:after {
+				bottom: 12px;
+				-webkit-transform: translateY(10px) rotate(45deg);
+				-moz-transform: translateY(10px) rotate(45deg);
+				-ms-transform: translateY(10px) rotate(45deg);
+				-o-transform: translateY(10px) rotate(45deg);
+				transform: translateY(10px) rotate(45deg)
+			}
+			.header #navToggle.open span {
+				background: 0 0
+			}
+			.header #navToggle.open span:before,
+			.header #navToggle.open span:after {
+				background: #4f4f4f
+			}
+			.header .nav {
+				display: none
+			}
+			.banner img {
+				height: 600px;
+				object-fit: cover
+			}
+		}
+	</style>
+
+	<body>
+		<header class="header">
+			<div class="container clearfix">
+				<div class="fl left">
+					<a href="javascript:void(0)"><img src="image/logo.png" alt="" class="img1"></a>
+					<a href="javascript:void(0)"><img src="image/logo2.jpg" alt="" class="img2"></a>
+				</div>
+				<div class="fr nav">
+					<ul class="navbar_nav" data-in="fadeInDown" data-out="fadeOutUp">
+						<li class="active">
+							<a href="javascript:void(0)">首页</a>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:void(0)">
+								业务体系
+							</a>
+							<div class="dropdown_menu">
+								<a href="#">Custom Menu</a>
+								<a href="#">Custom Menu</a>
+								<a href="#">Custom Menu</a>
+							</div>
+						</li>
+						<li class="dropdown">
+							<a href="javascript:void(0)">直营园</a>
+							<div class="dropdown_menu">
+								<a href="#">Custom Menu</a>
+								<a href="#">Custom Menu</a>
+								<a href="#">Custom Menu</a>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:void(0)">行知资讯</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">关于我们</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">联系合作</a>
+						</li>
+					</ul>
+				</div>
+				<a href="javascript:void(0)" id="navToggle">
+					<span></span>
+				</a>
+			</div>
+		</header>
+		<script>
+		</script>
+	</body>
+
 </html>
