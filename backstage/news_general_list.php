@@ -133,6 +133,7 @@
 			 * 	封装自定义	customPaging 自定义页数	方法
 			 * 	从	select_user();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
 			 */
+			var column_title=null;
 			function customPaging(total_page,len,ajaxPage){
 				//分页插件使用
 				$('#box').paging({
@@ -149,7 +150,8 @@
 							url: host + "controller_b/select_news.php",
 							data: {
 								page: ajaxPage,
-								size: ajaxSize
+								size: ajaxSize,
+								column_title:column_title
 							},
 							async:true,
 							datatype: 'json',
@@ -198,9 +200,10 @@
 								form.render("select");
 				                form.on('select(selectList)',function(data) {
 				                	var value = data.value;
+				                	console.log(value);
 									if (value == "所有新闻") {
-										query_generalNews();
 										layer.msg('已选择所有新闻', {icon: 1,time: 3000});
+										query_generalNews();
 									} else{
 										//	获取新闻（已栏目标题筛选新闻)
 										column_title_news(value);
@@ -221,6 +224,7 @@
 			 * 	获取新闻（已栏目标题筛选新闻)
 			 */
 			function column_title_news(value){
+				column_title=value;
 				$.ajax({
 					type: "get",
 					url: host + "controller_b/select_news.php?column_title="+value,
@@ -233,11 +237,12 @@
 					success: function(data) {
 						var res = JSON.parse(data);
 						var total_page = res.data.total_page;
-						var category = res.data.data;
+						var news = res.data.data;
 						if(res.status) {
 							layer.msg('已选择  < '+value+' > 新闻', {icon: 1,time: 3000});
-							//添加数据
-							dynamic_addition(category);
+							dynamic_addition(news);
+							var len = news.length;
+							customPaging(total_page,len,ajaxPage);
 						} else {
 							alert("新闻获取失败");
 						}
@@ -272,6 +277,7 @@
 								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
 								//添加数据
 								dynamic_addition(category);
+								
 							} else {
 								alert("新闻获取失败");
 							}
@@ -464,15 +470,9 @@
 							var res = JSON.parse(data);
 							if (res.status) {
 								query_generalNews();
-								layer.msg('已删除!', {
-									icon: 1,
-									time: 1000
-								});
+								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
-								layer.msg('删除失败!', {
-									icon: 2,
-									time: 2000
-								});
+								layer.msg(res.message, {icon: 2,time: 2000});
 							}
 						},
 						error:function(){
@@ -489,33 +489,37 @@
 			 * */
 			function delAll(argument) {
 				var arrayData = tableCheck.getData();
-				layer.confirm('确认要删除ID为 '+arrayData+' 的新闻吗？', function(index) {
-					$.ajax({
-						type:"post",
-						url:host+"controller_b/delete_news.php",
-					  	data:{
-					  		"ids":arrayData
-					  	},
-					  	success:function(data){
-					        	var res=JSON.parse(data);
-					        	if (res.status) {
-									query_generalNews();
-									layer.msg('已删除!', {
-										icon: 1,
-										time: 1000
-									});
-								} else{
-									layer.msg('请选择要删除的新闻', {
-										icon: 2,
-										time: 2000
-									});
-								}
-					    },
-					    error:function(){
-							document.write("error");
-						}
+				if (arrayData.length == 0) {
+					layer.msg("请勾选要删除的新闻", {icon: 3,time: 3000});
+				}else{
+					layer.confirm('确认要删除 '+arrayData.length+' 个新闻吗？', function(index) {
+						$.ajax({
+							type:"post",
+							url:host+"controller_b/delete_news.php",
+						  	data:{
+						  		"ids":arrayData
+						  	},
+						  	success:function(data){
+						        	var res=JSON.parse(data);
+						        	if (res.status) {
+										query_generalNews();
+										layer.msg('已删除!', {
+											icon: 1,
+											time: 1000
+										});
+									} else{
+										layer.msg('请选择要删除的新闻', {
+											icon: 2,
+											time: 2000
+										});
+									}
+						    },
+						    error:function(){
+								document.write("error");
+							}
+						});
 					});
-				});
+				}
 			}
 			
 			//渲染多选框事件
