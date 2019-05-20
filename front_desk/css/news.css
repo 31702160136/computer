@@ -1,0 +1,67 @@
+.sidebar{
+	width: 100%;
+	position: relative;
+	border-top: 4px solid darkmagenta;
+	border-left: 8px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+	border-radius: 0px 5px 0px 10px;
+	margin-right: 30px;
+	background: white;
+	padding-bottom: 30px;
+}
+.sidebar h2{
+	margin-left: 20px;
+}
+.sidebar ul li{
+	display: block;
+	margin-left: 30px;
+	font-size: 16px;
+	line-height: 40px;
+	border-bottom: 1px solid #e7e7e7;
+}
+.main_container{
+	border-top: 4px solid darkmagenta;
+	border-left: 8px solid #e0e0e0;
+	border-bottom: 1px solid #e0e0e0;
+	border-right: 1px solid #e0e0e0;
+	border-radius: 0px 5px 0px 10px;
+	padding-top: 20px;
+	background: white;margin-bottom: 100px;
+}
+.news_main > ul > li{
+	padding: 10px 0;
+	overflow: hidden; 
+	border-bottom: 1px solid #e0e0e0;
+}
+.news_main > ul > li > time{
+	color: #999;
+}
+.news_main > ul > li > time i{
+	font-size:.8em;
+	margin-right: 2px;
+}
+.news_main > ul > li > div > a{
+	font-size: 16px;
+	display: block;
+	padding-top: 10px;
+	color: #000000;
+}
+.paging{
+	height: 60px;
+}
+.paging ul{
+	display: flex;
+	justify-content: center;
+}
+.paging ul li{
+	float: left;
+	margin-left: 20px;
+}
+.article{
+	text-align: center;
+	border-bottom: 1px solid #e7e7e7;
+	margin-bottom: 20px;
+}
+.article span{
+	margin-left: 20px;
+}

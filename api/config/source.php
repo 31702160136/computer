@@ -2,7 +2,7 @@
 
 class Source{
 	
-	private $mysql_server_name='localhost'; //改成自己的mysql数据库服务器
+	private $mysql_server_name='127.0.0.1'; //改成自己的mysql数据库服务器
  
 	private $mysql_username='root'; //改成自己的mysql数据库用户名
  
