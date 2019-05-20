@@ -187,7 +187,7 @@
 											break;
 										}
 										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['modify_time']).'</time>
+											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
 												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
 											</div>
 											</li>';
@@ -205,7 +205,7 @@
 											break;
 										}
 										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['modify_time']).'</time>
+											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
 												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
 											</div>
 											</li>';
@@ -223,7 +223,7 @@
 											break;
 										}
 										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['modify_time']).'</time>
+											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
 												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
 											</div>
 											</li>';
@@ -252,7 +252,7 @@
 								}
 								echo '<li>
 										<time>
-										<span class="day">'.date("d",$item['modify_time']).'</span><span class="month">'.date("Y-m",$item['modify_time']).'</span>
+										<span class="day">'.date("d",$item['creation_time']).'</span><span class="month">'.date("Y-m",$item['modify_time']).'</span>
 										</time>
 										<a href="Article.php?news_id='.$item['id'].'">
 											'.$item['title'].'

@@ -102,6 +102,8 @@
 						        {
 						        	$news_id 		= $_GET['news_id']; 	//获取新闻id
 						        	$news_url  		= $host.'select_news_by_id.php?id='.$news_id;
+									$add_count_url 	= $host.'add_one_news_number.php';
+									$count_result   = https_request($add_count_url,['id'=>$news_id]);
 									$news_result   	= https_request($news_url);
 									if($news_result['code'] == 200){
 										$data 		= $news_result['data']; 	//提取新闻
