@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>欢迎页面-X-admin2.1</title>
+		<title>修改管理员密码</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -79,7 +79,6 @@
                         }
                     }
            		});
-           		
                 //监听提交
                 form.on('submit(changePwd)',function(data) {
 					var oldPassword = $("#oldPassword").val();
@@ -95,7 +94,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								alert("密码修改成功，请重新登录！");
+								alert(res.message);
 								//关闭当前frame
 								x_admin_close();
 								//退出登录
@@ -114,8 +113,6 @@
                 });
 
             });
-			
-			
 			/**
 			 * 	退出登录
 			 */
@@ -135,8 +132,6 @@
 				    }
 				});		
 			}
-			
 		</script>
 	</body>
-
 </html>

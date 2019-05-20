@@ -14,8 +14,11 @@
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
 		<script src="js/checkbox.js"></script>
+		<script src="js/paging.js"></script>
+		<link rel="stylesheet" href="css/paging.css">
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
+
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 		<!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -37,9 +40,7 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-		        <a href="">首页</a>
-		        <a href="">演示</a>
-	       		<a><cite>栏目管理</cite></a>
+	       		<a><cite style="color: red;">此页面为计算机工程系后台栏目管理页面，管理员务必慎重操作！</cite></a>
       		</span>
       		<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
 			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
@@ -51,49 +52,39 @@
 				</form>
 			</div>
 			<div class="addBtn">
-				<button id="addColumnBtn" name="addColumnBtn" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>添加</button>
+				<button id="addColumnBtn" name="addColumnBtn" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>创建</button>
 			</div>
-			
-			<!--<blockquote class="layui-elem-quote" style="color: red;">此页面为后台栏目管理页面，管理员务必慎重操作！</blockquote>-->
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 			</xblock>
-      </table>
 			<table class="layui-table x-admin">
 				<thead>
 					<tr>
-						<th width="20">
+						<th width="15">
 			              	<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
 			            </th>
-						<th width="70">ID</th>
-						<th>栏目名</th>
-						<th width="150">创建时间</th>
-						<th width="150">更新时间</th>
-						<th width="70">排序</th>
-						<th width="50">状态</th>
-						<th width="150">操作</th>
+						<th style="text-align: center;" width="70">ID</th>
+						<th style="text-align: center;">栏目名</th>
+						<th style="text-align: center;" width="150">创建时间</th>
+						<th style="text-align: center;" width="150">更新时间</th>
+						<th style="text-align: center;" width="70">排序</th>
+						<th style="text-align: center;" width="50">状态</th>
+						<th style="text-align: center;" width="150">操作</th>
+					</tr>
 				</thead>
-				<tbody class="x-cate" id="columnList">
-				
-				</tbody>
+				<tbody class="x-cate" id="columnList"></tbody>
 			</table>
-			
-			<div class="page">
-		        <div>
-			          <a class="prev"  onclick="jian()" style="cursor:pointer">&lt;&lt;</a>
-			          <a id="page1" class="num" onclick="pageOn('page1')" style="cursor:pointer">0</a>
-			          <span id="page2" class="current" onclick="pageOn('page2')" style="cursor:pointer">1</span>
-			          <a id="page3" class="num" onclick="pageOn('page3')" style="cursor:pointer">2</a>
-			          <a id="page4" class="num" onclick="pageOn('page4')" style="cursor:pointer">3</a>
-			          <a id="sum" class="num" onclick="pageOn('sum')" style="cursor:pointer">489</a>
-			          <a class="next"  onclick="jia()" style="cursor:pointer">&gt;&gt;</a>
-		        </div>
-		    </div>
+		    <!--分页-->
+    		<div class="box" id="box"></div>
 		</div>
+		
 		<script>
+			//定义全局变量	ajaxPage 页数
+			var ajaxPage = 1;
+			//一页的数量
+			var ajaxSize = 10;
 			//调用查询栏目刷新页面
 			select_column();
-			
 			/*	栏目查询：
 			 * 
 			 * 		select_column()
@@ -102,69 +93,108 @@
 				$.ajax({
 					type:"get",
 					url: host + "controller_b/select_columns.php",
+					data: {
+						page: ajaxPage,
+						size: ajaxSize
+					},
 					async:true,
 					datatype:'json',
-					data:{
-						page: getQueryVariable("page"),
-						size: 10
-					},
 					success: function(data){
 						var res=JSON.parse(data);
 						var total_page=res.data.total_page;
 						var category=res.data.data;
 						if (res.status) {
-							//防止每次刷新以后都添加一次
-             			    $("#columnList").html(""); 
-//							var columnList = document.getElementById('columnList');
-//							//获取columnList的tr属性长度
-//							var len = $("#columnList").find("tr").length;
-//							//如果len长度大于0，删除所有行数
-//							if(len >0){
-//								$("#columnList").find('tr').remove();
-//							}
-							$.each(category, function(index,item) {
-								var id = item.id;
-								var title = item.title;
-								var creation_time = item.creation_time;
-								var modify_time = item.modify_time;
-								var index = item.index;
-								var is_status = item.is_status;
-								var list = 
-									'<tr>'+
-										'<td>'+
-											'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-												'<i class="layui-icon">&#xe605;</i>'+
-											'</div>'+
-										'</td>'+
-										'<td>'+id+'</td>'+
-										'<td>'+title+'</td>'+
-										'<td>'+getMyDate(creation_time)+'</td>'+
-										'<td>'+getMyDate(modify_time)+'</td>'+
-										'<td>'+
-											'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
-										'</td>'+
-										'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
-										'<td class="td-manage">'+
-											"<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe642;</i>编辑</button>"+
-											'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
-										'</td>'+
-									'</tr>';
-								$("#columnList").append(list);
-								if(is_status==1){
-									$("#status"+id).removeClass('layui-btn-warm');
-									$("#status"+id).addClass('layui-btn-normal').html('已启用');
-								}
-							});
-							
-							//分页
-							pagefun(total_page);
+							dynamic_addition(category);
+							var len = category.length;
+							customPaging(total_page,len,ajaxPage);
 						}else{
-							alert("栏目获取失败");
+							layer.msg(res.message,{icon: 2,time:2000});
 						}
 			      	},
 				    error : function () {
 				      	document.write("error");
 				    }
+				});
+			}
+			
+			/*
+			 * 	封装自定义	customPaging 自定义页数	方法
+			 * 	从	select_column();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
+			 */
+			function customPaging(total_page,len,ajaxPage){
+				//分页插件使用
+				$('#box').paging({
+					initPageNo: 1, // 初始页码
+					totalPages: total_page, //总页数
+					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
+					slideSpeed: 600, // 缓动速度。单位毫秒
+					jump: true, //是否支持跳转
+					callback: function(page) { // 回调函数
+						//使page当前页数等于 数据的当前页数
+						ajaxPage = page;
+						$.ajax({
+							type:"get",
+							url: host + "controller_b/select_columns.php",
+							data: {
+								page: ajaxPage,
+								size: ajaxSize
+							},
+							async:true,
+							datatype: 'json',
+							success: function(data){
+								var res=JSON.parse(data);
+								var total_page=res.data.total_page;
+								var category=res.data.data;
+								if (res.status) {
+									dynamic_addition(category);
+								}
+							},
+							error : function () {
+						      	document.write("error");
+						    }
+						});
+					}
+				});
+			}
+			
+			/*
+			 * 	表格动态添加数据
+			 */
+			function dynamic_addition(category){
+				//防止每次刷新以后都添加一次
+ 			    $("#columnList").html(""); 
+				$.each(category, function(index,item) {
+					var id = item.id;
+					var title = item.title;
+					var creation_time = item.creation_time;
+					var modify_time = item.modify_time;
+					var index = item.index;
+					var is_status = item.is_status;
+					var list = 
+						'<tr>'+
+							'<td>'+
+								'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
+									'<i class="layui-icon">&#xe605;</i>'+
+								'</div>'+
+							'</td>'+
+							'<td>'+id+'</td>'+
+							'<td>'+title+'</td>'+
+							'<td>'+getMyDate(creation_time)+'</td>'+
+							'<td>'+getMyDate(modify_time)+'</td>'+
+							'<td>'+
+								'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
+							'</td>'+
+							'<td class="td-status"><span id="status'+id+'" class="layui-btn layui-btn-warm" onclick="member_stop(this,'+id+','+is_status+')">已停用</span></td>'+
+							'<td class="td-manage">'+
+								"<button class=\"layui-btn layui-btn-xs\" onclick=\"member_edit(this,"+id+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe642;</i>编辑</button>"+
+								'<button class="layui-btn-danger layui-btn layui-btn-xs" onclick="member_del(this,'+id+')"><i class="layui-icon">&#xe640;</i>删除</button>'+
+							'</td>'+
+						'</tr>';
+					$("#columnList").append(list);
+					if(is_status==1){
+						$("#status"+id).removeClass('layui-btn-warm');
+						$("#status"+id).addClass('layui-btn-normal').html('已启用');
+					}
 				});
 			}
 			
@@ -174,7 +204,7 @@
 			$("#addColumnBtn").click(function(){
 				var columnName = $("#columnName").val();
 				if(columnName == ""){
-					alert("请输入栏目名称");
+					layer.msg('请输入栏目名称',{icon: 3,time:2000});
 				}else{
 					$.ajax({
 						type:"post",
@@ -187,9 +217,9 @@
 							var res=JSON.parse(data);
 							if (res.status) {
 								select_column();
-								layer.msg('栏目添加成功',{icon: 1,time:2000});
+								layer.msg(res.message,{icon: 1,time:2000});
 							}else{
-								layer.msg('栏目添加失败，名称重复',{icon: 2,time:2000});
+								layer.msg(res.message,{icon: 2,time:2000});
 							}
 				      	},
 					    error : function () {
@@ -217,9 +247,9 @@
 						var res=JSON.parse(data);
 						if (res.status) {
 							select_column();
-							layer.msg('重新排序成功!',{icon: 1,time:1000});
+							layer.msg(res.message,{icon: 1,time:1000});
 						} else{
-							layer.msg('重新排序失败，请联系维护人员',{icon: 2,time:2000});
+							layer.msg(res.message,{icon: 2,time:2000});
 						}
 					},
 					error: function(){
@@ -253,9 +283,9 @@
 								var res = JSON.parse(data);
 								if (res.status) {
 									select_column();
-									layer.msg('修改栏目成功!',{icon: 1,time:1000});
+									layer.msg(res.message,{icon: 1,time:1000});
 								} else{
-									layer.msg('修改栏目失败!',{icon: 2,time:2000});
+									layer.msg(res.message,{icon: 2,time:2000});
 								}
 							},
 							error:function(){
@@ -289,7 +319,7 @@
 								if (res.status) {
 							      	select_column();
 								}else{
-									alert("状态修改失败");
+									layer.msg(res.message,{icon: 2,time:2000});
 								}
 					      	},
 						    error : function () {
@@ -314,7 +344,7 @@
 								if (res.status) {
 							      	select_column();
 								}else{
-									alert("状态修改失败");
+									layer.msg(res.message,{icon: 2,time:2000});
 								}
 					      	},
 						    error : function () {
@@ -342,12 +372,12 @@
 							var res = JSON.parse(data);
 							if (res.status) {
 								select_column();
-								layer.msg('已删除!', {
+								layer.msg(res.message, {
 									icon: 1,
 									time: 1000
 								});
 							} else{
-								layer.msg('删除失败!', {
+								layer.msg(res.message, {
 									icon: 2,
 									time: 2000
 								});
@@ -366,118 +396,34 @@
 			 * */
 			function delAll(argument) {
 				var arrayData = tableCheck.getData();
-				layer.confirm('确认要删除ID为 '+arrayData+' 的栏目吗？', function(index) {
-					$.ajax({
-						type:"post",
-						url:host+"controller_b/delete_columns.php",
-					  	data:{
-					  		"ids":arrayData
-					  	},
-					  	success:function(data){
-					        	var res=JSON.parse(data);
-					        	if (res.status) {
-									select_column();
-									layer.msg('已删除!', {
-										icon: 1,
-										time: 1000
-									});
-								} else{
-									layer.msg('请选择要删除的栏目', {
-										icon: 2,
-										time: 2000
-									});
-								}
-					    },
-					    error:function(){
-							document.write("error");
-						}
+				if (arrayData.length == 0) {
+					layer.msg("请勾选要删除的栏目", {icon: 3,time: 3000});
+				}else{
+					layer.confirm('确认要删除 '+arrayData.length+' 个栏目吗？', function(index) {
+						$.ajax({
+							type:"post",
+							url:host+"controller_b/delete_columns.php",
+						  	data:{
+						  		"ids":arrayData
+						  	},
+						  	success:function(data){
+						        	var res=JSON.parse(data);
+						        	if (res.status) {
+										select_column();
+										layer.msg(res.message, {icon: 1,time: 1000});
+									} else{
+										layer.msg(res.message, {icon: 2,time: 2000});
+									}
+						    },
+						    error:function(){
+								document.write("error");
+							}
+						});
 					});
-				});
+				}
 			}
-			    	
 			//渲染多选框事件
 		   	rendering_checkbox();
-			    	
-			    	
-			    	
-	      	//  页数变量
-		    var pageSum=0;
-		    //页数加
-		   	function jia(){
-		   		if(parseInt($("#page2").prop("innerHTML"))<pageSum){
-		   			var page=parseInt($("#page2").prop("innerHTML"))+1;
-		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   		}
-		   	}
-		   	//页数减
-		   	function jian(){
-		   		if(parseInt($("#page2").prop("innerHTML"))>1){
-		   			var page=parseInt($("#page2").prop("innerHTML"))-1;
-		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   		}
-		   	}
-		   	//跳页
-		   	function pageOn(id){
-		   		var page=parseInt($("#"+id).prop("innerHTML"));
-		   		window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   	}
-		   	init();
-			//初始化
-			function init(){
-				var page=getQueryVariable("page");
-				//页数初始化
-				if(page){
-					$("#page1").text(parseInt(page)-1);
-			 		$("#page2").text(parseInt(page));
-			 		$("#page3").text(parseInt(page)+1);
-			 		$("#page4").text(parseInt(page)+2);
-				}else{
-					page=1;
-				}
-		   	}
-		   	//获取链接get参数
-			function getQueryVariable(variable){
-		        var query = window.location.search.substring(1);
-		        var vars = query.split("&");
-		        for (var i=0;i<vars.length;i++) {
-                var pair = vars[i].split("=");
-                if(pair[0] == variable){return pair[1];}
-		       }
-		       return(false);
-			}
-		   	function pagefun(pageVar){
-		   		pageSum=parseInt(pageVar);
-   				//页数范围控制
-   				if(pageSum=>4){
-   					$("#sum").text(pageSum);
-   				}else if(pageSum==2){
-   					$("#page1").text(parseInt(page)-1);
-   					$("#page2").text(parseInt(page));
-   					$("#page3").text(parseInt(page)+1);
-   					$("#page4").hide();
-   					$("#sum").hide();
-   				}else if(pageSum==1){
-   					$("#page1").text(parseInt(page)-1);
-   					$("#page2").text(parseInt(page));
-   					$("#page3").hide();
-   					$("#page4").hide();
-   					$("#sum").hide();
-   				}
-   				var page2=parseInt($("#page2").prop("innerHTML"));
-	   			if((page2+2)===pageSum||(page2+1)===pageSum){
-	   				$("#page4").hide();
-	   				$("#sum").hide();
-	   			}
-	   			if(page2===pageSum){
-	   				$("#page3").hide();
-	   				$("#page4").hide();
-	   				$("#sum").hide();
-	   			}
-	   			if(page2===1){
-	   				$("#page1").hide();
-	   			}
-		   	}
-		   	
 		</script>
 	</body>
 </html>

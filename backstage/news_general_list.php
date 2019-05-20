@@ -6,6 +6,11 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<!--设置不缓存-->
+		<!--<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">-->
  	  	<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="./js/xadmin.js"></script>
@@ -13,6 +18,8 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
+		<script src="js/paging.js"></script>
+		<link rel="stylesheet" href="css/paging.css">
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -33,41 +40,34 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>所有新闻</cite></a>
-      </span>
+				<a><cite style="color: red;">此页面为计算机工程系后台新闻管理页面，管理员务必慎重操作！</cite></a>
+			</span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
+			</a>
 		</div>
 		<div class="x-body">
 			<form class="layui-form" id="form_type">
 				<div class="layui-row">
 					<div class="layui-form-item floatLeft">
 						<div class="layui-input-inline columnNameList" style="width: 150px;">
-							<select id="columnNameList">
-								<option selected="selected">所有新闻</option>
+							<select id="columnNameList" lay-filter="selectList">
+								<option value="所有新闻" selected="selected">所有新闻</option>
 							</select>
 						</div>	
-						<button class="layui-btn" id="search_btn" lay-filter="select" lay-submit="">确定</button>
 					</div>
-					
-					
-					
 					<div class="floatRight">
 						<div class="layui-input-inline">
 							<input type="text" id="search_box" class="layui-input" placeholder="请输入要搜索的有关标题字段" style="width: 500px;">
 						</div>
 						<button class="layui-btn" id="search_btn" lay-filter="search" lay-submit=""><i class="layui-icon">&#xe615;</i></button>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 			<xblock>
 				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
 				<button class="layui-btn" onclick="x_admin_show('添加新闻','news_add.php',1200)"><i class="layui-icon"></i>添加</button>
 			</xblock>
-			
 			<table class="layui-table x-admin">
 				<thead>
 					<tr>
@@ -76,7 +76,7 @@
 						</th>
 						<th width="50px" style="text-align: center;">ID</th>
 						<th width="100px" style="text-align: center;">封面</th>
-						<th width="" style="text-align: center;">标题</th>
+						<th style="text-align: center;">标题</th>
 						<th width="80px" style="text-align: center;">所属栏目</th>
 						<th width="80px" style="text-align: center;">投稿者</th>
 						<th width="115px" style="text-align: center;">发布时间</th>
@@ -84,27 +84,97 @@
 						<th width="190px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
-				<tbody id="newsList" value="123">
-
-				</tbody>
+				<tbody id="newsList"></tbody>
 			</table>
-			<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>
-
+			<!--分页-->
+    		<div class="box" id="box"></div>
 		</div>
 		<script>
+			//定义全局变量	ajaxPage 页数
+			var ajaxPage = 1;
+			//一页的数量
+			var ajaxSize = 5;
 			query_generalNews();
-			column();
+			//下拉框
+			dropDownBox();
+			/**
+			 * 	查询所有新闻
+			 *		query_generalNews()
+			 */
+			function query_generalNews(){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_news.php",
+					data:{
+						page: ajaxPage,
+						size: ajaxSize
+					},
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var news = res.data.data;
+						if(res.status) {
+							dynamic_addition(news);
+							var len = news.length;
+							customPaging(total_page,len,ajaxPage);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});		
+			}
 			
-			function column(){
+			/*
+			 * 	封装自定义	customPaging 自定义页数	方法
+			 * 	从	select_user();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
+			 */
+			function customPaging(total_page,len,ajaxPage){
+				//分页插件使用
+				$('#box').paging({
+					initPageNo: 1, // 初始页码
+					totalPages: total_page, //总页数
+					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
+					slideSpeed: 600, // 缓动速度。单位毫秒
+					jump: true, //是否支持跳转
+					callback: function(page) { // 回调函数
+						//使page当前页数等于 数据的当前页数
+						ajaxPage = page;
+						$.ajax({
+							type:"get",
+							url: host + "controller_b/select_news.php",
+							data: {
+								page: ajaxPage,
+								size: ajaxSize
+							},
+							async:true,
+							datatype: 'json',
+							success: function(data){
+								var res=JSON.parse(data);
+								var total_page = res.data.total_page;
+								var news = res.data.data;
+								if (res.status) {
+									dynamic_addition(news);
+								}
+							},
+							error : function () {
+						      	document.write("error");
+						    }
+						});
+					}
+				});
+			}
+			
+			/**	搜索新闻，根据新闻的栏目搜索：
+			 *  	下拉框动态获取栏目标题
+			 * 		获取每个option的value值
+			 * 		监听确定按钮，提交请求获取新闻（已栏目标题筛选新闻)
+			 */
+			function dropDownBox(){
 				$.ajax({
 					type:"get",
 					url: host + "controller_b/select_columns.php?page=1&size=100",
@@ -122,6 +192,22 @@
 									'<option value="'+title+'" id="column'+id+'">'+title+'</option>';
 								$("#columnNameList").append(list);
 							});
+							layui.use('form',function(){
+								var form = layui.form;
+								//加载下拉框
+								form.render("select");
+				                form.on('select(selectList)',function(data) {
+				                	var value = data.value;
+									if (value == "所有新闻") {
+										query_generalNews();
+										layer.msg('已选择所有新闻', {icon: 1,time: 3000});
+									} else{
+										//	获取新闻（已栏目标题筛选新闻)
+										column_title_news(value);
+									}
+									return false;
+				                });
+							});
 						}else{
 							alert("栏目获取失败");
 						}
@@ -131,10 +217,75 @@
 				    }
 				});
 			}
-			
-			
 			/*
-			 * 	查询成功之后动态添加数据
+			 * 	获取新闻（已栏目标题筛选新闻)
+			 */
+			function column_title_news(value){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_news.php?column_title="+value,
+					data:{
+						page: ajaxPage,
+						size: ajaxSize
+					},
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var category = res.data.data;
+						if(res.status) {
+							layer.msg('已选择  < '+value+' > 新闻', {icon: 1,time: 3000});
+							//添加数据
+							dynamic_addition(category);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});
+			}
+				
+			/**	
+			 * 	搜索新闻，根据新闻的标题搜索
+			 */
+			layui.use(['form', 'layer'],function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                	layer = layui.layer;
+                
+                //监听提交
+                form.on('submit(search)',function(data) {
+                	var serach_box = $("#search_box").val();
+					$.ajax({
+						type: "get",
+						url: host + "controller_b/select_news.php?page=1&size=100&title="+serach_box,
+						async: true,
+						datatype: 'json',
+						success: function(data) {
+							var res = JSON.parse(data);
+							var total_page = res.data.total_page;
+							var category = res.data.data;
+							if(res.status) {
+								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
+								//添加数据
+								dynamic_addition(category);
+							} else {
+								alert("新闻获取失败");
+							}
+						},
+						error: function() {
+							document.write("error");
+						}
+					});
+					return false;
+            	});
+			});
+
+			/*
+			 * 	表格动态添加数据
 			 */
 			function dynamic_addition(category){
 				//防止每次刷新以后都添加一次
@@ -181,10 +332,12 @@
 							'</td>'+
 						'</tr>';
 					$("#newsList").append(list);
+					//如果slideshow_cover轮播图不等于null 或者 不等于空，则删除 warm 添加 disabled 改变 文字
 					if (slideshow_cover != null || slideshow_cover != "") {
 						$("#slideshow"+id).removeClass('layui-btn-warm');
 						$("#slideshow"+id).addClass('layui-btn-disabled').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 已设轮播新闻');
 					}
+					//如果slideshow_cover轮播图等于 null 或者 等于 空，则删除 disabled 添加 warm 改变 文字
 					if (slideshow_cover == null || slideshow_cover == "") {
 						$("#slideshow"+id).removeClass('layui-btn-disabled');
 						$("#slideshow"+id).addClass('layui-btn-warm').html('<i class="layui-icon layui-icon-set" style="font-size: 10px; "> 设置轮播新闻');
@@ -203,78 +356,6 @@
 					}
 				});
 			}
-			
-			/**
-			 * 	查询普通新闻
-			 *		query_generalNews()
-			 */
-			function query_generalNews(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_news.php",
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var category = res.data.data;
-						if(res.status) {
-							dynamic_addition(category);
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-					}
-				});		
-			}
-			
-			/**	
-			 * 	搜索新闻，根据新闻的标题搜索
-			 */
-			layui.use(['form', 'layer'],function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                	layer = layui.layer;
-                
-                form.on('submit(select)',function(data) {
-                	//获取option选中状态的动态id
-					var column_id = $("#columnNameList option:selected").attr("id");
-                	console.log(column_id);
-                	// 可以对父窗口进行刷新 
-					x_admin_father_reload();
-                	column();
-                });
-                
-                //监听提交
-                form.on('submit(search)',function(data) {
-                	var serach_box = $("#search_box").val();
-					$.ajax({
-						type: "get",
-						url: host + "controller_b/select_news.php?page=1&size=100&title="+serach_box,
-						async: true,
-						datatype: 'json',
-						success: function(data) {
-							var res = JSON.parse(data);
-							var total_page = res.data.total_page;
-							var category = res.data.data;
-							if(res.status) {
-								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
-								//添加数据
-								dynamic_addition(category);
-							} else {
-								alert("新闻获取失败");
-							}
-						},
-						error: function() {
-							document.write("error");
-						}
-					});
-					return false;
-            	});
-            	form.render();
-			});
 			
 			/*
 			 * 	设置轮播新闻按钮监听
@@ -334,15 +415,16 @@
 												} ,
 												success: function(data){
 													var res=JSON.parse(data);
+													console.log(res);
 													if (res.status) {
 														//关闭所有页面层
 														layer.closeAll('page');
 														//查询普通新闻列表
 														query_generalNews();
-														//parent.location.reload();//刷新页面
+//														parent.location.reload();//刷新页面
 														layer.msg('创建轮播新闻成功',{icon: 1,time:2000});
 													}else{
-														layer.msg('创建失败',{icon: 2,time:2000});
+														layer.msg(res.message,{icon: 2,time:2000});
 													}
 										      	},
 											    error : function () {
