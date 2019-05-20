@@ -163,7 +163,7 @@
 							value:parseInt(data.data[i].count),
 							name:data.data[i].title
 						}
-						console.log(data.data[i].count);
+//						console.log(data.data[i].count);
 						//写入数据统计数据
 						column_sum++;
 						news_sum+=parseInt(data.data[i].news_sum);

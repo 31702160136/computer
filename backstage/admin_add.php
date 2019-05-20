@@ -89,7 +89,7 @@
 				
 				<div class="layui-form-item">
 					<label for="L_repass" class="layui-form-label"></label>
-					<button class="layui-btn addbtn" lay-filter="add" lay-submit="">添  加</button>
+					<button class="layui-btn addbtn" lay-filter="add" lay-submit="">注 册</button>
 					<input  class="layui-btn layui-btn-warm addbtn" type="reset" value="重  置" />
 				</div>
 			</form>
@@ -116,7 +116,6 @@
                         }
                     }
            		});
-           		
                 //监听提交
                 form.on('submit(add)',function(data) {
                 	var name = $("#name").val();
@@ -141,9 +140,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								layer.alert("注册成功", {
-									icon: 1
-								}, 
+								layer.alert(res.message, {icon: 1}, 
 								function() {
 									// 获得frame索引
 									var index = parent.layer.getFrameIndex(window.name);
@@ -153,7 +150,7 @@
 									x_admin_father_reload();
 								});
 							}else{
-								layer.msg('注册失败，名称重复',{icon: 2,time:2000});
+								layer.msg(res.message,{icon: 2,time:2000});
 							}
 				      	},
 					    error : function () {
@@ -164,11 +161,5 @@
                 });
 
             });
-			
-			
-			
-			
 		</script>
 	</body>
-
-</html>
