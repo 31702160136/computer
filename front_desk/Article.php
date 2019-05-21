@@ -119,10 +119,15 @@
 										echo $content;
 										echo '</div>';
 									}
+						        }else{
+									echo '<div style="height: 300px;">
+							<h3 style="text-align: center;">找不到该新闻</h3>
+						</div>';
 						        }
-								echo '该新闻已被删除';
+								
 							}
 						?>
+						
 					</div>
 				</div>
 			</div>

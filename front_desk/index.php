@@ -8,6 +8,7 @@
 		<meta name="Description" content="计算机工程系" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<script src="js/path.js" type="text/javascript" charset="utf-8"></script>
 		<!--bootstrap-->
 		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
 		<script src="js/jquery.v1.9.1min.js"></script>
@@ -27,6 +28,119 @@
 		<script src="OwlCarousel2-2.3.4/dist/owl.carousel.js"></script>
 
 	</head>
+	<script type="text/javascript">
+		var home_url = host + 'select_home.php';
+		$.ajax({
+			type:"get",
+			url:home_url,
+			async:true,
+			success:function (data) {
+				console.log("查询成功"); 
+				var result = JSON.parse(data);
+				if(result['code'] == 200){
+					var ul			= document.getElementById('header_nav');
+					var column 		= result['data']['column']; 	 	// 栏目
+					var column_news = result['data']['column_news'];	// 首页栏目及相应新闻
+					var slideshow   = result['data']['slideshow'];		// 轮播图
+					var cover   	= result['data']['cover'];			// 图片新闻
+					var bottom_news	= result['data']['bottom_news'];   	// 底部新闻
+					var xibu_list 	= column_news['xibu']; 				// 获取系部新闻列表
+					var skill_list 	= column_news['jineng']; 			// 获取技能竞赛列表
+					var job_list 	= column_news['zhaosheng']; 		// 获取招生就业新闻列表
+					var inform_list = column_news['tongzhi']; 			// 获取通知公告新闻列表
+					var teaching_left = bottom_news[0];
+					var teaching_right= bottom_news[1];
+			
+					//栏目导航渲染
+					$.each(column,function (index,item) {
+						console.log(item);
+						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
+						$("#header_nav").append(list);
+					
+					});					
+//					$.each(slideshow,function (index,item) {
+//						console.log(item);
+//						var list = '<a class="item" href="Article.php?news_id='+item["news_id"]+'"><img src="http://'+item['slideshow_cover']+'" alt="'+item["title"]+'" style="max-height:400px"></a>';
+//						$("#slide1").append(list);
+//						
+//					});
+//					for (var i=0;i<3;i++) {
+//						var anode = document.getElementById('slide'+(i+1));
+//						console.log(anode);
+//						var node_length = anode.childNodes.length;console.log(node_length);
+//						if(node_length < 1){
+//							document.getElementsByClassName("owl-item").removeChild(anode);
+//						}
+//					}
+					//图片新闻渲染
+					$.each(cover,function (index,item) {
+						var list = '';
+						console.log(index);
+						if(index == 0){
+							console.log(index);
+							var list = '<a href="Article.php?news_id='+item['id']+'"><img src="http://'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
+							$("#pic_news_left").append(list);
+						}else if(index > 3){
+							return;
+						}else{
+							console.log(index);
+							var list = '<a href="Article.php?news_id='+item['id']+
+							'"><div><img src="http://'+item['cover']+'"/></div><div><p>'+item['title']+
+							'</p><div><time><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;">'+
+							'</i>'+item['modify_time']+'</time><span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span></div></div></a>';
+							$("#pic_news_right").append(list);
+						}
+					});
+					//系部新闻渲染
+					$.each(xibu_list, function(index,item) {
+						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
+									'</div></li>';
+							$("#news_ul").append(list);
+					});
+					//技能竞赛渲染
+					$.each(skill_list, function(index,item) {
+						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
+									'</div></li>';
+							$("#skill_ul").append(list);
+					});
+					//招生就业渲染
+					$.each(job_list, function(index,item) {
+						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
+									'</div></li>';
+							$("#job_ul").append(list);
+					});
+					//通知公告渲染
+					var title = '<a href="news.php?id='+inform_list[0]['column_id']+'" class="pull-right">更多 ></a>';
+					$(".inform_title").append(title);
+					$.each(inform_list, function(index,item) {
+						var list = '<li><time><span class="day">'+item['creation_time']+'</span><span class="month">'+item['modify_time']+'</span>'+
+									'</time><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
+						$("#inform_ul").append(list);
+					});
+					
+					var teaching_title = '<h2><span>'+teaching_left['column']+'</span>'+
+							'<a href="news.php?id='+teaching_left['column_id']+'">更多 ></a></h2>';
+					$(".teaching_title").append(teaching_title);
+					var teaching_left  = '<a href="Article.php?news_id='+teaching_left['column_id']+'">'+
+								'<img src="http://'+teaching_left['cover']+'" alt="'+teaching_left['title']+'">'+
+								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_left['title']+'</h4>'+
+								'<p>'+teaching_left['describe']+'</p></div></a>';
+					$("#teaching_left").append(teaching_left);
+					var teaching_right  = '<a href="Article.php?news_id='+teaching_right['column_id']+'">'+
+								'<img src="http://'+teaching_right['cover']+'" alt="'+teaching_right['title']+'">'+
+								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_right['title']+'</h4></div></a>';
+					$("#teaching_right").append(teaching_right);		 	
+						
+				}
+			}
+		});
+	</script>
 	<body>
 		<!--头部 start-->
 		<header>
@@ -64,7 +178,7 @@
 							</button>
 						</div>
 						<div class="collapse navbar-collapse col-lg-12" id="example-navbar-collapse">
-							<ul class="nav navbar-nav navbar-right" data-in = "fadeInDown" data-out = "dadeOutUp">
+							<ul class="nav navbar-nav navbar-right" data-in = "fadeInDown" data-out = "dadeOutUp" id="header_nav">
 								<li class="active">
 									<a href="index.php">
 										系部首页
@@ -81,12 +195,7 @@
 										$slideshow      = $result['data']['slideshow'];		// 轮播图
 										$cover   		= $result['data']['cover'];			// 图片新闻
 										$bottom_news	= $result['data']['bottom_news'];   // 底部新闻
-										
-										foreach ($column as $item) {
-											if($item['is_status'] == "1"){
-												echo 	'<li class="active"><a href="news.php?id='.$item['id'].'">'.$item['title'].'</a></li>';	
-											}
-										}		
+											
 									}
 								?>	
 							</ul>
@@ -99,61 +208,40 @@
 
 		<!--轮播图 start-->
 		<div id="owl-demo" class="owl-carousel owl-theme slideshow" style="max-width: 1400px;">
-			<?php 
+		<?php 
 					//显示轮播图
 					foreach ($slideshow as $item) {
 						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
 									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
 								</a>';
-									
+						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
+									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
+								</a>';			
 					
 					}		
 			?>
+			
 		</div>
 		<!--轮播图 end-->
 
 		<!--图片新闻 start-->
-		<div style="background: rgb(243, 241, 244);">
+		<div style="background: #e7e7e7;">
 			<div class="container pic_news mb20">
-				<hr />
 				<div class="row">
-					<div class="col-sm-5 col-md-5 visible-lg-inline visible-md-inline  pic_news_left">
-						<?php 
-							// 图片新闻
-							foreach ($cover as $key => $item) {
-								if($key == 0){
-									echo '<a href="Article.php?news_id='.$item['id'].'"><img src="http://'.$item['cover'].'" alt="" class="img-responsive"/>
-										<p>'.$item['title'].'</p></a></div>
-										<div id="pic_news_right" class="col-md-7 col-sm-12 pic_news_right" >';
-								}
-								else if($key > 3){
-									break;
-								}else{
-									echo '<a href="Article.php?news_id='.$item['id'].'">
-											<div>
-												<img src="http://'.$item['cover'].'"/>
-											</div>
-											<div>
-												<p>'.$item['title'].'</p>
-												<div>
-													<time>
-														<i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;"></i>'.date("Y-m-d",$item['modify_time']).'
-													</time>
-													<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
-												</div>
-											</div>
-										</a>';
-								}
-							}
-						?>
+					<section class="xueyuan">
+						<h3>学院新闻<small>news</small></h3>
+					</section>
+					<div id="pic_news_left" class="col-sm-5 col-md-5 visible-lg-inline visible-md-inline  pic_news_left">
+					</div>
+					<div id="pic_news_right" class="col-md-7 col-sm-12 pic_news_right" >
 					</div>
 				</div>
 				<hr />
 			</div>
-		</div>
+		
 		<!--图片新闻 end-->
 		<!--文字新闻 strat-->
-		<section class="container" style="margin-bottom: 20px;">
+		<section class="container">
 			<div class="row">
 				<!--新闻导航条-->
 				<div class="col-md-7" >
@@ -174,99 +262,37 @@
 							</a>
 						</li>
 					</ul>
-
 					<!-- 新闻内容容器 -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active news" id="news">
-							<ul>
-								<?php 
-									//首页系部新闻列表
-									$xibu_list = $column_news['xibu']; 	// 获取系部新闻列表
-									foreach ($xibu_list as $key => $item) {
-										if($key > 4){
-											break;
-										}
-										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
-												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
-											</div>
-											</li>';
-									}
-								?>
+							<ul id="news_ul">
 							</ul>
 						</div>
 						<div role="tabpanel" class="tab-pane news" id="job">
-							<ul>
-								<?php 
-									//首页招生就业新闻列表
-									$job_list = $column_news['zhaosheng']; 	// 获取招生就业新闻列表
-									foreach ($job_list as $key => $item) {
-										if($key > 4){
-											break;
-										}
-										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
-												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
-											</div>
-											</li>';
-									}
-								?>
+							<ul id="job_ul">
 							</ul>
 						</div>
 						<div role="tabpanel" class="tab-pane news" id="skill">
-							<ul>
-								<?php 
-									//首页技能竞赛新闻列表
-									$skill_list = $column_news['jineng']; 	// 获取招生就业新闻列表
-									foreach ($skill_list as $key => $item) {
-										if($key > 4){
-											break;
-										}
-										echo '<li><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a>
-											<div><time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
-												<span><i class="glyphicon glyphicon-eye-open"></i>阅读('.$item['count'].')</span>
-											</div>
-											</li>';
-									}
-								?>
+							<ul id="skill_ul">
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- 新闻内容容器结束-->
-
+			
 				<!--通知公告-->
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div class="inform_title">
 						通知公告
-						
-						<?php 
-							//首页技能竞赛新闻列表
-							$inform_list = $column_news['tongzhi']; 	// 获取招生就业新闻列表
-							echo '<a href="news.php?id='.$inform_list[0]['column_id'].'" class="pull-right">更多</a>
-									</div>
-									<ul class="inform">';
-							foreach ($inform_list as $key => $item) {
-								if($key > 3){
-									break;
-								}
-								echo '<li>
-										<time>
-										<span class="day">'.date("d",$item['creation_time']).'</span><span class="month">'.date("Y-m",$item['modify_time']).'</span>
-										</time>
-										<a href="Article.php?news_id='.$item['id'].'">
-											'.$item['title'].'
-										</a>
-									</li>';
-							}
-						?>
+					</div>
+					<ul id="inform_ul" class="inform clearfix">	
 					</ul>
 				</div>
 			</div>
 		</section>
-
+		</div>
 		<!--文字新闻 end-->
-		<div class="container" style="margin-bottom: 0;">
+		<div class="container" >
 			<div class="row">
 				<div class="col-md-12">
 					<img src="images/fengge.jpg" style="width: 100%;"/>
@@ -274,45 +300,17 @@
 			</div>
 		</div>
 		<!--教学科研 start-->
-		<?php 
-			// 获取底部新闻列表
-			$teaching_left = $bottom_news[0];
-			$teaching_right= $bottom_news[1];
-		?>
-		<div style="background: rgb(243, 241, 244);padding-bottom: 100px;padding-top: 20px;">
+		<div style="background: #e7e7e7;padding-bottom: 100px;padding-top: 20px;">
 			<section class="container mt20 mb20">
 				<div class="row">
 					<div class="teaching_title visible-md-inline visible-lg-inline">
-						<h2><span><?php echo $teaching_left['column'];?></span>
-							<a href="news.php?id=<?php echo $teaching_left['column_id'];?>">
-								更多 >
-							</a>
-						</h2>
 					</div>
 					<div class="col-md-6" >
-						<div class="thumbnail teaching">
-							<?php
-								echo '<a href="Article.php?news_id='.$teaching_left['column_id'].'">
-								<img src="http://'.$teaching_left['cover'].'" alt="'.$teaching_left['title'].'">
-								<div class="teaching_content content_left">
-								<i>new</i>
-								<h4>'.$teaching_left['title'].'</h4>
-								<p>'.$teaching_left['describe'].'</p>
-							</div></a>';	
-							?>
-							
+						<div id="teaching_left" class="thumbnail teaching">
 						</div>
 					</div>
 					<div class="col-md-5 deviation">
-						<div class="thumbnail teaching">
-							<?php
-								echo '<a href="Article.php?news_id='.$teaching_left['column_id'].'">
-								<img src="http://'.$teaching_right['cover'].'" alt="'.$teaching_right['title'].'">
-								<div class="teaching_content content_left">
-									<i>new</i>
-									<h4>'.$teaching_right['title'].'</h4>
-								</div></a>';	
-							?>
+						<div id="teaching_right" class="thumbnail teaching">
 						</div>
 					</div>
 				</div>
@@ -374,24 +372,7 @@
 		e.preventDefault()
 		$(this).tab('show')
 	});
-	
-	//超过一定高度导航添加类名
-	var nav=$("navbar"); //得到导航对象  
-	var win=$(window); //得到窗口对象  
-	var sc=$(document);//得到document文档对象。  
-	win.scroll(function(){  
-	  if(sc.scrollTop()>=100){  
-	    nav.addClass("on");   
-	  }else{  
-	   	nav.removeClass("on");  
-	  }  
-	})   
 
-	//二级导航  移动端
-    $(".m_nav .ul li").click(function() {
-		$(this).children("div.dropdown_menu").slideToggle('slow')
-        $(this).siblings('li').children('.dropdown_menu').slideUp('slow');				
-    });
 });</script>
 	</body>
 </html>

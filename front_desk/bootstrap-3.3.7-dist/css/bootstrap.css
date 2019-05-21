@@ -4011,7 +4011,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
+  background-color: #5555;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -4039,6 +4039,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
+  background: rgb(28,38,69);
   border-bottom: 1px solid #ddd;
 }
 .nav-tabs > li {
@@ -4048,8 +4049,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857143;
-  border: 1px solid transparent;
-  border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
   border-color: #eee #eee #ddd;
@@ -4057,10 +4056,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555;
+	font-size: 18px;
+  color: #000000;
   cursor: default;
   background-color: #fff;
-  border-left: 3px solid cornflowerblue;
+  background: white;
   border-bottom-color: transparent;
 }
 .nav-tabs.nav-justified {
@@ -4542,8 +4542,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
-  background-color: #e7e7e7;
+  color: white;
+  
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -6791,7 +6791,6 @@ button.close {
   	padding: 2px;
   	 font-size: 16px;
   }
- 
 	.deviation{
   	margin-left: -80px;margin-top: 50px;
   }
@@ -6803,11 +6802,15 @@ button.close {
 	 	.pic_news_right>div{
 	 		padding: 5px 0px;
 	 	}
-	}
-	@media only screen and (max-width: 992px) {
-		.pic_news img{
-			height: 80px;
+	 	.pic_news img{
+			height: 90px;
 		}
+	}
+	@media (max-width: 992px) {
+		.header_logo img{
+			margin: 0 auto;
+		}
+  
 	}
 	
 /*# sourceMappingURL=bootstrap.css.map */
