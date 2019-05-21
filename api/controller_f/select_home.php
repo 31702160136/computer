@@ -22,7 +22,7 @@ $res_slideshow=$select_service->getSlideshowsStatusTrue($data);
 //图片新闻
 $res_cover=$select_service->getNewsStatusTrueOfCover($data);
 //首页底部图片新闻
-$data["column_title"]="技能竞赛";
+$data["column_title"]="教学科研";
 $res_bottom_cover=$select_service->getNewsStatusTrueByColumnTitleOfCover($data);
 
 $column_news=array(

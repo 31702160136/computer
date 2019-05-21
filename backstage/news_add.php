@@ -127,6 +127,11 @@
 									'<option value="'+title+'" id="'+id+'">'+title+'</option>';
 								$("#columnNameList").append(list);
 							});
+							layui.use('form',function(){
+								var form = layui.form;
+								//加载下拉框
+								form.render("select");
+							});
 						}else{
 							alert("栏目获取失败");
 						}

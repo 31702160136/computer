@@ -172,6 +172,7 @@
 			queryNewsInfo(column_id,parseInt($("#start_in").prop("innerHTML")));
 //			新闻列表请求完毕
 		}
+		//请求新闻列表
 		function queryNewsInfo(column_id,page=1){
 			//请求获得当前栏目新闻
 			var news_url = host+'select_news_by_column_id.php';
@@ -181,19 +182,26 @@
 				async:true,
 				data:{
 					page:page,
-					size:1,
+					size:5,
 					column_id:column_id
 				},
 				success:function (data) {
 					var result = JSON.parse(data);
 					console.log(result);
 					if(result['code'] == 200){
+						//每次请求清除新闻列表
+						$("#news_left_ul").html("");
+						//每次请求清除新闻列表
 						$("#news_ul").html("");
+						//每次请求清除下拉框列表
 						$("#go").html("");
 						$("#page_in").text(result.data.total_page);
+						//获取当前页数
 						var start_in=parseInt($("#start_in").prop("innerHTML"));
-						var news_list = result['data']['data']; 	 	// 提取新闻列表		
+						var news_list = result['data']['data']; 	 	// 提取新闻列表	
+						//初始化下拉框列表	
 						for(var i=0;i<parseInt(result.data.total_page);i++){
+							//给下拉框定位到当前页数
 							if(i+1==start_in){
 								$("#go").append('<option value="'+(i+1)+'" selected>'+(i+1)+'</option>');
 							}else{
@@ -215,10 +223,12 @@
 				}
 			});
 		}
+		//点击下一页
 		function next(){
 			var column_id = getQueryVariable('id');
 			var page=parseInt($("#start_in").prop("innerHTML"));
 			var page_tal=parseInt($("#page_in").prop("innerHTML"));
+			//防止下一页超出范围
 			if(page>=page_tal){
 				return;
 			}
@@ -227,9 +237,11 @@
 				queryNewsInfo(column_id,page+1);
 			}
 		}
+		//点击上一页
 		function back(){
 			var column_id = getQueryVariable('id');	
 			var page=parseInt($("#start_in").prop("innerHTML"));
+			//防止上一页超出范围
 			if(page<=1){
 				return;
 			}
@@ -238,6 +250,7 @@
 				queryNewsInfo(column_id,page-1);
 			}
 		}
+//		监听下拉框点击事件
 		window.onload = function () {
 	        document.getElementById('go').addEventListener('change',function(){
 	        	var column_id = getQueryVariable('id');

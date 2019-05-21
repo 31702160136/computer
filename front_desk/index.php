@@ -114,12 +114,12 @@
 					var teaching_title = '<h2><span>'+teaching_left['column']+'</span>'+
 							'<a href="news.php?id='+teaching_left['column_id']+'">更多 ></a></h2>';
 					$(".teaching_title").append(teaching_title);
-					var teaching_left  = '<a href="Article.php?news_id='+teaching_left['column_id']+'">'+
+					var teaching_left  = '<a href="Article.php?news_id='+teaching_left['id']+'">'+
 								'<img src="http://'+teaching_left['cover']+'" alt="'+teaching_left['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_left['title']+'</h4>'+
 								'<p>'+teaching_left['describe']+'</p></div></a>';
 					$("#teaching_left").append(teaching_left);
-					var teaching_right  = '<a href="Article.php?news_id='+teaching_right['column_id']+'">'+
+					var teaching_right  = '<a href="Article.php?news_id='+teaching_right['id']+'">'+
 								'<img src="http://'+teaching_right['cover']+'" alt="'+teaching_right['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_right['title']+'</h4></div></a>';
 					$("#teaching_right").append(teaching_right);		 	

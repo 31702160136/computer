@@ -51,21 +51,21 @@
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>栏目数</h3>
                                                 <p>
-                                                    <cite id="column">66</cite></p>
+                                                    <cite id="column">0</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>文章数</h3>
                                                 <p>
-                                                    <cite id="news">12</cite></p>
+                                                    <cite id="news">0</cite></p>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs2">
                                             <a href="javascript:;" class="x-admin-backlog-body">
                                                 <h3>总访问数</h3>
                                                 <p>
-                                                    <cite id="visit">99</cite></p>
+                                                    <cite id="visit">0</cite></p>
                                             </a>
                                         </li>
                                     </ul>
@@ -193,26 +193,31 @@
 				async:true,
 				success:function(res){
 					var data=JSON.parse(res);
-					var column_sum=0;
-					var news_sum=0;
-					var visit_sum=0;
-					for(var i=0;i<data.data.length;i++){
-						//写入访问统计数据
-						var item={
-							value:parseInt(data.data[i].count),
-							name:data.data[i].title
+					if(data.status){
+						var column_sum=0;
+						var news_sum=0;
+						var visit_sum=0;
+						for(var i=0;i<data.data.length;i++){
+							//写入访问统计数据
+							var item={
+								value:parseInt(data.data[i].count),
+								name:data.data[i].title
+							}
+	//						console.log(data.data[i].count);
+							//写入数据统计数据
+							column_sum++;
+							news_sum+=parseInt(data.data[i].news_sum);
+							visit_sum+=parseInt(data.data[i].count);
+							option.series[0].data.push(item);
 						}
-//						console.log(data.data[i].count);
-						//写入数据统计数据
-						column_sum++;
-						news_sum+=parseInt(data.data[i].news_sum);
-						visit_sum+=parseInt(data.data[i].count);
-						option.series[0].data.push(item);
+						myChart.setOption(option);
+						$("#column").text(column_sum);
+						$("#news").text(news_sum);
+						$("#visit").text(visit_sum);
+					}else{
+						option.title.text=data.message;
+						myChart.setOption(option);
 					}
-					myChart.setOption(option);
-					$("#column").text(column_sum);
-					$("#news").text(news_sum);
-					$("#visit").text(visit_sum);
 				}
 			});
 			$.ajax({
