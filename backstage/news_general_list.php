@@ -431,14 +431,12 @@
 												} ,
 												success: function(data){
 													var res=JSON.parse(data);
-													console.log(res);
 													if (res.status) {
 														//关闭所有页面层
 														layer.closeAll('page');
 														//查询普通新闻列表
 														query_generalNews();
-//														parent.location.reload();//刷新页面
-														layer.msg('创建轮播新闻成功',{icon: 1,time:2000});
+														layer.msg('创建轮播新闻成功，如需查看结果，切换tap页面后记得刷新右上角刷新键哦',{icon: 1,time: 6000});
 													}else{
 														layer.msg(res.message,{icon: 2,time:2000});
 													}

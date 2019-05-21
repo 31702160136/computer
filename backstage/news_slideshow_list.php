@@ -135,7 +135,7 @@
 			function query_broadCastNews(){
 				$.ajax({
 					type: "get",
-					url: host + "controller_b/select_slideshow.php",
+					url: host + "controller_b/select_slideshow.php?page=1&size=100",
 					async: true,
 					datatype: 'json',
 					success: function(data) {
@@ -185,11 +185,10 @@
 									success: function(data){
 										var res=JSON.parse(data);
 										if (res.status) {
-												//关闭所有页面层
-												layer.closeAll('page');
-												query_broadCastNews();
-												parent.location.reload();//刷新页面
-												layer.msg('删除轮播新闻成功',{icon: 1,time:2000});
+											//关闭所有页面层
+											layer.closeAll('page');
+											query_broadCastNews();
+											layer.msg('删除轮播新闻成功，如需查看结果，切换tap页面后记得刷新右上角刷新键哦',{icon: 1,time: 6000});
 										}else{
 											layer.msg('删除轮播新闻失败',{icon: 2,time:2000});
 										}
