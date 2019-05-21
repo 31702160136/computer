@@ -2,12 +2,13 @@
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title>后台登录-X-admin2.1</title>
+        <title>后台信息</title>
         <meta name="renderer" content="webkit|ie-comp|ie-stand">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <meta http-equiv="Cache-Control" content="no-siteapp" />
-
+		<script src="js/host.js"></script>
+		<script src="js/is_login.js"></script>
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/xadmin.css">
     </head>
@@ -75,10 +76,48 @@
                 </div>
             </div>
         </fieldset>
+        
         <div class="x-body">
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
             <div id="main" style="width: 100%;height:400px;"></div>
         </div>
+        
+        <fieldset class="layui-elem-field">
+            <legend>系统通知</legend>
+            <div class="layui-field-box">
+                <table class="layui-table" lay-skin="line">
+                    <tbody>
+                        <tr>
+                            <td >
+                                <a class="x-a" style="color: red;">茂名职业技术学院 - - - - 计算机后台管理系统 1.0上线了</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
+                                <a class="x-a">交流qq群: （暂不提供）</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+        
+        <fieldset class="layui-elem-field">
+		    <legend>开发团队</legend>
+		    <div class="layui-field-box">
+		        <table class="layui-table">
+		            <tbody>
+		                <tr>
+		                    <th>版权所有</th>
+		                    <td style="color: red;">17移动互联1班 （ 陈新彬、杨鸿燊、姚升阳 ）
+		                </tr>
+		                <tr>
+		                    <th>开发者</th>
+		                    <td style="color: red;">陈新彬、杨鸿燊、姚升阳</td></tr>
+		            </tbody>
+		        </table>
+		    </div>
+        </fieldset>
         <script src="js/host.js"></script>
    		<script type="text/javascript" src="js/jquery.min.js"></script>
         <script src="js/echarts.min.js" charset="utf-8"></script>

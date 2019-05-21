@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 	<head>
 		<meta charset="UTF-8">
-		<title>新闻回收站</title>
+		<title>新闻管理==>回收站页面</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -13,9 +13,11 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
-		<script src="js/select_news.js"></script>
+		<script src="js/checkbox.js"></script>
+		<script src="js/paging.js"></script>
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
+		<link rel="stylesheet" href="css/paging.css">
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 		<!--[if lt IE 9]>
 	      	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -26,11 +28,8 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>回收站</cite></a>
-      </span>
+	       		<a><cite style="color: red;">此页面为计算机工程系后台新闻管理页面，管理员务必慎重操作！</cite></a>
+     		</span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
 				<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
@@ -67,6 +66,8 @@
 
 				</tbody>
 			</table>
+			<!--分页-->
+    		<div class="box" id="box"></div>
 			<!--<div class="page">
 				<div>
 					<a class="prev" href="">&lt;&lt;</a>
@@ -80,8 +81,93 @@
 
 		</div>
 		<script>
-			select_recycle_bin();
 			
+			init();
+			function init(){
+				var data={
+					page:1,
+					size:5
+				}
+				findNews(data);
+			}
+			function findNews(data){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_recycle_bin.php",
+					async: true,
+					datatype: 'json',
+					data:data,
+					success: function(res_) {
+						var res = JSON.parse(res_);
+						var total_page = res.data.total_page;
+						if(res.status) {
+							pageIng(total_page,data);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});	
+			}
+			function pageIng(total_page,data){
+				//分页插件使用
+				$('#box').paging({
+					initPageNo: 1, // 初始页码
+					totalPages: total_page, //总页数
+					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
+					slideSpeed: 600, // 缓动速度。单位毫秒
+					jump: true, //是否支持跳转
+					callback: function(page) { // 回调函数
+						data.page=page;
+						query(data);
+					}
+				});
+			}
+			function query(data_){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_recycle_bin.php",
+					data:data_,
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var news = res.data.data;
+						if(res.status) {
+							dynamic_addition(news);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});	
+			}
+			/**	
+			 * 	搜索新闻，根据新闻的标题搜索
+			 */
+			layui.use(['form', 'layer'],function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                	layer = layui.layer;
+                //监听提交
+                form.on('submit(search)',function(data) {
+                	var serach_box = $("#search_box").val();
+					var data={
+						page:1,
+						size:10,
+						title:serach_box
+					}
+					findNews(data);
+					return false;
+            	});
+			});
+			
+			//-------------------------------------------------------------
 			/*
 			 * 	查询成功之后动态添加数据
 			 */
@@ -131,64 +217,37 @@
 			/**	
 			 * 	搜索新闻，根据新闻的标题搜索
 			 */
-			layui.use(['form', 'layer'],function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                	layer = layui.layer;
-                //监听提交
-                form.on('submit(search)',function(data) {
-                	var serach_box = $("#search_box").val();
-					$.ajax({
-						type: "get",
-						url: host + "controller_b/select_recycle_bin.php?page=1&size=100&title="+serach_box,
-						async: true,
-						datatype: 'json',
-						success: function(data) {
-							var res = JSON.parse(data);
-							var total_page = res.data.total_page;
-							var category = res.data.data;
-							if(res.status) {
-								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
-								//添加数据
-								dynamic_addition(category);
-							} else {
-								alert("新闻获取失败");
-							}
-						},
-						error: function() {
-							document.write("error");
-						}
-					});
-					return false;
-            	});
-			});
-				
-			/**
-			 * 	查询回收站新闻
-			 *		select_recycle_bin()
-			 */
-			function select_recycle_bin(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_recycle_bin.php",
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var category = res.data.data;
-						if(res.status) {
-							//添加数据
-							dynamic_addition(category);
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-						}
-					});
-				}
+//			layui.use(['form', 'layer'],function() {
+//              $ = layui.jquery;
+//              var form = layui.form,
+//              	layer = layui.layer;
+//              //监听提交
+//              form.on('submit(search)',function(data) {
+//              	var serach_box = $("#search_box").val();
+//					$.ajax({
+//						type: "get",
+//						url: host + "controller_b/select_recycle_bin.php?page=1&size=100&title="+serach_box,
+//						async: true,
+//						datatype: 'json',
+//						success: function(data) {
+//							var res = JSON.parse(data);
+//							var total_page = res.data.total_page;
+//							var category = res.data.data;
+//							if(res.status) {
+//								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
+//								//添加数据
+//								dynamic_addition(category);
+//							} else {
+//								alert("新闻获取失败");
+//							}
+//						},
+//						error: function() {
+//							document.write("error");
+//						}
+//					});
+//					return false;
+//          	});
+//			});
 			
 			/* 单条新闻恢复：
 			 * 
@@ -206,7 +265,7 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								select_recycle_bin();
+								init();
 								layer.msg('恢复新闻成功!', {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
@@ -224,27 +283,31 @@
 			 * */
 			function recoverAll(argument) {
 				var arrayData = tableCheck.getData();
-				layer.confirm('确认要恢复 '+arrayData.length+' 条新闻吗？', function(index) {
-					$.ajax({
-						type:"post",
-						url:host+"controller_b/recover_news.php",
-					  	data:{
-					  		"ids":arrayData
-					  	},
-					  	success:function(data){
-					        	var res=JSON.parse(data);
-					        	if (res.status) {
-									select_recycle_bin();
-									layer.msg('恢复'+arrayData.length+'新闻成功!', {icon: 1,time: 1000});
-								} else{
-									layer.msg(res.message, {icon: 2,time: 2000});
-								}
-					    },
-					    error:function(){
-							document.write("error");
-						}
+				if (arrayData.length == 0) {
+					layer.msg("请勾选要恢复的新闻", {icon: 3,time: 3000});
+				}else{
+					layer.confirm('确认要恢复 '+arrayData.length+' 条新闻吗？', function(index) {
+						$.ajax({
+							type:"post",
+							url:host+"controller_b/recover_news.php",
+						  	data:{
+						  		"ids":arrayData
+						  	},
+						  	success:function(data){
+						        	var res=JSON.parse(data);
+						        	if (res.status) {
+										init();
+										layer.msg('恢复'+arrayData.length+'新闻成功!', {icon: 1,time: 1000});
+									} else{
+										layer.msg(res.message, {icon: 2,time: 2000});
+									}
+						    },
+						    error:function(){
+								document.write("error");
+							}
+						});
 					});
-				});
+				}
 			}
 			
 			/* 单条新闻删除：
@@ -263,8 +326,8 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								select_recycle_bin();
-								layer.msg('删除新闻成功!', {icon: 1,time: 1000});
+								init();
+								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
 							}
@@ -281,49 +344,35 @@
 			 * */
 			function delAll(argument) {
 				var arrayData = tableCheck.getData();
-				layer.confirm('确认要删除ID为 '+arrayData+' 的新闻吗？', function(index) {
-					$.ajax({
-						type:"post",
-						url:host+"controller_b/delete_news.php",
-					  	data:{
-					  		"ids":arrayData
-					  	},
-					  	success:function(data){
-					        	var res=JSON.parse(data);
-					        	if (res.status) {
-									select_recycle_bin();
-									layer.msg('已删除!', {
-										icon: 1,
-										time: 1000
-									});
-								} else{
-									layer.msg('请选择要删除的新闻', {
-										icon: 2,
-										time: 2000
-									});
-								}
-					    },
-					    error:function(){
-							document.write("error");
-						}
+				if (arrayData.length == 0) {
+					layer.msg("请勾选要删除的新闻", {icon: 3,time: 3000});
+				}else{
+					layer.confirm('确认要删除'+arrayData.length+' 条新闻吗？', function(index) {
+						$.ajax({
+							type:"post",
+							url:host+"controller_b/delete_recycle_bins.php",
+						  	data:{
+						  		"ids":arrayData
+						  	},
+						  	success:function(data){
+						        	var res=JSON.parse(data);
+						        	if (res.status) {
+										init();
+										layer.msg('删除'+arrayData.length+'新闻成功!', {icon: 1,time: 1000});
+									} else{
+										layer.msg(res.message, {icon: 2,time: 2000});
+									}
+						    },
+						    error:function(){
+								document.write("error");
+							}
+						});
 					});
-				});
+				}
 			}
 			
 			//渲染多选框事件
-			$(document).on('click', '#icheckbox',function() {
-				if($(this).hasClass('layui-form-checked')) {
-					$(this).removeClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").removeClass('layui-form-checked');
-					}
-				} else {
-					$(this).addClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
-					}
-				}
-			});
+		   	rendering_checkbox();
 		</script>
 	</body>
 

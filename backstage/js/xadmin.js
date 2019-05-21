@@ -23,6 +23,7 @@ $(function () {
         });
 
         $('.page-content,#tab_show,.container,.left-nav').click(function(event) {
+//      	layer.msg("点击右上角可以刷新页面哦！",{icon: 6,time: 1000});
             $('#tab_right').hide();
             $('#tab_show').hide();
         });
@@ -152,13 +153,11 @@ $(function () {
             title: title 
             ,content: '<iframe tab-id="'+id+'" frameborder="0" src="'+url+'" scrolling="yes" class="x-iframe"></iframe>'
             ,id: id
-          })
+          });
         }
         ,tabDelete: function(othis){
           //删除指定Tab项
           element.tabDelete('xbs_tab', othis); //删除：“商品管理”
-          
-           
           // othis.addClass('layui-btn-disabled');
         }
         ,tabChange: function(id){

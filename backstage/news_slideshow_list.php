@@ -49,25 +49,19 @@
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
-		        <a href="">首页</a>
-		        <a href="">演示</a>
-		        <a>
-		          <cite>轮播新闻</cite></a>
-		      </span>
+	       		<a><cite style="color: red;">此页面为计算机工程系后台新闻管理页面，管理员务必慎重操作！</cite></a>
+		    </span>
 			<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
 			<i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
 		</div>
 		<div class="x-body">
 			<xblock>
-				<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+				<button class="layui-btn layui-btn-disabled"><i class="layui-icon"></i>批量删除</button>
 			</xblock>
 			
 			<table class="layui-table x-admin">
 				<thead>
 					<tr>
-						<th width="20px">
-							<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-						</th>
 						<th width="50px" style="text-align: center;">ID</th>
 						<th width="100px" style="text-align: center;">轮播图</th>
 						<th width="" style="text-align: center;">标题</th>
@@ -82,16 +76,6 @@
 
 				</tbody>
 			</table>
-			<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>
 
 		</div>
 		
@@ -121,11 +105,6 @@
 					var doEditItem=JSON.stringify(slideshow_cover);
 					var list = 
 						'<tr>'+
-							'<td>'+
-								'<div id="icheckbox" class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="'+id+'">'+
-									'<i class="layui-icon">&#xe605;</i>'+
-								'</div>'+
-							'</td>'+
 							'<td align="center">'+news_id+'</td>'+
 							'<td><img src="http://'+slideshow_cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
@@ -156,7 +135,7 @@
 			function query_broadCastNews(){
 				$.ajax({
 					type: "get",
-					url: host + "controller_b/select_slideshow.php",
+					url: host + "controller_b/select_slideshow.php?page=1&size=100",
 					async: true,
 					datatype: 'json',
 					success: function(data) {
@@ -206,11 +185,10 @@
 									success: function(data){
 										var res=JSON.parse(data);
 										if (res.status) {
-												//关闭所有页面层
-												layer.closeAll('page');
-												query_broadCastNews();
-												//parent.location.reload();//刷新页面
-												layer.msg('删除轮播新闻成功',{icon: 1,time:2000});
+											//关闭所有页面层
+											layer.closeAll('page');
+											query_broadCastNews();
+											layer.msg('删除轮播新闻成功，如需查看结果，切换tap页面后记得刷新右上角刷新键哦',{icon: 1,time: 6000});
 										}else{
 											layer.msg('删除轮播新闻失败',{icon: 2,time:2000});
 										}
@@ -315,21 +293,6 @@
 			        });
 		     	}
 	      	}	
-			
-			//渲染多选框事件
-			$(document).on('click', '#icheckbox',function() {
-				if($(this).hasClass('layui-form-checked')) {
-					$(this).removeClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").removeClass('layui-form-checked');
-					}
-				} else {
-					$(this).addClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
-					}
-				}
-			});
 		</script>
 	</body>
 
