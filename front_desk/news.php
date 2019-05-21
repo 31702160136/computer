@@ -88,10 +88,14 @@
 						</div>
 						<div class="paging clearfix">
 							<ul>
-								<li>共21页</li>
-								<li>当前2页</li>
-								<li>上一页</li>
-								<li>下一页</li>
+								<li id="page">共<a id="page_in">21</a>页</li>
+								<li id="start">当前<a id="start_in">1</a>页</li>
+								<li id="back" onclick="back()"><a href="#">上一页</a></li>
+								<li id="next" onclick="next()"><a href="#">下一页</a></li>
+								<li id="next">
+									<select id="go">
+									</select>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -165,16 +169,37 @@
 					}
 				}
 			});
+			queryNewsInfo(column_id,parseInt($("#start_in").prop("innerHTML")));
+//			新闻列表请求完毕
+		}
+		function queryNewsInfo(column_id,page=1){
 			//请求获得当前栏目新闻
-			var news_url = host+'select_news_by_column_id.php?column_id='+column_id;
+			var news_url = host+'select_news_by_column_id.php';
 			$.ajax({
 				type:"get",
 				url:news_url,
 				async:true,
+				data:{
+					page:page,
+					size:1,
+					column_id:column_id
+				},
 				success:function (data) {
 					var result = JSON.parse(data);
+					console.log(result);
 					if(result['code'] == 200){
-						var news_list = result['data']['data']; 	 	// 提取新闻列表						
+						$("#news_ul").html("");
+						$("#go").html("");
+						$("#page_in").text(result.data.total_page);
+						var start_in=parseInt($("#start_in").prop("innerHTML"));
+						var news_list = result['data']['data']; 	 	// 提取新闻列表		
+						for(var i=0;i<parseInt(result.data.total_page);i++){
+							if(i+1==start_in){
+								$("#go").append('<option value="'+(i+1)+'" selected>'+(i+1)+'</option>');
+							}else{
+								$("#go").append('<option value="'+(i+1)+'">'+(i+1)+'</option>');
+							}
+						}
 						$.each(news_list,function (index,item) {
 							console.log(item['is_top']);
 							if(item['is_top'] == "1"){
@@ -189,11 +214,39 @@
 					}
 				}
 			});
-//			新闻列表请求完毕
 		}
-		
-		
-		
+		function next(){
+			var column_id = getQueryVariable('id');
+			var page=parseInt($("#start_in").prop("innerHTML"));
+			var page_tal=parseInt($("#page_in").prop("innerHTML"));
+			if(page>=page_tal){
+				return;
+			}
+			$("#start_in").text(page+1);
+			if(column_id){
+				queryNewsInfo(column_id,page+1);
+			}
+		}
+		function back(){
+			var column_id = getQueryVariable('id');	
+			var page=parseInt($("#start_in").prop("innerHTML"));
+			if(page<=1){
+				return;
+			}
+			$("#start_in").text(page-1);
+			if(column_id){
+				queryNewsInfo(column_id,page-1);
+			}
+		}
+		window.onload = function () {
+	        document.getElementById('go').addEventListener('change',function(){
+	        	var column_id = getQueryVariable('id');
+	        	$("#start_in").text(this.value);
+	        	if(column_id){
+					queryNewsInfo(column_id,this.value);
+				}
+	        },false);
+        }
 		//获取url参数	
 		function getQueryVariable(variable)
 		{

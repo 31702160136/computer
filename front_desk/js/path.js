@@ -1,1 +1,1 @@
-var host = "http://127.0.0.1/computer/api/controller_f/";
+var host = window.location.origin+"/computer/api/controller_f/";
