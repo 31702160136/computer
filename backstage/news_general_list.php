@@ -90,103 +90,32 @@
     		<div class="box" id="box"></div>
 		</div>
 		<script>
-			//定义全局变量	ajaxPage 页数
-			var ajaxPage = 1;
-			//一页的数量
-			var ajaxSize = 5;
-			query_generalNews();
-			//下拉框
-			dropDownBox();
-			/**
-			 * 	查询所有新闻
-			 *		query_generalNews()
-			 */
-			function query_generalNews(){
-				$.ajax({
-					type: "get",
-					url: host + "controller_b/select_news.php",
-					data:{
-						page: ajaxPage,
-						size: ajaxSize
-					},
-					async: true,
-					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
-						var total_page = res.data.total_page;
-						var news = res.data.data;
-						if(res.status) {
-							dynamic_addition(news);
-							var len = news.length;
-							customPaging(total_page,len,ajaxPage);
-						} else {
-							alert("新闻获取失败");
-						}
-					},
-					error: function() {
-						document.write("error");
-					}
-				});		
+			init();
+			function init(){
+				query_column();
+				var data={
+					page:1,
+					size:5
+				}
+				findNews(data);
 			}
-			
-			/*
-			 * 	封装自定义	customPaging 自定义页数	方法
-			 * 	从	select_user();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
-			 */
-			var column_title=null;
-			var title = null;
-			function customPaging(total_page,len,ajaxPage){
-				//分页插件使用
-				$('#box').paging({
-					initPageNo: 1, // 初始页码
-					totalPages: total_page, //总页数
-					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
-					slideSpeed: 600, // 缓动速度。单位毫秒
-					jump: true, //是否支持跳转
-					callback: function(page) { // 回调函数
-						//使page当前页数等于 数据的当前页数
-						ajaxPage = page;
-						$.ajax({
-							type:"get",
-							url: host + "controller_b/select_news.php",
-							data: {
-								page: ajaxPage,
-								size: ajaxSize,
-								column_title: column_title,
-								title: title
-							},
-							async:true,
-							datatype: 'json',
-							success: function(data){
-								var res=JSON.parse(data);
-								var total_page = res.data.total_page;
-								var news = res.data.data;
-								if (res.status) {
-									dynamic_addition(news);
-								}
-							},
-							error : function () {
-						      	document.write("error");
-						    }
-						});
-					}
-				});
-			}
-			
 			/**	搜索新闻，根据新闻的栏目搜索：
 			 *  	下拉框动态获取栏目标题
 			 * 		获取每个option的value值
 			 * 		监听确定按钮，提交请求获取新闻（已栏目标题筛选新闻)
 			 */
-			function dropDownBox(){
+			function query_column(){
 				$.ajax({
 					type:"get",
-					url: host + "controller_b/select_columns.php?page=1&size=100",
+					url: host + "controller_b/select_columns.php",
 					async:true,
 					datatype:'json',
+					data:{
+						page:1,
+						size:999
+					},
 					success: function(data){
 						var res=JSON.parse(data);
-						var total_page=res.data.total_page;
 						var category=res.data.data;
 						if (res.status) {
 							$.each(category, function(index,item) {
@@ -202,15 +131,15 @@
 								form.render("select");
 				                form.on('select(selectList)',function(data) {
 				                	var value = data.value;
-				                	console.log(value);
-									if (value == "所有新闻") {
-										column_title=null;
-										layer.msg('已选择所有新闻', {icon: 1,time: 3000});
-										query_generalNews();
-									} else{
-										//	获取新闻（已栏目标题筛选新闻)
-										column_title_news(value);
+				                	if(value=="所有新闻"){
+				                		value=null;
+				                	}
+				                	var data={
+										page:1,
+										size:5,
+										column_title:value
 									}
+									findNews(data);
 									return false;
 				                });
 							});
@@ -223,29 +152,18 @@
 				    }
 				});
 			}
-			/*
-			 * 	获取新闻（已栏目标题筛选新闻)
-			 */
-			function column_title_news(value){
-				column_title=value;
+			function findNews(data){
 				$.ajax({
 					type: "get",
-					url: host + "controller_b/select_news.php?column_title="+value,
-					data:{
-						page: ajaxPage,
-						size: ajaxSize
-					},
+					url: host + "controller_b/select_news.php",
 					async: true,
 					datatype: 'json',
-					success: function(data) {
-						var res = JSON.parse(data);
+					data:data,
+					success: function(res_) {
+						var res = JSON.parse(res_);
 						var total_page = res.data.total_page;
-						var news = res.data.data;
 						if(res.status) {
-							layer.msg('已选择  < '+value+' > 新闻', {icon: 1,time: 3000});
-							dynamic_addition(news);
-							var len = news.length;
-							customPaging(total_page,len,ajaxPage);
+							pageIng(total_page,data);
 						} else {
 							alert("新闻获取失败");
 						}
@@ -253,12 +171,44 @@
 					error: function() {
 						document.write("error");
 					}
+				});	
+			}
+			function pageIng(total_page,data){
+				//分页插件使用
+				$('#box').paging({
+					initPageNo: 1, // 初始页码
+					totalPages: total_page, //总页数
+					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
+					slideSpeed: 600, // 缓动速度。单位毫秒
+					jump: true, //是否支持跳转
+					callback: function(page) { // 回调函数
+						data.page=page;
+						query(data);
+					}
 				});
 			}
-				
-			/**	
-			 * 	搜索新闻，根据新闻的标题搜索
-			 */
+			function query(data_){
+				$.ajax({
+					type: "get",
+					url: host + "controller_b/select_news.php",
+					data:data_,
+					async: true,
+					datatype: 'json',
+					success: function(data) {
+						var res = JSON.parse(data);
+						var total_page = res.data.total_page;
+						var news = res.data.data;
+						if(res.status) {
+							dynamic_addition(news);
+						} else {
+							alert("新闻获取失败");
+						}
+					},
+					error: function() {
+						document.write("error");
+					}
+				});	
+			}
 			layui.use(['form', 'layer'],function() {
                 $ = layui.jquery;
                 var form = layui.form,
@@ -267,39 +217,17 @@
                 //监听提交
                 form.on('submit(search)',function(data) {
                 	var serach_box = $("#search_box").val();
-                	title = serach_box;
-					$.ajax({
-						type: "get",
-						url: host + "controller_b/select_news.php",
-						data:{
-							page: ajaxPage,
-							size: ajaxSize,
-							title: title
-						},
-						async: true,
-						datatype: 'json',
-						success: function(data) {
-							var res = JSON.parse(data);
-							var total_page = res.data.total_page;
-							var news = res.data.data;
-							if(res.status) {
-								layer.msg('搜索新闻成功，共有'+news.length+'条', {icon: 1,time: 3000});
-								//添加数据
-								dynamic_addition(news);
-								var len = news.length;
-								customPaging(total_page,len,ajaxPage);
-							} else {
-								alert("新闻获取失败");
-							}
-						},
-						error: function() {
-							document.write("error");
-						}
-					});
+                	var data={
+						page:1,
+						size:10,
+						title:serach_box
+					}
+					findNews(data);
 					return false;
             	});
 			});
-
+			
+			//-------------------------------------------------------------
 			/*
 			 * 	表格动态添加数据
 			 */
@@ -435,8 +363,9 @@
 														//关闭所有页面层
 														layer.closeAll('page');
 														//查询普通新闻列表
-														query_generalNews();
-														layer.msg('创建轮播新闻成功，如需查看结果，切换tap页面后记得刷新右上角刷新键哦',{icon: 1,time: 6000});
+														init();
+//														parent.location.reload();//刷新页面
+														layer.msg('创建轮播新闻成功',{icon: 1,time:2000});
 													}else{
 														layer.msg(res.message,{icon: 2,time:2000});
 													}
@@ -477,7 +406,7 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								query_generalNews();
+								init();
 								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
@@ -510,7 +439,7 @@
 						  	success:function(data){
 						        	var res=JSON.parse(data);
 						        	if (res.status) {
-										query_generalNews();
+										init();
 										layer.msg('已删除!', {
 											icon: 1,
 											time: 1000
@@ -564,7 +493,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
@@ -587,7 +516,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
@@ -618,7 +547,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
@@ -641,7 +570,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
@@ -672,7 +601,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
@@ -695,7 +624,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	query_generalNews();
+							      	init();
 								}else{
 									alert("状态修改失败");
 								}
