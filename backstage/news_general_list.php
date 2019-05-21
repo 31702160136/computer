@@ -134,6 +134,7 @@
 			 * 	从	select_user();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
 			 */
 			var column_title=null;
+			var title = null;
 			function customPaging(total_page,len,ajaxPage){
 				//分页插件使用
 				$('#box').paging({
@@ -151,7 +152,8 @@
 							data: {
 								page: ajaxPage,
 								size: ajaxSize,
-								column_title:column_title
+								column_title: column_title,
+								title: title
 							},
 							async:true,
 							datatype: 'json',
@@ -202,6 +204,7 @@
 				                	var value = data.value;
 				                	console.log(value);
 									if (value == "所有新闻") {
+										column_title=null;
 										layer.msg('已选择所有新闻', {icon: 1,time: 3000});
 										query_generalNews();
 									} else{
@@ -264,20 +267,27 @@
                 //监听提交
                 form.on('submit(search)',function(data) {
                 	var serach_box = $("#search_box").val();
+                	title = serach_box;
 					$.ajax({
 						type: "get",
-						url: host + "controller_b/select_news.php?page=1&size=100&title="+serach_box,
+						url: host + "controller_b/select_news.php",
+						data:{
+							page: ajaxPage,
+							size: ajaxSize,
+							title: title
+						},
 						async: true,
 						datatype: 'json',
 						success: function(data) {
 							var res = JSON.parse(data);
 							var total_page = res.data.total_page;
-							var category = res.data.data;
+							var news = res.data.data;
 							if(res.status) {
-								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
+								layer.msg('搜索新闻成功，共有'+news.length+'条', {icon: 1,time: 3000});
 								//添加数据
-								dynamic_addition(category);
-								
+								dynamic_addition(news);
+								var len = news.length;
+								customPaging(total_page,len,ajaxPage);
 							} else {
 								alert("新闻获取失败");
 							}
