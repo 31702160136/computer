@@ -9,7 +9,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 		<link rel="stylesheet" type="text/css" href="css/news.css"/>
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
-		
+		<script src="js/path.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/time_stamp_date.js" type="text/javascript" charset="utf-8"></script>
 		<!--bootstrap-->
 		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
 		<script src="js/jquery.v1.9.1min.js"></script>
@@ -21,6 +22,7 @@
 		<script src="bootstrap-3.3.7-dist/js/respond.js"></script>
 		<![endif]-->
 	</head>
+	
 	<body>
 		<!--头部 start-->
 		<header>
@@ -58,30 +60,13 @@
 							</button>
 						</div>
 						<div class="collapse navbar-collapse col-lg-12" id="example-navbar-collapse">
-							<ul class="nav navbar-nav navbar-right" data-in = "fadeInDown" data-out = "dadeOutUp">
+							<ul id="header_nav" class="nav navbar-nav navbar-right" data-in = "fadeInDown" data-out = "dadeOutUp">
 								<li class="active dropdown">
 									<a href="index.php">
 										系部首页
 									</a>
 								</li>
-								<?php 
-									include "./Util_http.php";
-									include "./path.php";
-									$url = $host.'select_home.php';
-									$result = https_request($url);
-									if($result['code'] == 200){
-										$column 		= $result['data']['column']; 	 	// 栏目
-										$column_news 	= $result['data']['column_news'];	// 首页栏目及相应新闻
-										$slideshow      = $result['data']['slideshow'];		// 轮播图
-										$cover   		= $result['data']['cover'];			// 图片新闻
-										
-										foreach ($column as $item) {
-											if($item['is_status'] == "1"){
-												echo 	'<li class="active"><a href="news.php?id='.$item['id'].'">'.$item['title'].'</a></li>';	
-											}
-										}		
-									}
-								?>	
+								
 							</ul>
 						</div>
 					</div>
@@ -92,60 +77,26 @@
 		<section style="margin-top: 40px;">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-md-2 sidebar col-md-offset-1 visible-md-inline visible-lg-inline clearfix">
-						
-						<?php
-							if(is_array($_GET)&&count($_GET)>0)	//判断是否通过get传值了
-						    {	
-						        if(isset($_GET["id"]))			//是否存在"id"的参数
-						        {
-						        	
-						            $column_id 		= $_GET['id']; 	//获取栏目id,获取栏目新闻
-						            $news_url  		= $host.'select_news_by_column_id.php?column_id='.$column_id;
-									$column_url     = $host.'select_columns.php?page=1&size=20'; 
-									$news_result	= https_request($news_url);	 // 根据栏目请求新闻
-									$column_result	= https_request($column_url); // 获取栏目列表
-									$current_column = '';						  // 当前栏目
-									foreach ($column_result['data']['data'] as $item) {
-										if($item['id'] == $column_id){
-											echo '<h2>'.$item['title'].'</h2><ul>';
-											$current_column = $item['title'];
-										}
-									}
-									if($news_result['code'] == 200){
-										$news_list = $news_result['data']['data']; // 提取新闻列表
-										foreach ($news_list as $item) {
-											if($item['is_top'] == "1"){
-												echo '<li><a href="Article.php?news_id="'.$item['id'].'>'.$item['title'].'</a></li>';
-											}
-										}		
-										echo '</ul></div><div class="col-md-8 main_container"><div class="news_main">
-												<p>首页 > '.$current_column.'</p><hr /><ul>';
-
-										foreach ($news_list as $item) {
-											echo '<li>
-													<time><i class="glyphicon glyphicon-time"></i>'.date("Y-m-d",$item['creation_time']).'</time>
-													<div><a href="Article.php?news_id='.$item['id'].'">'.$item['title'].'</a></div>
-												</li>';
-										}
-									}
-								}
-							}		
-						?>
+					<div id="news_left" class="col-md-2 sidebar col-md-offset-1 visible-md-inline visible-lg-inline clearfix">
+						<ul id="news_left_ul">
+							
+						</ul>
+					</div>
+					<div class="col-md-8 main_container">
+						<div class="news_main">
+							
+						</div>
+						<div class="paging clearfix">
+							<ul>
+								<li>共21页</li>
+								<li>当前2页</li>
+								<li>上一页</li>
+								<li>下一页</li>
 							</ul>
-							<div class="paging clearfix">
-								<ul>
-									<li>共21页</li>
-									<li>当前2页</li>
-									<li>上一页</li>
-									<li>下一页</li>
-								</ul>
-							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-				
+			</div>		
 		</section>
 		
 			
@@ -169,9 +120,91 @@
 			</div>
 
 		</footer>
+		<script type="text/javascript">
+		var home_url = host + 'select_home.php';
+		$.ajax({
+			type:"get",
+			url:home_url,
+			async:true,
+			success:function (data) {
+				console.log("查询成功"); 
+				var result = JSON.parse(data);
+				if(result['code'] == 200){
+					var column 		= result['data']['column']; 	 	// 栏目
+					//栏目导航渲染
+					$.each(column,function (index,item) {
+						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
+						$("#header_nav").append(list);
+					});	
+					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
+				}
+			}
+		});	
+		var column_id = getQueryVariable('id');			//获取栏目id
 
-		<script>$(function() {
-
-});</script>
+		if(column_id){
+			console.log(column_id);
+			//请求获得当前栏目
+			var column_url     	= host+'select_columns.php'; 
+			$.ajax({
+				type:"get",
+				url:column_url,
+				async:true,
+				success:function (data) {
+					var result = JSON.parse(data);
+					if(result['code'] == 200){
+						var column_result = result['data']['data']; 	 	// 栏目
+						//栏目导航渲染
+						$.each(column_result,function (index,item) {
+							if(item['id'] == column_id){
+								$(".news_main").append('<p>首页 > '+item['title']+'</p><hr /><ul id="news_ul"></ul>');
+								var list = '<h2>'+item['title']+'</h2><ul id="news_left_ul"></ul>';
+								$("#news_left").append(list);
+							}
+						});	
+					}
+				}
+			});
+			//请求获得当前栏目新闻
+			var news_url = host+'select_news_by_column_id.php?column_id='+column_id;
+			$.ajax({
+				type:"get",
+				url:news_url,
+				async:true,
+				success:function (data) {
+					var result = JSON.parse(data);
+					if(result['code'] == 200){
+						var news_list = result['data']['data']; 	 	// 提取新闻列表						
+						$.each(news_list,function (index,item) {
+							console.log(item['is_top']);
+							if(item['is_top'] == "1"){
+								var hot_list = '<li><a href="Article.php?news_id="'+item['id']+'>'+item['title']+'</a></li>';
+								$("#news_left_ul").append(hot_list);	
+							}
+							var list = '<li><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
+									'<div><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></div></li>';
+							$("#news_ul").append(list);
+						});	
+						
+					}
+				}
+			});
+//			新闻列表请求完毕
+		}
+		
+		
+		
+		//获取url参数	
+		function getQueryVariable(variable)
+		{
+	       var query = window.location.search.substring(1);
+	       var vars = query.split("&");
+	       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+	       }
+	       return(false);
+		}
+	</script>
 	</body>
 </html>

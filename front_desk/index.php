@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
 		<script src="js/path.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/time_stamp_date.js" type="text/javascript" charset="utf-8"></script>
 		<!--bootstrap-->
 		<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
 		<script src="js/jquery.v1.9.1min.js"></script>
@@ -57,44 +58,27 @@
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					
-					});					
-//					$.each(slideshow,function (index,item) {
-//						console.log(item);
-//						var list = '<a class="item" href="Article.php?news_id='+item["news_id"]+'"><img src="http://'+item['slideshow_cover']+'" alt="'+item["title"]+'" style="max-height:400px"></a>';
-//						$("#slide1").append(list);
-//						
-//					});
-//					for (var i=0;i<3;i++) {
-//						var anode = document.getElementById('slide'+(i+1));
-//						console.log(anode);
-//						var node_length = anode.childNodes.length;console.log(node_length);
-//						if(node_length < 1){
-//							document.getElementsByClassName("owl-item").removeChild(anode);
-//						}
-//					}
+					});	
+					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
 					//图片新闻渲染
 					$.each(cover,function (index,item) {
-						var list = '';
-						console.log(index);
 						if(index == 0){
-							console.log(index);
 							var list = '<a href="Article.php?news_id='+item['id']+'"><img src="http://'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
 							$("#pic_news_left").append(list);
 						}else if(index > 3){
 							return;
 						}else{
-							console.log(index);
 							var list = '<a href="Article.php?news_id='+item['id']+
 							'"><div><img src="http://'+item['cover']+'"/></div><div><p>'+item['title']+
 							'</p><div><time><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;">'+
-							'</i>'+item['modify_time']+'</time><span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span></div></div></a>';
+							'</i>'+getMyDate(item['creation_time'])+'</time><span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span></div></div></a>';
 							$("#pic_news_right").append(list);
 						}
 					});
 					//系部新闻渲染
 					$.each(xibu_list, function(index,item) {
 						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
-									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#news_ul").append(list);
@@ -102,7 +86,7 @@
 					//技能竞赛渲染
 					$.each(skill_list, function(index,item) {
 						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
-									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#skill_ul").append(list);
@@ -110,7 +94,7 @@
 					//招生就业渲染
 					$.each(job_list, function(index,item) {
 						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
-									'<div><time><i class="glyphicon glyphicon-time"></i>'+item['creation_time']+'</time>'+
+									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#job_ul").append(list);
@@ -119,7 +103,10 @@
 					var title = '<a href="news.php?id='+inform_list[0]['column_id']+'" class="pull-right">更多 ></a>';
 					$(".inform_title").append(title);
 					$.each(inform_list, function(index,item) {
-						var list = '<li><time><span class="day">'+item['creation_time']+'</span><span class="month">'+item['modify_time']+'</span>'+
+						var mydate = new Date(item['creation_time']*1000);
+						var myday = getzf(mydate.getDate());
+						var mytime = mydate.getFullYear()+"-"+getzf(mydate.getMonth()+1);
+						var list = '<li><time><span class="day">'+myday+'</span><span class="month">'+mytime+'</span>'+
 									'</time><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#inform_ul").append(list);
 					});
@@ -184,20 +171,7 @@
 										系部首页
 									</a>
 								</li>
-								<?php 
-									include_once "./Util_http.php";
-									include_once "./path.php";
-									$url = $host.'select_home.php';
-									$result = https_request($url);
-									if($result['code'] == 200){
-										$column 		= $result['data']['column']; 	 	// 栏目
-										$column_news 	= $result['data']['column_news'];	// 首页栏目及相应新闻
-										$slideshow      = $result['data']['slideshow'];		// 轮播图
-										$cover   		= $result['data']['cover'];			// 图片新闻
-										$bottom_news	= $result['data']['bottom_news'];   // 底部新闻
-											
-									}
-								?>	
+								
 							</ul>
 						</div>
 					</div>
@@ -210,15 +184,15 @@
 		<div id="owl-demo" class="owl-carousel owl-theme slideshow" style="max-width: 1400px;">
 		<?php 
 					//显示轮播图
-					foreach ($slideshow as $item) {
-						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
-									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
-								</a>';
-						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
-									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
-								</a>';			
-					
-					}		
+//					foreach ($slideshow as $item) {
+//						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
+//									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
+//								</a>';
+//						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
+//									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
+//								</a>';			
+//					
+//					}		
 			?>
 			
 		</div>
