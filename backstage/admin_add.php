@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="x-admin-sm">
-
 	<head>
 		<meta charset="UTF-8">
 		<title>用户管理==>添加用户页面</title>
@@ -27,7 +26,6 @@
     		}
     	</style>
 	</head>
-
 	<body>
 		<div class="x-body">
 			<form class="layui-form">

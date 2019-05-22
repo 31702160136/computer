@@ -100,7 +100,6 @@
 		<script>
 			//实例化编辑器			
 			var ue = UE.getEditor('container');
-			
 			column();
 			
 			/*
@@ -138,7 +137,6 @@
 				    }
 				});
 			}
-			
 			
 			/**	
 			 * 	添加新闻
@@ -215,7 +213,7 @@
 					      	document.write("请联系维护人员");
 					    }
 					});
-                   	return false;
+               	return false;
             });
 		}); 
 		</script>

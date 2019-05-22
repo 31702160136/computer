@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="x-admin-sm">
-
 	<head>
 		<meta charset="UTF-8">
 		<title>修改管理员密码</title>
@@ -27,7 +26,6 @@
     		}
     	</style>
 	</head>
-
 	<body>
 		<div class="x-body">
 			<form class="layui-form">

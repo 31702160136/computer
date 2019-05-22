@@ -29,7 +29,6 @@
 				text-overflow: ellipsis;
 				overflow: hidden;
 			}
-			
 			#prevModal {
 				width: 100%;
 				height: 100%;
@@ -51,7 +50,6 @@
 			<xblock>
 				<button class="layui-btn layui-btn-disabled"><i class="layui-icon"></i>批量删除</button>
 			</xblock>
-			
 			<table class="layui-table x-admin">
 				<thead>
 					<tr>
@@ -65,9 +63,7 @@
 						<th width="50px" style="text-align: center;">操作</th>
 					</tr>
 				</thead>
-				<tbody id="newsList">
-
-				</tbody>
+				<tbody id="newsList"></tbody>
 			</table>
 		</div>
 		

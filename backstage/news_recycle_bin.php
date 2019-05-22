@@ -24,7 +24,6 @@
 	      	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 	</head>
-
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
@@ -71,7 +70,6 @@
 
 		</div>
 		<script>
-			
 			init();
 			function init(){
 				var data={

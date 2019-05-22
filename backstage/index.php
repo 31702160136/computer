@@ -7,12 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    
-		<!--设置不缓存-->
-		<!--<meta http-equiv="Expires" content="0">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-control" content="no-cache">
-		<meta http-equiv="Cache" content="no-cache">-->
+	<!--设置不缓存-->
+	<!--<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">-->
     <script src="js/jquery.min.js"></script>
     <script src="js/md5.min.js"></script>
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
@@ -45,7 +44,6 @@
           </li>
           <li class="layui-nav-item to-index"><a href="../front_desk/index.php">前台首页</a></li>
         </ul>
-        
     </div>
     <!-- 顶部结束 -->
     <!-- 中部开始 -->
@@ -116,13 +114,11 @@
           <ul class="layui-tab-title">
             <li class="home"><i class="layui-icon">&#xe68e;</i>后台信息</li>
           </ul>
-          
           <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <iframe src='./welcome.php' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
           </div>
-          
           <div id="tab_show"></div>
         </div>
     </div>
@@ -134,11 +130,8 @@
         <div class="copyright">Copyright ©17移动互联1班  v1.0 All Rights Reserved</div>  
     </div>-->
     <!-- 底部结束 -->
-    
     <script src="js/host.js"></script>
     <script>
-    	
-    	
 		var name=decodeURI(getQueryVariable("name"));
 		$("#name").text(name);
     	/**
