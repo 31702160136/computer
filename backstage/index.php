@@ -43,7 +43,7 @@
               <dd><a id="out_login">退出</a></dd>
             </dl>
           </li>
-          <li class="layui-nav-item to-index"><a href="/">前台首页</a></li>
+          <li class="layui-nav-item to-index"><a href="../front_desk/index.php">前台首页</a></li>
         </ul>
         
     </div>
