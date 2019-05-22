@@ -99,6 +99,12 @@
                 </ul>
             </li>
             
+            <li>
+                <a _href="teachers_list.php">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite id="chaxunlanmu">教师风采</cite>
+                </a>
+            </li>
         </ul>
       </div>
     </div>
