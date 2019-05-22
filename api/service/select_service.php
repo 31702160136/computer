@@ -489,7 +489,7 @@ class SelectService {
 		//当前http链接拼接到图片路径
 		for ($i = 0; $i < count($result); $i++) {
 			if($result[$i]["slideshow_cover"]!=""){
-				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
+				$result[$i]["slideshow_cover"] = $result[$i]["slideshow_cover"];
 			}
 		}
 		return $result;

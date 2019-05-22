@@ -52,6 +52,13 @@
 					var teaching_left = bottom_news[0];
 					var teaching_right= bottom_news[1];
 			
+					//轮播图渲染
+					$.each(slideshow,function (index,item) {
+						$("#owl"+index).html("");
+						console.log(item.news_id);
+						$("#owl"+index).append('<a href="Article.php?news_id='+item.news_id+'"><img src="'+item.slideshow_cover+'" /></a>');
+					});	
+					
 					//栏目导航渲染
 					$.each(column,function (index,item) {
 						console.log(item);
@@ -202,28 +209,34 @@
 //					
 //					}		
 			?>
-			
+			<div id="owl0"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
+			<div id="owl1"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
+			<div id="owl2"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
+			<div id="owl3"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
+			<div id="owl4"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
 		</div>
 		<!--轮播图 end-->
-
 		<!--图片新闻 start-->
 		<div style="background: #e7e7e7;">
 			<div class="container pic_news mb20">
 				<div class="row">
 					<section class="xueyuan">
-						<h3>学院新闻<small>news</small></h3>
+						<h3>热点新闻<small>news</small></h3>
 					</section>
 					<div id="pic_news_left" class="col-sm-5 col-md-5 visible-lg-inline visible-md-inline  pic_news_left">
 					</div>
 					<div id="pic_news_right" class="col-md-7 col-sm-12 pic_news_right" >
 					</div>
 				</div>
-				<hr />
 			</div>
 		
 		<!--图片新闻 end-->
 		<!--文字新闻 strat-->
+		
 		<section class="container">
+			<section class="xueyuan">
+						<h3>学院新闻<small>news</small></h3>
+			</section>
 			<div class="row">
 				<!--新闻导航条-->
 				<div class="col-md-7" >
@@ -274,7 +287,7 @@
 		</section>
 		</div>
 		<!--文字新闻 end-->
-		<div class="container" >
+		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<img src="images/fengge.jpg" style="width: 100%;"/>
