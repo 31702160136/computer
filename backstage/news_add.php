@@ -100,7 +100,6 @@
 		<script>
 			//实例化编辑器			
 			var ue = UE.getEditor('container');
-			
 			column();
 			
 			/*
@@ -138,7 +137,6 @@
 				    }
 				});
 			}
-			
 			
 			/**	
 			 * 	添加新闻
@@ -199,10 +197,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								layer.alert("添加新闻成功", {
-									icon: 1
-								}, 
-								function() {
+								layer.alert("添加新闻成功", {icon: 1},function() {
 									// 获得frame索引
 									var index = parent.layer.getFrameIndex(window.name);
 									//关闭当前frame
@@ -218,7 +213,7 @@
 					      	document.write("请联系维护人员");
 					    }
 					});
-                   	return false;
+               	return false;
             });
 		}); 
 		</script>

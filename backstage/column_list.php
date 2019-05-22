@@ -18,7 +18,6 @@
 		<link rel="stylesheet" href="css/paging.css">
 		<link rel="stylesheet" href="./css/font.css">
 		<link rel="stylesheet" href="./css/xadmin.css">
-
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 		<!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -36,7 +35,6 @@
     	}
     </style>
 	</head>
-	
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
@@ -116,7 +114,6 @@
 				    }
 				});
 			}
-			
 			/*
 			 * 	封装自定义	customPaging 自定义页数	方法
 			 * 	从	select_column();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
