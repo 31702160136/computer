@@ -179,13 +179,14 @@ header .header_nav li:hover:after{
 	margin-left: 10px;
 }
 .news > ul > li > a {
-    margin-top: 15px;
+    margin-top: 10px;
 	color: #000000;
 	width: 100%;
 	font-size: 1em;
     float: left; 
 }
 .news > ul > li > div{
+	margin-top: 5px;
 	width: 100%;
 	background: white;
 	float: left;
@@ -328,6 +329,9 @@ header .header_nav li:hover:after{
 .teaching > a > img{
 	width: 100%;	
 	
+}
+#teaching_right img {
+	max-height: 300px;
 }
 .teaching_content{
     position: relative;

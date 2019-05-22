@@ -77,40 +77,48 @@
 					});
 					//系部新闻渲染
 					$.each(xibu_list, function(index,item) {
-						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+						if(index < 5){
+							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#news_ul").append(list);
+						}
 					});
 					//技能竞赛渲染
 					$.each(skill_list, function(index,item) {
-						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+						if(index < 5){
+							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#skill_ul").append(list);
+						}
 					});
 					//招生就业渲染
 					$.each(job_list, function(index,item) {
-						var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+						if(index < 5){
+							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
 							$("#job_ul").append(list);
+						}
 					});
 					//通知公告渲染
 					var title = '<a href="news.php?id='+inform_list[0]['column_id']+'" class="pull-right">更多 ></a>';
 					$(".inform_title").append(title);
 					$.each(inform_list, function(index,item) {
-						var mydate = new Date(item['creation_time']*1000);
-						var myday = getzf(mydate.getDate());
-						var mytime = mydate.getFullYear()+"-"+getzf(mydate.getMonth()+1);
-						var list = '<li><time><span class="day">'+myday+'</span><span class="month">'+mytime+'</span>'+
-									'</time><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
-						$("#inform_ul").append(list);
+						if(index < 4){
+							var mydate = new Date(item['creation_time']*1000);
+							var myday = getzf(mydate.getDate());
+							var mytime = mydate.getFullYear()+"-"+getzf(mydate.getMonth()+1);
+							var list = '<li><time><span class="day">'+myday+'</span><span class="month">'+mytime+'</span>'+
+										'</time><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
+							$("#inform_ul").append(list);
+						}
 					});
-					
+					//教学科研渲染
 					var teaching_title = '<h2><span>'+teaching_left['column']+'</span>'+
 							'<a href="news.php?id='+teaching_left['column_id']+'">更多 ></a></h2>';
 					$(".teaching_title").append(teaching_title);
@@ -284,7 +292,7 @@
 						</div>
 					</div>
 					<div class="col-md-5 deviation">
-						<div id="teaching_right" class="thumbnail teaching">
+						<div id="teaching_right" class="thumbnail teaching" >
 						</div>
 					</div>
 				</div>
