@@ -197,7 +197,7 @@
 						}
 						$.each(teacher_list,function (index,item) {
 							var list = '<li><a class="img_item" href="teacher_article.php?tid='+item['id']+'"><div class="img_top">'+
-										'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
+										'<img src="'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
 										'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
 							$(".img_container").append(list);
 						});	

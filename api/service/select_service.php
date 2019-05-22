@@ -141,15 +141,6 @@ class SelectService {
 		}else{
 			$result_news = $this -> newsDao -> findNews(0,10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
-		}
 		return $result_news;
 	}
 	/*
@@ -159,15 +150,6 @@ class SelectService {
 	public function getNewsById($data) {
 		if (isset($data["id"])) {
 			$result_news = $this -> newsDao -> findNewsById($data["id"]);
-			//当前http链接拼接到图片路径
-			if(count($result_news)>0){
-				if($result_news[0]["cover"]!=""){
-					$result_news[0]["cover"] = getLink() . $result_news[0]["cover"];
-				}
-				if($result_news[0]["slideshow_cover"]!=""){
-					$result_news[0]["slideshow_cover"] = getLink() . $result_news[0]["slideshow_cover"];
-				}
-			}
 			return $result_news[0];
 		}else{
 			error("缺少必要参数：getNewsById");
@@ -194,15 +176,6 @@ class SelectService {
 		}else{
 			$result_news = $this -> newsDao -> findNewsStatusTrue(0,10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
-		}
 		return $result_news;
 	}
 	/*
@@ -225,15 +198,6 @@ class SelectService {
 			}
 		}else{
 			$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrue($data["column_title"],0,10);
-		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
 		}
 		return $result_news;
 	}
@@ -258,15 +222,6 @@ class SelectService {
 		}else{
 			$result_news = $this -> newsDao -> findNewsStatusTrueOfHotByColumnId($data["column_id"],0,10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
-		}
 		return $result_news;
 	}
 	/*
@@ -289,15 +244,6 @@ class SelectService {
 			}
 		}else{
 			$result_news = $this -> newsDao -> findNewsByColumnTitleStatusTrueOfCover($data["column_title"],0,10);
-		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
 		}
 		return $result_news;
 	}
@@ -322,15 +268,6 @@ class SelectService {
 		}else{
 			$result_news = $this -> newsDao -> findNewsStatusTrueOfCover(0,10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
-		}
 		return $result_news;
 	}
 	/*
@@ -353,15 +290,6 @@ class SelectService {
 			}
 		}else{
 			$result_news = $this -> newsDao -> searchNewsByTitle($data["title"], 0, 10);
-		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
 		}
 		return $result_news;
 	}
@@ -386,15 +314,6 @@ class SelectService {
 		}else{
 			$result_news = $this -> newsDao -> searchNewsByColumnTitle($data["column_title"], 0, 10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result_news); $i++) {
-			if($result_news[$i]["cover"]!=""){
-				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-			}
-			if($result_news[$i]["slideshow_cover"]!=""){
-				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-			}
-		}
 		return $result_news;
 	}
 	/*
@@ -418,16 +337,6 @@ class SelectService {
 				}
 			}else{
 				$result_news = $this -> newsDao -> findNewsByColumnId($data["column_id"], 0, 10);
-			}
-			
-			//当前http链接拼接到图片路径
-			for ($i = 0; $i < count($result_news); $i++) {
-				if($result_news[$i]["cover"]!=""){
-					$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-				}
-				if($result_news[$i]["slideshow_cover"]!=""){
-					$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-				}
 			}
 			return $result_news;
 		} else {
@@ -456,16 +365,6 @@ class SelectService {
 			}else{
 				$result_news = $this -> newsDao -> findNewsByColumnIdStatusTrue($data["column_id"], 0, 10);
 			}
-			
-			//当前http链接拼接到图片路径
-			for ($i = 0; $i < count($result_news); $i++) {
-				if($result_news[$i]["cover"]!=""){
-					$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
-				}
-				if($result_news[$i]["slideshow_cover"]!=""){
-					$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
-				}
-			}
 			return $result_news;
 		} else {
 			error("缺少信息");
@@ -492,12 +391,6 @@ class SelectService {
 		}else{
 			$result = $this -> slideshowDao ->findSlideshow(0, 10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result); $i++) {
-			if($result[$i]["slideshow_cover"]!=""){
-				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
-			}
-		}
 		return $result;
 	}
 	/*
@@ -520,12 +413,6 @@ class SelectService {
 			}
 		}else{
 			$result = $this -> slideshowDao ->findSlideshowStatusTrue(0, 10);
-		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result); $i++) {
-			if($result[$i]["slideshow_cover"]!=""){
-				$result[$i]["slideshow_cover"] = $result[$i]["slideshow_cover"];
-			}
 		}
 		return $result;
 	}
@@ -550,15 +437,6 @@ class SelectService {
 		}else{
 			$result = $this -> recycleBinDao ->findRecycleBin(0, 10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result); $i++) {
-			if($result[$i]["cover"]!=""){
-				$result[$i]["cover"] = getLink() . $result[$i]["cover"];
-			}
-			if($result[$i]["slideshow_cover"]!=""){
-				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
-			}
-		}
 		return $result;
 	}
 	/*
@@ -581,15 +459,6 @@ class SelectService {
 			}
 		}else{
 			$result = $this -> recycleBinDao ->searchRecycleBinByTitle($data["title"], 0, 10);
-		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result); $i++) {
-			if($result[$i]["cover"]!=""){
-				$result[$i]["cover"] = getLink() . $result[$i]["cover"];
-			}
-			if($result[$i]["slideshow_cover"]!=""){
-				$result[$i]["slideshow_cover"] = getLink() . $result[$i]["slideshow_cover"];
-			}
 		}
 		return $result;
 	}
@@ -614,15 +483,6 @@ class SelectService {
 		}else{
 			$result = $this -> teacherDao ->findTeachers(0, 10);
 		}
-		//当前http链接拼接到图片路径
-		for ($i = 0; $i < count($result); $i++) {
-			if($result[$i]["head_img"]!=""){
-				$result[$i]["head_img"] = getLink() . $result[$i]["head_img"];
-			}
-			if($result[$i]["cover"]!=""){
-				$result[$i]["cover"] = getLink() . $result[$i]["cover"];
-			}
-		}
 		return $result;
 	}
 	/*
@@ -632,15 +492,6 @@ class SelectService {
 	public function getTeacherById($data) {
 		if (isset($data["id"])) {
 			$result_tea = $this -> teacherDao -> findTeacherById($data["id"]);
-			//当前http链接拼接到图片路径
-			if(count($result_tea)>0){
-				if($result_tea[0]["cover"]!=""){
-					$result_tea[0]["cover"] = getLink() . $result_tea[0]["cover"];
-				}
-				if($result_tea[0]["head_img"]!=""){
-					$result_tea[0]["head_img"] = getLink() . $result_tea[0]["head_img"];
-				}
-			}
 			return $result_tea[0];
 		}else{
 			error("缺少必要参数：getTeacherById");

@@ -3,6 +3,6 @@ function getImagesPath(){
 	return "/computer/images/";
 }
 function getLink(){
-	return $_SERVER['HTTP_HOST'];
+	return "https://".$_SERVER['HTTP_HOST'];
 }
 ?>

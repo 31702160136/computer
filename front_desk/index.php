@@ -64,17 +64,17 @@
 					
 					});	
 					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
-					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
+					$("#header_nav").append('<li class="active"><a href="www.mmvtc.cn">学院官网</a></li>');
 					//图片新闻渲染
 					$.each(cover,function (index,item) {
 						if(index == 0){
-							var list = '<a href="article.php?news_id='+item['id']+'"><img src="http://'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
+							var list = '<a href="article.php?news_id='+item['id']+'"><img src="'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
 							$("#pic_news_left").append(list);
 						}else if(index > 3){
 							return;
 						}else{
 							var list = '<a href="article.php?news_id='+item['id']+
-							'"><div><img src="http://'+item['cover']+'"/></div><div><p>'+item['title']+
+							'"><div><img src="'+item['cover']+'"/></div><div><p>'+item['title']+
 							'</p><div><time><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;">'+
 							'</i>'+getMyDate(item['creation_time'])+'</time><span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span></div></div></a>';
 							$("#pic_news_right").append(list);
@@ -128,12 +128,12 @@
 							'<a href="news.php?id='+teaching_left['column_id']+'">更多 ></a></h2>';
 					$(".teaching_title").append(teaching_title);
 					var teaching_left  = '<a href="article.php?news_id='+teaching_left['id']+'">'+
-								'<img src="http://'+teaching_left['cover']+'" alt="'+teaching_left['title']+'">'+
+								'<img src="'+teaching_left['cover']+'" alt="'+teaching_left['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_left['title']+'</h4>'+
 								'<p>'+teaching_left['describe']+'</p></div></a>';
 					$("#teaching_left").append(teaching_left);
 					var teaching_right  = '<a href="article.php?news_id='+teaching_right['id']+'">'+
-								'<img src="http://'+teaching_right['cover']+'" alt="'+teaching_right['title']+'">'+
+								'<img src="'+teaching_right['cover']+'" alt="'+teaching_right['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_right['title']+'</h4></div></a>';
 					$("#teaching_right").append(teaching_right);		 	
 						

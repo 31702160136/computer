@@ -165,7 +165,6 @@
 					</div>
 					<div class="img_container">
 						<div class="teacher_msg clearfix">
-							<img src="images/teacher.PNG" alt="" style="margin: 0 auto;"/>
 						</div>
 						<div class="teacher_exp clearfix">
 							
@@ -230,7 +229,7 @@
 				if(result['code'] == 200){
 					var teacher_list = result['data']['data'];
 					$.each(teacher_list,function (index,item) {
-						var list = '<li><a href="teacher_article.php?tid='+item['id']+'"><div><img src="http://'+item['cover']+'"/></div><span>'+item['name']+'</span></a></li>';
+						var list = '<li><a href="teacher_article.php?tid='+item['id']+'"><div><img src="'+item['cover']+'"/></div><span>'+item['name']+'</span></a></li>';
 						$(".teacher_slide").append(list);
 					});	
 				}
@@ -248,11 +247,13 @@
 					var result = JSON.parse(data);
 					if(result['code'] == 200){
 						//提取教师信息
-						var msg_result = result['data']; 	 	
+						var msg_result = result['data'];
+						var img='<img src="'+msg_result['cover']+'" alt="" style="margin: 0 auto;"/>';
 						//教师信息渲染
 						var list = '<div><h3>个人简介</h3><span>姓名：'+msg_result['name']+'</span>'+
 								'<span>职称：'+msg_result['title']+'</span><span>毕业院校：'+msg_result['school']+'</span>'+
 								'</div><h3>个人经历</h3><p>'+msg_result['content']+'</p>';
+						$(".teacher_msg").append(img);
 						$(".teacher_exp").append(list);
 					}
 				}
