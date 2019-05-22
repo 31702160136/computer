@@ -78,13 +78,10 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div id="news_left" class="col-md-2 sidebar col-md-offset-1 visible-md-inline visible-lg-inline clearfix">
-						<ul id="news_left_ul">
-							
-						</ul>
+						
 					</div>
 					<div class="col-md-8 main_container">
 						<div class="news_main">
-							
 						</div>
 						<div class="paging clearfix">
 							<ul>
@@ -140,6 +137,7 @@
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					});	
+					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
 					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
 				}
 			}
@@ -162,7 +160,7 @@
 						$.each(column_result,function (index,item) {
 							if(item['id'] == column_id){
 								$(".news_main").append('<p>首页 > '+item['title']+'</p><hr /><ul id="news_ul"></ul>');
-								var list = '<h2>'+item['title']+'</h2><ul id="news_left_ul"></ul>';
+								var list = '<h2>'+item['title']+'</h2><hr /><ul id="news_left_ul"></ul>';
 								$("#news_left").append(list);
 							}
 						});	
@@ -198,7 +196,8 @@
 						$("#page_in").text(result.data.total_page);
 						//获取当前页数
 						var start_in=parseInt($("#start_in").prop("innerHTML"));
-						var news_list = result['data']['data']; 	 	// 提取新闻列表	
+						var news_list = result['data']['data']['news']; 	 	// 提取新闻列表	
+						var news_slide = result['data']['data']['hot_news']; 
 						//初始化下拉框列表	
 						for(var i=0;i<parseInt(result.data.total_page);i++){
 							//给下拉框定位到当前页数
@@ -208,14 +207,13 @@
 								$("#go").append('<option value="'+(i+1)+'">'+(i+1)+'</option>');
 							}
 						}
+						$.each(news_slide,function (index,item) {
+							var hot_list = '<li><a href="article.php?news_id="'+item['id']+'>'+item['title']+'</a></li>';
+							$("#news_left_ul").append(hot_list);	
+						});
 						$.each(news_list,function (index,item) {
-							console.log(item['is_top']);
-							if(item['is_top'] == "1"){
-								var hot_list = '<li><a href="Article.php?news_id="'+item['id']+'>'+item['title']+'</a></li>';
-								$("#news_left_ul").append(hot_list);	
-							}
 							var list = '<li><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
-									'<div><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></div></li>';
+									'<div><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a></div></li>';
 							$("#news_ul").append(list);
 						});	
 						

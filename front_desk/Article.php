@@ -127,6 +127,7 @@
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					});	
+					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
 					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
 				}
 			}

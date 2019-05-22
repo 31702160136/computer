@@ -76,119 +76,112 @@
 			li{
 				float: left;
 			}
+			.sidebar .teacher_slide{
+				height: 350px;
+				overflow-y: scroll;
+			}
+			.sidebar .teacher_slide > li {
+				width: 50%;
+				margin: 10px auto;
+				position: relative;
+				box-shadow: -2px -2px #e7e7e7;
+			
+			}
+			.sidebar .teacher_slide > li > img{
+				box-shadow: -2px -2px #999;
+				position: relative;
+				
+			}
+			.sidebar .teacher_slide > li > div{
+				height: 80px;
+				width: 80px;
+				margin: 5px auto;
+				border-radius: 40px;
+				position: relative;
+				background: white;
+				overflow: hidden;
+			}
+			.sidebar .teacher_slide > li > span{
+				display: inline-block;
+				width: 100%;
+				color: white;
+				background: rgb(28,38,69);
+				text-align: center;
+			}
+			.teacher_slide::-webkit-scrollbar {/*滚动条整体样式*/
+			        width: 3px;     /*高宽分别对应横竖滚动条的尺寸*/
+			        height: 1px;
+			    }
+			.teacher_slide::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+			        border-radius: 10px;
+			         -webkit-box-shadow: inset 0 0 5px rgb(28,39,69);
+			        background: rgb(28,39,69);
+			        
+			    }
+			.teacher_slide::-webkit-scrollbar-track {/*滚动条里面轨道*/
+					margin-top: 30px;
+			        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+			        border-radius: 10px;
+			        background: #EDEDED;
+			    }
+			.teacher_msg{
+				margin-left: 30px;
+				text-align: center;
+			}
+			.teacher_msg img{
+				max-width: 180px;
+				max-height: 219px;
+			}
+			.teacher_exp h3{
+				border-left: 4px solid rgb(28,39,69);
+				padding: 10px;
+				padding-left: 20px;
+				background: #e7e7e7;
+			}
+			.teacher_exp span{
+				font-size: 18px;
+				margin-left: 10px;
+			}
+			.teacher_exp p{
+				margin: 20px  15px;
+				text-indent: 25px;
+				font-size: 18px;
+			}
 		</style>
 		<!--教师风采开始-->
-		<div class="container" style="margin-top: 40px;">
+		<div class="container-fluid" style="margin-top: 40px;">
 			<div class="row">
 				<div id="news_left" class="col-md-2 sidebar col-md-offset-1 visible-md-inline visible-lg-inline clearfix">
-					<ul id="news_left_ul">
-						<h2>教师风采</h2>
+					<h3>教师团队</h3>
+					<hr />
+					<ul class="teacher_slide clearfix">
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
 					</ul>
 				</div>
-				<div class="col-md-8 teacher_main clearfix" >
+				<div class="col-md-7 teacher_main clearfix" >
 					<div>
-						首页 > 教师风采
+						首页 > 教师风采 > 周春
 						<hr />
 					</div>
 					<div class="img_container">
-						<ul>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img1.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img2.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周春</h3>
-										<span>讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-						</ul>
+						<div class="teacher_msg clearfix">
+							<img src="images/teacher.PNG" alt="" style="margin: 0 auto;"/>
+						</div>
+						<div class="teacher_exp clearfix">
+							<div>
+								<h3>个人简介</h3>
+								<span>姓名：周春</span>
+								<span>职称：讲师</span>
+								<span>毕业院校：华南理工大学</span>
+							</div>
+							<h3>经历</h3>
+							<p>吉林大学管理学院管理科学与工程系副教授，现任国家自然科学基金委通讯评审专家，《情报学报》审稿专家，主持国家自然科学基金青年项目1项，参与国家省部级项目多项。在《中国软科学》，《情报学报》等期刊发表论文20余篇。曾多次指导学生团队获得“学创杯”省赛一、二等奖。</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -233,6 +226,7 @@
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					});	
+					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
 					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
 				}
 			}

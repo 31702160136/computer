@@ -56,7 +56,7 @@
 					$.each(slideshow,function (index,item) {
 						$("#owl"+index).html("");
 						console.log(item.news_id);
-						$("#owl"+index).append('<a href="Article.php?news_id='+item.news_id+'"><img src="'+item.slideshow_cover+'" /></a>');
+						$("#owl"+index).append('<a href="article.php?news_id='+item.news_id+'"><img src="'+item.slideshow_cover+'" /></a>');
 					});	
 					
 					//栏目导航渲染
@@ -66,16 +66,17 @@
 						$("#header_nav").append(list);
 					
 					});	
+					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
 					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
 					//图片新闻渲染
 					$.each(cover,function (index,item) {
 						if(index == 0){
-							var list = '<a href="Article.php?news_id='+item['id']+'"><img src="http://'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
+							var list = '<a href="article.php?news_id='+item['id']+'"><img src="http://'+item['cover']+'" alt="" class="img-responsive"/><p>'+item['title']+'</p></a>';
 							$("#pic_news_left").append(list);
 						}else if(index > 3){
 							return;
 						}else{
-							var list = '<a href="Article.php?news_id='+item['id']+
+							var list = '<a href="article.php?news_id='+item['id']+
 							'"><div><img src="http://'+item['cover']+'"/></div><div><p>'+item['title']+
 							'</p><div><time><i class="glyphicon glyphicon-time" style="margin-right: 2px;padding-top: 2px;">'+
 							'</i>'+getMyDate(item['creation_time'])+'</time><span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span></div></div></a>';
@@ -85,7 +86,7 @@
 					//系部新闻渲染
 					$.each(xibu_list, function(index,item) {
 						if(index < 5){
-							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+							var list = '<li><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
@@ -95,7 +96,7 @@
 					//技能竞赛渲染
 					$.each(skill_list, function(index,item) {
 						if(index < 5){
-							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+							var list = '<li><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
@@ -105,7 +106,7 @@
 					//招生就业渲染
 					$.each(job_list, function(index,item) {
 						if(index < 5){
-							var list = '<li><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
+							var list = '<li><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a>'+
 									'<div><time><i class="glyphicon glyphicon-time"></i>'+getMyDate(item['creation_time'])+'</time>'+
 									'<span><i class="glyphicon glyphicon-eye-open"></i>阅读('+item['count']+')</span>'+
 									'</div></li>';
@@ -121,7 +122,7 @@
 							var myday = getzf(mydate.getDate());
 							var mytime = mydate.getFullYear()+"-"+getzf(mydate.getMonth()+1);
 							var list = '<li><time><span class="day">'+myday+'</span><span class="month">'+mytime+'</span>'+
-										'</time><a href="Article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
+										'</time><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
 							$("#inform_ul").append(list);
 						}
 					});
@@ -129,12 +130,12 @@
 					var teaching_title = '<h2><span>'+teaching_left['column']+'</span>'+
 							'<a href="news.php?id='+teaching_left['column_id']+'">更多 ></a></h2>';
 					$(".teaching_title").append(teaching_title);
-					var teaching_left  = '<a href="Article.php?news_id='+teaching_left['id']+'">'+
+					var teaching_left  = '<a href="article.php?news_id='+teaching_left['id']+'">'+
 								'<img src="http://'+teaching_left['cover']+'" alt="'+teaching_left['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_left['title']+'</h4>'+
 								'<p>'+teaching_left['describe']+'</p></div></a>';
 					$("#teaching_left").append(teaching_left);
-					var teaching_right  = '<a href="Article.php?news_id='+teaching_right['id']+'">'+
+					var teaching_right  = '<a href="article.php?news_id='+teaching_right['id']+'">'+
 								'<img src="http://'+teaching_right['cover']+'" alt="'+teaching_right['title']+'">'+
 								'<div class="teaching_content content_left"><i>new</i><h4>'+teaching_right['title']+'</h4></div></a>';
 					$("#teaching_right").append(teaching_right);		 	
@@ -197,18 +198,6 @@
 
 		<!--轮播图 start-->
 		<div id="owl-demo" class="owl-carousel owl-theme slideshow" style="max-width: 1400px;">
-		<?php 
-					//显示轮播图
-//					foreach ($slideshow as $item) {
-//						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
-//									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
-//								</a>';
-//						echo '<a class="item" href="Article.php?news_id='.$item["news_id"].'">
-//									<img src="http://'.$item['slideshow_cover'].'" alt="'.$item["title"].'" style="max-height:400px">
-//								</a>';			
-//					
-//					}		
-			?>
 			<div id="owl0"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
 			<div id="owl1"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
 			<div id="owl2"><a href="#"><img src="../images/1558501606.jpg"/></a></div>
@@ -232,10 +221,9 @@
 		
 		<!--图片新闻 end-->
 		<!--文字新闻 strat-->
-		
 		<section class="container">
 			<section class="xueyuan">
-						<h3>学院新闻<small>news</small></h3>
+				<h3>学院新闻<small>news</small></h3>
 			</section>
 			<div class="row">
 				<!--新闻导航条-->

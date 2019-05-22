@@ -90,94 +90,10 @@
 						首页 > 教师风采
 						<hr />
 					</div>
-					<div class="img_container">
-						<ul>
+					<div>
+						<ul class="img_container">
 							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img1.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img2.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周春</h3>
-										<span>讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
-									<div class="img_top">
-										<img src="images/img3.jpg"/>
-									</div>
-									<div class="img_text">
-										<h3>周洁文</h3>
-										<span>高级讲师</span>
-										<span>华南理工大学</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a class="img_item" href="">
+								<a class="img_item" href="teacher_article.php?id">
 									<div class="img_top">
 										<img src="images/img3.jpg"/>
 									</div>
@@ -233,7 +149,28 @@
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					});	
+					$("#header_nav").append('<li class="active"><a href="teacher.php">教师风采</a></li>');
 					$("#header_nav").append('<li class="active"><a href="http://www.mmvtc.cn">学院官网</a></li>');
+				}
+			}
+		});	
+//		教师列表渲染
+		var teacher_url = host+'select_teacher.php';
+		$.ajax({
+			type:"get",
+			url:teacher_url,
+			async:true,
+			success:function (data) {
+				console.log("教师列表查询成功"); 
+				var result = JSON.parse(data);
+				if(result['code'] == 200){
+					var teacher_list = result['data']['data'];
+					$.each(teacher_list,function (index,item) {
+						var list = '<li><a class="img_item" href="teacher_article.php?id="'+item['id']+'><div class="img_top">'+
+									'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
+									'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
+						$(".img_container").append(list);
+					});	
 				}
 			}
 		});	
