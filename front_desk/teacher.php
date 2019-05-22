@@ -166,7 +166,7 @@
 				if(result['code'] == 200){
 					var teacher_list = result['data']['data'];
 					$.each(teacher_list,function (index,item) {
-						var list = '<li><a class="img_item" href="teacher_article.php?id="'+item['id']+'><div class="img_top">'+
+						var list = '<li><a class="img_item" href="teacher_article.php?tid="'+item['id']+'><div class="img_top">'+
 									'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
 									'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
 						$(".img_container").append(list);

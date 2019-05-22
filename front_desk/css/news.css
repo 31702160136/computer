@@ -17,11 +17,13 @@
 	display: block;	
 	margin-left: 20px;
 	font-size: 16px;
+	border-bottom: 1px solid #e7e7e7;
+}
+#news_left_ul li{
 	height: 50px;
 	overflow: hidden;
 	line-height: 50px;
-	border-bottom: 1px solid #e7e7e7;
-}
+}	
 .sidebar ul li a{
 	color: #000000;
 }

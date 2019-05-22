@@ -87,12 +87,12 @@
 				box-shadow: -2px -2px #e7e7e7;
 			
 			}
-			.sidebar .teacher_slide > li > img{
+			.sidebar .teacher_slide > li img{
 				box-shadow: -2px -2px #999;
 				position: relative;
 				
 			}
-			.sidebar .teacher_slide > li > div{
+			.sidebar .teacher_slide > li div{
 				height: 80px;
 				width: 80px;
 				margin: 5px auto;
@@ -101,8 +101,9 @@
 				background: white;
 				overflow: hidden;
 			}
-			.sidebar .teacher_slide > li > span{
+			.sidebar .teacher_slide > li span{
 				display: inline-block;
+				padding: 4px 0;
 				width: 100%;
 				color: white;
 				background: rgb(28,38,69);
@@ -155,7 +156,7 @@
 					<h3>教师团队</h3>
 					<hr />
 					<ul class="teacher_slide clearfix">
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
+						<li><a href=""><div><img src="images/img1.jpg"/></div><span>周春</span></a></li>
 						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
 						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
 						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
@@ -173,14 +174,7 @@
 							<img src="images/teacher.PNG" alt="" style="margin: 0 auto;"/>
 						</div>
 						<div class="teacher_exp clearfix">
-							<div>
-								<h3>个人简介</h3>
-								<span>姓名：周春</span>
-								<span>职称：讲师</span>
-								<span>毕业院校：华南理工大学</span>
-							</div>
-							<h3>经历</h3>
-							<p>吉林大学管理学院管理科学与工程系副教授，现任国家自然科学基金委通讯评审专家，《情报学报》审稿专家，主持国家自然科学基金青年项目1项，参与国家省部级项目多项。在《中国软科学》，《情报学报》等期刊发表论文20余篇。曾多次指导学生团队获得“学创杯”省赛一、二等奖。</p>
+							
 						</div>
 					</div>
 				</div>
@@ -231,7 +225,62 @@
 				}
 			}
 		});	
-		
+		//		教师列表渲染
+		var teacher_url = host+'select_teacher.php';
+		$.ajax({
+			type:"get",
+			url:teacher_url,
+			async:true,
+			success:function (data) {
+				console.log("教师列表查询成功"); 
+				var result = JSON.parse(data);
+//				渲染侧边栏数据
+				if(result['code'] == 200){
+					console.log("教师列表查询成功"); 
+					var teacher_list = result['data']['data'];
+					$.each(teacher_list,function (index,item) {
+						var list = '<li><a href="teacher_article.php?tid='+item['id']+'"><div><img src="http://'+item['cover']+'"/></div><span>'+item['name']+'</span></a></li>';
+						$(".teacher_slide").append(list);
+					});	
+				}
+			}
+		});	
+		var teacher_id = getQueryVariable('tid');	
+		if(teacher_id){
+			//请求获得教师信息
+			var teacher_msg_url    	= host+'select_teacher_by_id.php?id'+teacher_id; 
+			$.ajax({
+				type:"get",
+				url:teacher_msg_url,
+				async:true,
+				success:function (data) {
+					var result = JSON.parse(data);
+					if(result['code'] == 200){
+						console.log("教师信息请求成功");
+						//提取教师信息
+						var msg_result = result['data']; 	 	
+						//教师信息渲染
+						$.each(msg_result,function (index,item) {
+							var list = '<div><h3>个人简介</h3><span>姓名：'+item['name']+'</span>'+
+								'<span>职称：'+item['title']+'</span><span>毕业院校：'+item['school']+'</span>'+
+								'</div><h3>个人经历</h3><p>'+item['ocntent']+'</p>';
+							$(".teacher_exp").append(list);
+						});	
+					}
+				}
+			});
+		}
+		//获取url参数	
+		function getQueryVariable(variable)
+		{
+	       var query = window.location.search.substring(1);
+	       var vars = query.split("&");
+	       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+	       }
+	       return(false);
+		}
 		</script>
 	</body>
 </html>

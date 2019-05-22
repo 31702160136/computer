@@ -145,7 +145,6 @@
 		var column_id = getQueryVariable('id');			//获取栏目id
 
 		if(column_id){
-			console.log(column_id);
 			//请求获得当前栏目
 			var column_url     	= host+'select_columns.php'; 
 			$.ajax({
@@ -153,6 +152,7 @@
 				url:column_url,
 				async:true,
 				success:function (data) {
+					
 					var result = JSON.parse(data);
 					if(result['code'] == 200){
 						var column_result = result['data']['data']; 	 	// 栏目
