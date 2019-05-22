@@ -15,7 +15,7 @@ $data_news_all=array(
 	"page"=>0,
 	"size"=>0
 );
-$result_hot = $select_service ->getNewsStatusTrueOfHotByColumnId($data);
+$result_hot = $select_service ->getNewsStatusTrueOfHotByColumnId($data_news_all);
 $result_news_all = $select_service ->getNewsByColumnIdStatusTrue($data_news_all);
 if(isset($data["size"]) && $data["size"]!=0){
 	$size=$data["size"];

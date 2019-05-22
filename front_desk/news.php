@@ -151,7 +151,6 @@
 				url:column_url,
 				async:true,
 				success:function (data) {
-					
 					var result = JSON.parse(data);
 					if(result['code'] == 200){
 						var column_result = result['data']['data']; 	 	// 栏目
@@ -206,7 +205,7 @@
 							}
 						}
 						$.each(news_slide,function (index,item) {
-							var hot_list = '<li><a href="article.php?news_id="'+item['id']+'>'+item['title']+'</a></li>';
+							var hot_list = '<li><a href="article.php?news_id='+item['id']+'">'+item['title']+'</a></li>';
 							$("#news_left_ul").append(hot_list);	
 						});
 						$.each(news_list,function (index,item) {

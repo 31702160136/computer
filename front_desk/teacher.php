@@ -90,7 +90,7 @@
 						首页 > 教师风采
 						<hr />
 					</div>
-					<div>
+					<div class="clearfix ">
 						<ul class="img_container">
 							<li>
 								<a class="img_item" href="teacher_article.php?id">
@@ -106,6 +106,18 @@
 							</li>
 						</ul>
 					</div>
+					<div class="paging clearfix">
+							<ul>
+								<li id="page">共<a id="page_in">21</a>页</li>
+								<li id="start">当前<a id="start_in">1</a>页</li>
+								<li id="back" onclick="back()"><a href="#">上一页</a></li>
+								<li id="next" onclick="next()"><a href="#">下一页</a></li>
+								<li id="next">
+									<select id="go">
+									</select>
+								</li>
+							</ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -153,25 +165,74 @@
 				}
 			}
 		});	
-//		教师列表渲染
-		var teacher_url = host+'select_teacher.php';
-		$.ajax({
-			type:"get",
-			url:teacher_url,
-			async:true,
-			success:function (data) {
-				var result = JSON.parse(data);
-				if(result['code'] == 200){
-					var teacher_list = result['data']['data'];
-					$.each(teacher_list,function (index,item) {
-						var list = '<li><a class="img_item" href="teacher_article.php?tid='+item['id']+'"><div class="img_top">'+
-									'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
-									'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
-						$(".img_container").append(list);
-					});	
+		queryTeacher();
+		function queryTeacher(page=1){
+			//		教师列表渲染
+			var teacher_url = host+'select_teacher.php';
+			$.ajax({
+				type:"get",
+				url:teacher_url,
+				async:true,
+				data:{
+					page:page,
+					size:8
+				},
+				success:function (data) {
+					var result = JSON.parse(data);
+					if(result['code'] == 200){
+						$(".img_container").html("");
+						var teacher_list = result['data']['data'];
+						//获取当前页数
+						var start_in=parseInt($("#start_in").prop("innerHTML"));
+						$("#go").html("");
+						$("#page_in").text(result.data.total_page);
+						//初始化下拉框列表	
+						for(var i=0;i<parseInt(result.data.total_page);i++){
+							//给下拉框定位到当前页数
+							if(i+1==start_in){
+								$("#go").append('<option value="'+(i+1)+'" selected>'+(i+1)+'</option>');
+							}else{
+								$("#go").append('<option value="'+(i+1)+'">'+(i+1)+'</option>');
+							}
+						}
+						$.each(teacher_list,function (index,item) {
+							var list = '<li><a class="img_item" href="teacher_article.php?tid='+item['id']+'"><div class="img_top">'+
+										'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
+										'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
+							$(".img_container").append(list);
+						});	
+					}
 				}
+			});	
+		}
+		//点击下一页
+		function next(){
+			var page=parseInt($("#start_in").prop("innerHTML"));
+			var page_tal=parseInt($("#page_in").prop("innerHTML"));
+			//防止下一页超出范围
+			if(page>=page_tal){
+				return;
 			}
-		});	
+			$("#start_in").text(page+1);
+			queryTeacher(page+1);
+		}
+		//点击上一页
+		function back(){
+			var page=parseInt($("#start_in").prop("innerHTML"));
+			//防止上一页超出范围
+			if(page<=1){
+				return;
+			}
+			$("#start_in").text(page-1);
+			queryTeacher(page-1);
+		}
+//		监听下拉框点击事件
+		window.onload = function () {
+	        document.getElementById('go').addEventListener('change',function(){
+	        	$("#start_in").text(this.value);
+	        	queryTeacher(this.value);
+	        },false);
+        }
 		
 		</script>
 	</body>

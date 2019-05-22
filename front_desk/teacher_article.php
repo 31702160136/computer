@@ -156,12 +156,6 @@
 					<h3>教师团队</h3>
 					<hr />
 					<ul class="teacher_slide clearfix">
-						<li><a href=""><div><img src="images/img1.jpg"/></div><span>周春</span></a></li>
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
-						<li><div><img src="images/img1.jpg"/></div><span>周春</span></li>
 					</ul>
 				</div>
 				<div class="col-md-7 teacher_main clearfix" >
