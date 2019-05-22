@@ -140,7 +140,6 @@
 			url:home_url,
 			async:true,
 			success:function (data) {
-				console.log("查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var column 		= result['data']['column']; 	// 栏目
@@ -161,12 +160,11 @@
 			url:teacher_url,
 			async:true,
 			success:function (data) {
-				console.log("教师列表查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var teacher_list = result['data']['data'];
 					$.each(teacher_list,function (index,item) {
-						var list = '<li><a class="img_item" href="teacher_article.php?tid="'+item['id']+'><div class="img_top">'+
+						var list = '<li><a class="img_item" href="teacher_article.php?tid='+item['id']+'"><div class="img_top">'+
 									'<img src="http://'+item['cover']+'"/></div><div class="img_text"><h3>'+item['name']+'</h3>'+
 									'<span>'+item['title']+'</span><span>'+item['school']+'</span></div></a></li>';
 						$(".img_container").append(list);

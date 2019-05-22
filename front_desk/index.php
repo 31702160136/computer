@@ -36,7 +36,6 @@
 			url:home_url,
 			async:true,
 			success:function (data) {
-				console.log("查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var ul			= document.getElementById('header_nav');
@@ -55,13 +54,11 @@
 					//轮播图渲染
 					$.each(slideshow,function (index,item) {
 						$("#owl"+index).html("");
-						console.log(item.news_id);
 						$("#owl"+index).append('<a href="article.php?news_id='+item.news_id+'"><img src="'+item.slideshow_cover+'" /></a>');
 					});	
 					
 					//栏目导航渲染
 					$.each(column,function (index,item) {
-						console.log(item);
 						var list = '<li class="active"><a href="news.php?id='+item['id']+'">'+item['title']+'</a></li>';
 						$("#header_nav").append(list);
 					

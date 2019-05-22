@@ -118,7 +118,6 @@
 			url:home_url,
 			async:true,
 			success:function (data) {
-				console.log("查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var column 		= result['data']['column']; 	// 栏目
@@ -135,7 +134,6 @@
 		var news_id = getQueryVariable('news_id');			//获取新闻id
 
 		if(news_id){
-			console.log(news_id);
 			//请求新闻信息
 			var news_url  = host+'select_news_by_id.php?id='+news_id;
 			$.ajax({
@@ -168,7 +166,6 @@
 				url:add_count_url,
 				async:true,
 				success:function (data) {
-					console.log('点击率+1');
 				}
 			});
 //			新闻列表请求完毕

@@ -128,7 +128,6 @@
 			url:home_url,
 			async:true,
 			success:function (data) {
-				console.log("查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var column 		= result['data']['column']; 	 	// 栏目
@@ -185,7 +184,6 @@
 				},
 				success:function (data) {
 					var result = JSON.parse(data);
-					console.log(result);
 					if(result['code'] == 200){
 						//每次请求清除新闻列表
 						$("#news_left_ul").html("");

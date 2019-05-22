@@ -211,7 +211,6 @@
 			url:home_url,
 			async:true,
 			success:function (data) {
-				console.log("查询成功"); 
 				var result = JSON.parse(data);
 				if(result['code'] == 200){
 					var column 		= result['data']['column']; 	// 栏目
@@ -232,11 +231,9 @@
 			url:teacher_url,
 			async:true,
 			success:function (data) {
-				console.log("教师列表查询成功"); 
 				var result = JSON.parse(data);
 //				渲染侧边栏数据
 				if(result['code'] == 200){
-					console.log("教师列表查询成功"); 
 					var teacher_list = result['data']['data'];
 					$.each(teacher_list,function (index,item) {
 						var list = '<li><a href="teacher_article.php?tid='+item['id']+'"><div><img src="http://'+item['cover']+'"/></div><span>'+item['name']+'</span></a></li>';
@@ -248,7 +245,7 @@
 		var teacher_id = getQueryVariable('tid');	
 		if(teacher_id){
 			//请求获得教师信息
-			var teacher_msg_url    	= host+'select_teacher_by_id.php?id'+teacher_id; 
+			var teacher_msg_url    	= host+'select_teacher_by_id.php?id='+teacher_id; 
 			$.ajax({
 				type:"get",
 				url:teacher_msg_url,
@@ -256,16 +253,13 @@
 				success:function (data) {
 					var result = JSON.parse(data);
 					if(result['code'] == 200){
-						console.log("教师信息请求成功");
 						//提取教师信息
 						var msg_result = result['data']; 	 	
 						//教师信息渲染
-						$.each(msg_result,function (index,item) {
-							var list = '<div><h3>个人简介</h3><span>姓名：'+item['name']+'</span>'+
-								'<span>职称：'+item['title']+'</span><span>毕业院校：'+item['school']+'</span>'+
-								'</div><h3>个人经历</h3><p>'+item['ocntent']+'</p>';
-							$(".teacher_exp").append(list);
-						});	
+						var list = '<div><h3>个人简介</h3><span>姓名：'+msg_result['name']+'</span>'+
+								'<span>职称：'+msg_result['title']+'</span><span>毕业院校：'+msg_result['school']+'</span>'+
+								'</div><h3>个人经历</h3><p>'+msg_result['content']+'</p>';
+						$(".teacher_exp").append(list);
 					}
 				}
 			});
