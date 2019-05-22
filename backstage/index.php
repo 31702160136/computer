@@ -130,9 +130,9 @@
     <!-- 右侧主体结束 -->
     <!-- 中部结束 -->
     <!-- 底部开始 -->
-    <div class="footer">
+    <!--<div class="footer">
         <div class="copyright">Copyright ©17移动互联1班  v1.0 All Rights Reserved</div>  
-    </div>
+    </div>-->
     <!-- 底部结束 -->
     
     <script src="js/host.js"></script>

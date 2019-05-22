@@ -13,6 +13,7 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
+		<script src="js/checkbox.js"></script>
 		<script src="js/paging.js"></script>
 		<link rel="stylesheet" href="css/paging.css">
 		<link rel="stylesheet" href="./css/font.css">
@@ -456,21 +457,6 @@
 				}
 			}
 			
-			//渲染多选框事件
-			$(document).on('click', '#icheckbox',function() {
-				if($(this).hasClass('layui-form-checked')) {
-					$(this).removeClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").removeClass('layui-form-checked');
-					}
-				} else {
-					$(this).addClass('layui-form-checked');
-					if($(this).hasClass('header')) {
-						$(".x-admin .layui-form-checkbox").addClass('layui-form-checked');
-					}
-				}
-			});
-			
 			/* 新闻编辑：
 		  	 * 
 			 * 		是否开启
@@ -633,6 +619,8 @@
 			        });
 		     	}
 	      	}	
+	      	//渲染多选框事件
+		   	rendering_checkbox();
 		</script>
 	</body>
 

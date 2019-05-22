@@ -10,6 +10,15 @@ if (sessionIsLogin()) {
 		"size"=>@$_GET["size"]
 	);
 	$result = $select_service -> getTeachers($data);
+	for($i=0;$i<count($result);$i++){
+		if($result[$i]["sex"]==1){
+			$result[$i]["sex"]="男";
+		}else if($result[$i]["sex"]==2){
+			$result[$i]["sex"]="女";
+		}else{
+			$result[$i]["sex"]="未知";
+		}
+	}
 	$data_teacher_all=array(
 		"page"=>0,
 		"size"=>0

@@ -199,10 +199,7 @@
 						success: function(data){
 							var res=JSON.parse(data);
 							if (res.status) {
-								layer.alert("添加新闻成功", {
-									icon: 1
-								}, 
-								function() {
+								layer.alert("添加新闻成功", {icon: 1},function() {
 									// 获得frame索引
 									var index = parent.layer.getFrameIndex(window.name);
 									//关闭当前frame

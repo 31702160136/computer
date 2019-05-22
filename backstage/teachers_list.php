@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 	<head>
 		<meta charset="UTF-8">
-		<title>新闻管理==>所有新闻页面</title>
+		<title>教师风采</title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -13,6 +13,7 @@
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
 		<script src="js/time_stamp_date.js"></script>
+		<script src="js/checkbox.js"></script>
 		<script src="js/paging.js"></script>
 		<link rel="stylesheet" href="css/paging.css">
 		<link rel="stylesheet" href="./css/font.css">
@@ -52,7 +53,7 @@
 						<th width="20px">
 							<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
 						</th>
-						<th width="100px" style="text-align: center;">头像</th>
+						<th width="100px" style="text-align: center;">照片</th>
 						<th width="80px" style="text-align: center;">姓名</th>
 						<th width="50px" style="text-align: center;">性别</th>
 						<th width="120px" style="text-align: center;">职称</th>
@@ -160,47 +161,88 @@
 			 * 	封装自定义	customPaging 自定义页数	方法
 			 * 	从	select_column();传	total_page 总页数,len 当前页数长度,ajaxPage 当前页数，
 			 */
-			function customPaging(total_page,len,ajaxPage){
+			function customPaging(total_page,ajaxPage){
 				//分页插件使用
 				$('#box').paging({
 					initPageNo: 1, // 初始页码
-					totalPages: 10, //总页数
+					totalPages: total_page, //总页数
 					//totalCount: '当前页数合计' + len + '条数据', // 条目总数
 					slideSpeed: 600, // 缓动速度。单位毫秒
 					jump: true, //是否支持跳转
 					callback: function(page) { // 回调函数
 						//使page当前页数等于 数据的当前页数
 						ajaxPage = page;
+						$.ajax({
+							type:"get",
+							url: host + "controller_b/select_teacher.php",
+							data: {
+								page: ajaxPage,
+								size: ajaxSize
+							},
+							async:true,
+							datatype: 'json',
+							success: function(data){
+								var res=JSON.parse(data);
+								var total_page=res.data.total_page;
+								var teacher=res.data.data;
+								if (res.status) {
+									dynamic_addition(teacher);
+								}
+							},
+							error : function () {
+						      	document.write("error");
+						    }
+						});
 					}
 				});
 			}
-			
-			
+			select_teacher();
+			/*	教师查询：
+			 * 
+			 * 		select_teacher()
+			 * */
+			function select_teacher(){
+				$.ajax({
+					type:"get",
+					url: host + "controller_b/select_teacher.php",
+					data: {
+						page: ajaxPage,
+						size: ajaxSize
+					},
+					async:true,
+					datatype:'json',
+					success: function(data){
+						var res=JSON.parse(data);
+						var total_page=res.data.total_page;
+						var teacher=res.data.data;
+						if (res.status) {
+							dynamic_addition(teacher);
+							customPaging(total_page,ajaxPage);
+						}else{
+							layer.msg(res.message,{icon: 2,time:2000});
+						}
+			      	},
+				    error : function () {
+				      	document.write("error");
+				    }
+				});
+			}
 			//-------------------------------------------------------------
 			/*
 			 * 	表格动态添加数据
 			 */
-			function dynamic_addition(category){
+			function dynamic_addition(teacher){
 				//防止每次刷新以后都添加一次
 		       	$("#teacherList").html(""); 
-				$.each(category, function(index, item) {
+				$.each(teacher, function(index, item) {
 					var id = item.id;
+					var head_img = item.head_img;
 					var name = item.name;
+					var title = item.title;
+					var sex = item.sex;
+					var school = item.school;
 					var content = item.content;
-					var contributor = item.contributor;
 					var cover = item.cover;
-					if(cover == "") {
-						var cover = window.location.host + "/computer/backstage/images/no_photo.jpg";
-					}
-					var slideshow_cover = item.slideshow_cover; //轮播图片
-					var is_hot = item.is_hot;
-					var is_top = item.is_top;
-					var is_status = item.is_status;
-					var column = item.column;
-					var column_id = item.column_id;
-					var user_id = item.user_id;
-					var creation_time = item.creation_time;
-					var doEditItem=JSON.stringify(slideshow_cover);
 					var list = 
 						'<tr>'+
 							'<td>'+
@@ -208,14 +250,14 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td><img src="http://'+cover+'" /></td>'+
-							'<td align="center">陈新彬</td>'+
-							'<td align="center">男</td>'+
-							'<td align="center">教授</td>'+
-							'<td align="center">茂名职业技术学院</td>'+
-							'<td align="center">简介。。。</td>'+
+							'<td><img src="http://'+head_img+'" /></td>'+
+							'<td align="center">'+name+'</td>'+
+							'<td align="center">'+sex+'</td>'+
+							'<td align="center">'+title+'</td>'+
+							'<td align="center">'+school+'</td>'+
+							'<td align="center">'+content+'</td>'+
 							'<td class="td-manage">'+
-								'<button class="layui-btn layui-btn-danger" onclick="member_del(this,'+id+',)"><i class="layui-icon">&#xe640;</i>删除</button>'+
+								"<button class=\"layui-btn layui-btn-danger\" onclick=\"teacher_del(this,"+id+","+"'"+name+"'"+","+"'"+title+"'"+")\"><i class=\"layui-icon\">&#xe640;</i>删除</button>"+
 							'</td>'+
 						'</tr>';
 					$("#teacherList").append(list);
@@ -223,16 +265,15 @@
 			}
 			
 			
-			
 			/* 单个教师删除：
 			 * 
 			 * 		member_del（）
 			 * */
-			function member_del(obj, id) {
-				layer.confirm('确认要删除吗？', function(index) {
+			function teacher_del(obj, id, name, title) {
+				layer.confirm('确认要删除  '+name+'  '+title+' 吗？', function(index) {
 					$.ajax({
 						type:"post",
-						url: host + "controller_b/delete_news.php",
+						url: host + "controller_b/delete_teacher.php",
 						async:true,
 						data:{
 							"ids[]": id
@@ -240,7 +281,7 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								init();
+								select_teacher();
 								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
@@ -261,28 +302,22 @@
 			function delAll(argument) {
 				var arrayData = tableCheck.getData();
 				if (arrayData.length == 0) {
-					layer.msg("请勾选要删除的新闻", {icon: 3,time: 3000});
+					layer.msg("请勾选要删除的教师", {icon: 3,time: 3000});
 				}else{
-					layer.confirm('确认要删除 '+arrayData.length+' 个新闻吗？', function(index) {
+					layer.confirm('确认要删除 '+arrayData.length+' 个教师吗？', function(index) {
 						$.ajax({
 							type:"post",
-							url:host+"controller_b/delete_news.php",
+							url:host+"controller_b/delete_teacher.php",
 						  	data:{
 						  		"ids":arrayData
 						  	},
 						  	success:function(data){
 						        	var res=JSON.parse(data);
 						        	if (res.status) {
-										init();
-										layer.msg('已删除!', {
-											icon: 1,
-											time: 1000
-										});
+										select_teacher();
+										layer.msg(res.message, {icon: 1,time: 1000});
 									} else{
-										layer.msg('请选择要删除的新闻', {
-											icon: 2,
-											time: 2000
-										});
+										layer.msg(res.message, {icon: 2,time: 2000});
 									}
 						    },
 						    error:function(){
@@ -292,6 +327,8 @@
 					});
 				}
 			}
+			//渲染多选框事件
+		   	rendering_checkbox();
 		</script>
 	</body>
 
