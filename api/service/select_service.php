@@ -5,6 +5,7 @@ include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
 include_once "./../dao/slideshow_dao.php";
 include_once "./../dao/recycle_bin_dao.php";
+include_once "./../dao/teacher_dao.php";
 include_once "./../config/path.php";
 class SelectService {
 	private $userDao = null;
@@ -12,12 +13,14 @@ class SelectService {
 	private $newsDao = null;
 	private $slideshowDao = null;
 	private $recycleBinDao = null;
+	private $teacherDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
 		$this -> newsDao = new NewsDao();
 		$this -> slideshowDao = new SlideshowDao();
 		$this -> recycleBinDao = new RecycleBinDao();
+		$this -> teacherDao = new TeacherDao();
 	}
 	/*
 	 * 获取用户信息
@@ -558,6 +561,37 @@ class SelectService {
 		}
 		return $result;
 	}
-
+	/*
+	 * 获取计算机工程系教师信息
+	 * 返回数量：多条
+	 * */
+	public function getTeachers($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"])) {
+			if($data["page"]==0&&$data["size"]==0){
+				$result = $this -> teacherDao ->findTeachers(null, null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result = $this -> teacherDao ->findTeachers($page, $size);
+			}
+		}else{
+			$result = $this -> teacherDao ->findTeachers(0, 10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result); $i++) {
+			if($result[$i]["head_img"]!=""){
+				$result[$i]["head_img"] = getLink() . $result[$i]["head_img"];
+			}
+			if($result[$i]["cover"]!=""){
+				$result[$i]["cover"] = getLink() . $result[$i]["cover"];
+			}
+		}
+		return $result;
+	}
 }
 ?>

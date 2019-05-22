@@ -5,6 +5,7 @@ include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
 include_once "./../dao/slideshow_dao.php";
 include_once "./../dao/recycle_bin_dao.php";
+include_once "./../dao/teacher_dao.php";
 include_once "./../config/path.php";
 class CreateService{
 	private $userDao=null;
@@ -12,12 +13,14 @@ class CreateService{
 	private $newsDao=null;
 	private $slideshowDao=null;
 	private $recycleBinDao = null;
+	private $teacherDao = null;
 	function __construct(){
 		$this->userDao=new UserDao();
 		$this->columnDao=new ColumnDao();
 		$this->newsDao=new NewsDao();
 		$this->slideshowDao=new SlideshowDao();
 		$this -> recycleBinDao = new RecycleBinDao();
+		$this -> teacherDao = new TeacherDao();
 	}
 	/*
 	 * 创建管理员
@@ -159,7 +162,24 @@ class CreateService{
 			error("缺少必要信息：recoverNews");
 		}
 	}
-	
+	public function createTeacher($data){
+		if(isset($data["name"])&&
+			isset($data["title"])&&
+			isset($data["sex"])&&
+			isset($data["school"])&&
+			isset($data["content"])){
+			$data["creation_time"]=time();
+			$data["modify_time"]=time();
+			$result=$this->teacherDao->createTeacher($data);
+			if($result>0){
+				return true;
+			}else{
+				error("添加老师失败");
+			}
+		}else{
+			error("缺少必要信息：createTeacher");
+		}
+	}
 
 }
 ?>

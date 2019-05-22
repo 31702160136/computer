@@ -5,6 +5,7 @@ include_once "./../dao/column_dao.php";
 include_once "./../dao/news_dao.php";
 include_once "./../dao/slideshow_dao.php";
 include_once "./../dao/recycle_bin_dao.php";
+include_once "./../dao/teacher_dao.php";
 include_once "./../config/path.php";
 class DeleteService {
 	private $userDao = null;
@@ -12,12 +13,14 @@ class DeleteService {
 	private $newsDao = null;
 	private $slideshowDao = null;
 	private $recycleBinDao = null;
+	private $teacherDao = null;
 	function __construct() {
 		$this -> userDao = new UserDao();
 		$this -> columnDao = new ColumnDao();
 		$this -> newsDao = new NewsDao();
 		$this -> slideshowDao = new SlideshowDao();
 		$this -> recycleBinDao = new RecycleBinDao();
+		$this -> teacherDao = new TeacherDao();
 	}
 	/*
 	 * 通过用户id删除用户
@@ -108,6 +111,22 @@ class DeleteService {
 			}
 		}else{
 			error("缺少参数：delRecycleBinById");
+		}
+	}
+	/*
+	 * 通过id删除教师信息
+	 * */
+	function delTeacherById($data) {
+		if (isset($data)&&is_array($data)) {
+			$result = $this -> teacherDao ->deleteTeacherById($data);
+			//判断是否删除成功
+			if ($result > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}else{
+			error("缺少参数：delTeacherById");
 		}
 	}
 
