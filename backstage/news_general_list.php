@@ -232,6 +232,7 @@
 			 * 	表格动态添加数据
 			 */
 			function dynamic_addition(category){
+				var customID = 1;
 				//防止每次刷新以后都添加一次
 		       	$("#newsList").html(""); 
 				$.each(category, function(index, item) {
@@ -259,7 +260,7 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td align="center">'+id+'</td>'+
+							'<td align="center">'+(customID++)+'</td>'+
 							'<td><img src="http://'+cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 							'<td align="center">'+column+'</td>'+

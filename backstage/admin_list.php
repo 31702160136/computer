@@ -24,7 +24,6 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	</head>
-
 	<body>
 		<div class="x-nav">
 			<span class="layui-breadcrumb">
@@ -55,7 +54,6 @@
 						<th style="text-align: center;" width="60">状态</th>
 						<th style="text-align: center;" width="60">操作</th>
 				</thead>
-
 				<tbody id="userList"></tbody>
 			</table>
 			<!--分页-->
@@ -260,6 +258,7 @@
 			 * 	表格动态添加数据
 			 */
 			function dynamic_addition(users){
+				var customID = 1;
 				//防止每次刷新以后都添加一次
  			    $("#userList").html(""); 
  			    $.each(users, function(index,item) {
@@ -280,7 +279,7 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td align="center">'+id+'</td>'+
+							'<td align="center">'+(customID++)+'</td>'+
 							'<td align="center">'+username+'</td>'+
 							'<td align="center"><i class="layui-icon x-show"></i>'+name+'</td>'+
 							'<td align="center">'+phone+'</td>'+
@@ -299,85 +298,6 @@
 					}
 				});
  			}
-				      	
-	      	//  页数变量
-		    var pageSum=0;
-		    //页数加
-		   	function jia(){
-		   		if(parseInt($("#page2").prop("innerHTML"))<pageSum){
-		   			var page=parseInt($("#page2").prop("innerHTML"))+1;
-		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   		}
-		   	}
-		   	//页数减
-		   	function jian(){
-		   		if(parseInt($("#page2").prop("innerHTML"))>1){
-		   			var page=parseInt($("#page2").prop("innerHTML"))-1;
-		   			window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   		}
-		   	}
-		   	//跳页
-		   	function pageOn(id){
-		   		var page=parseInt($("#"+id).prop("innerHTML"));
-		   		window.location.href=window.location.origin+window.location.pathname+"?page="+page;
-		   	}
-		   	init();
-			//初始化
-			function init(){
-				var page=getQueryVariable("page");
-				//页数初始化
-				if(page){
-					$("#page1").text(parseInt(page)-1);
-			 		$("#page2").text(parseInt(page));
-			 		$("#page3").text(parseInt(page)+1);
-			 		$("#page4").text(parseInt(page)+2);
-				}else{
-					page=1;
-				}
-		   	}
-		   	//获取链接get参数
-			function getQueryVariable(variable){
-		        var query = window.location.search.substring(1);
-		        var vars = query.split("&");
-		        for (var i=0;i<vars.length;i++) {
-                var pair = vars[i].split("=");
-                if(pair[0] == variable){return pair[1];}
-		       }
-		       return(false);
-			}
-		   	function pagefun(pageVar){
-		   		pageSum=parseInt(pageVar);
-   				//页数范围控制
-   				if(pageSum=>4){
-   					$("#sum").text(pageSum);
-   				}else if(pageSum==2){
-   					$("#page1").text(parseInt(page)-1);
-   					$("#page2").text(parseInt(page));
-   					$("#page3").text(parseInt(page)+1);
-   					$("#page4").hide();
-   					$("#sum").hide();
-   				}else if(pageSum==1){
-   					$("#page1").text(parseInt(page)-1);
-   					$("#page2").text(parseInt(page));
-   					$("#page3").hide();
-   					$("#page4").hide();
-   					$("#sum").hide();
-   				}
-   				var page2=parseInt($("#page2").prop("innerHTML"));
-	   			if((page2+2)===pageSum||(page2+1)===pageSum){
-	   				$("#page4").hide();
-	   				$("#sum").hide();
-	   			}
-	   			if(page2===pageSum){
-	   				$("#page3").hide();
-	   				$("#page4").hide();
-	   				$("#sum").hide();
-	   			}
-	   			if(page2===1){
-	   				$("#page1").hide();
-	   			}
-		   	}
-			
 			//渲染多选框事件
 		   	rendering_checkbox();
 		</script>

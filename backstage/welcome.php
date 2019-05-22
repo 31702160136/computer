@@ -7,6 +7,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
         <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script src="js/echarts.min.js" charset="utf-8"></script>
+        <script src="js/bmap.min.js" type="text/javascript"></script>
 		<script src="js/host.js"></script>
 		<script src="js/is_login.js"></script>
         <link rel="stylesheet" href="./css/font.css">
@@ -118,10 +121,6 @@
 		        </table>
 		    </div>
         </fieldset>
-        <script src="js/host.js"></script>
-   		<script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="js/echarts.min.js" charset="utf-8"></script>
-        <script src="js/bmap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'));

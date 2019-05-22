@@ -68,16 +68,6 @@
 			</table>
 			<!--分页-->
     		<div class="box" id="box"></div>
-			<!--<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>-->
 
 		</div>
 		<script>
@@ -172,6 +162,7 @@
 			 * 	查询成功之后动态添加数据
 			 */
 			function dynamic_addition(category){
+				var customID = 1;
 				//防止每次刷新以后都添加一次
 	           	$("#newsList").html(""); 
 				$.each(category, function(index, item) {
@@ -199,7 +190,7 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td align="center">'+id+'</td>'+
+							'<td align="center">'+(customID++)+'</td>'+
 							'<td><img src="http://'+cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 							'<td align="center">'+column+'</td>'+
@@ -213,42 +204,6 @@
 					$("#newsList").append(list);
 				});
 			}
-			
-			/**	
-			 * 	搜索新闻，根据新闻的标题搜索
-			 */
-//			layui.use(['form', 'layer'],function() {
-//              $ = layui.jquery;
-//              var form = layui.form,
-//              	layer = layui.layer;
-//              //监听提交
-//              form.on('submit(search)',function(data) {
-//              	var serach_box = $("#search_box").val();
-//					$.ajax({
-//						type: "get",
-//						url: host + "controller_b/select_recycle_bin.php?page=1&size=100&title="+serach_box,
-//						async: true,
-//						datatype: 'json',
-//						success: function(data) {
-//							var res = JSON.parse(data);
-//							var total_page = res.data.total_page;
-//							var category = res.data.data;
-//							if(res.status) {
-//								layer.msg('搜索新闻成功，共有'+category.length+'条', {icon: 1,time: 3000});
-//								//添加数据
-//								dynamic_addition(category);
-//							} else {
-//								alert("新闻获取失败");
-//							}
-//						},
-//						error: function() {
-//							document.write("error");
-//						}
-//					});
-//					return false;
-//          	});
-//			});
-			
 			/* 单条新闻恢复：
 			 * 
 			 * 		news_recover（）

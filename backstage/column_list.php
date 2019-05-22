@@ -63,7 +63,7 @@
 						<th width="15">
 			              	<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
 			            </th>
-						<th style="text-align: center;" width="70">ID</th>
+						<th style="text-align: center;" width="50">ID</th>
 						<th style="text-align: center;">栏目名</th>
 						<th style="text-align: center;" width="150">创建时间</th>
 						<th style="text-align: center;" width="150">更新时间</th>
@@ -161,6 +161,7 @@
 			 * 	表格动态添加数据
 			 */
 			function dynamic_addition(category){
+				var customID = 1;
 				//防止每次刷新以后都添加一次
  			    $("#columnList").html(""); 
 				$.each(category, function(index,item) {
@@ -177,10 +178,10 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td>'+id+'</td>'+
-							'<td>'+title+'</td>'+
-							'<td>'+getMyDate(creation_time)+'</td>'+
-							'<td>'+getMyDate(modify_time)+'</td>'+
+							'<td align="center">'+(customID++)+'</td>'+
+							'<td align="center">'+title+'</td>'+
+							'<td align="center">'+getMyDate(creation_time)+'</td>'+
+							'<td align="center">'+getMyDate(modify_time)+'</td>'+
 							'<td>'+
 								'<input type="text" class="layui-input x-sort" onchange="member_sort(this,'+id+')"  value='+index+'>'+
 							'</td>'+

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="x-admin-sm">
-
 	<head>
 		<meta charset="UTF-8">
 		<title>新闻管理==>所有新闻页面==>添加普通新闻</title>
@@ -18,7 +17,6 @@
 		<script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
 	    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"></script>
 	    <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
-	    
 		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 		<!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -36,7 +34,6 @@
     		}
     	</style>
 	</head>
-
 	<body>
 		<div class="x-body">
 			<form class="layui-form" enctype="multipart/form-data" method="post">
