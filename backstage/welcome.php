@@ -80,10 +80,10 @@
             </div>
         </fieldset>
         
-        <div class="x-body">
+        <!--<div class="x-body">-->
             <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-            <div id="main" style="width: 100%;height:400px;"></div>
-        </div>
+            <!--<div id="main" style="width: 100%;height:400px;"></div>-->
+        <!--</div>-->
         
         <fieldset class="layui-elem-field">
             <legend>系统通知</legend>
