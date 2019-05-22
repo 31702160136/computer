@@ -15,6 +15,12 @@ class TeacherDao{
 		$result=$this->sql->query($sql);
 		return $result;
 	}
+	//查询计算机工程系教师信息
+	public function findTeacherById($id){
+		$sql = "select * from `teacher` where `id`='".$id."'";
+		$result=$this->sql->query($sql);
+		return $result;
+	}
 	//添加计算机工程系教师信息
 	public function createTeacher($data){
 		$array=array(

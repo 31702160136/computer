@@ -237,7 +237,39 @@ class SelectService {
 		}
 		return $result_news;
 	}
-/*
+	/*
+	 * 获取火热新闻信息
+	 * 返回数量：多条
+	 * */
+	public function getNewsStatusTrueOfHotByColumnId($data) {
+		$page = null;
+		$size = null;
+		if (isset($data["page"]) && isset($data["size"]) && isset($data["column_id"])) {
+			if(@$data["page"]==0&&@$data["size"]==0){
+				$result_news = $this -> newsDao -> findNewsStatusTrueOfHotByColumnId($data["column_id"],null,null);
+			}else{
+				if ($data["page"] <= 0) {
+					$data["page"] = 1;
+				}
+				$page = ($data["page"] - 1) * $data["size"];
+				$size = $data["size"];
+				$result_news = $this -> newsDao -> findNewsStatusTrueOfHotByColumnId($data["column_id"],$page,$size);
+			}
+		}else{
+			$result_news = $this -> newsDao -> findNewsStatusTrueOfHotByColumnId($data["column_id"],0,10);
+		}
+		//当前http链接拼接到图片路径
+		for ($i = 0; $i < count($result_news); $i++) {
+			if($result_news[$i]["cover"]!=""){
+				$result_news[$i]["cover"] = getLink() . $result_news[$i]["cover"];
+			}
+			if($result_news[$i]["slideshow_cover"]!=""){
+				$result_news[$i]["slideshow_cover"] = getLink() . $result_news[$i]["slideshow_cover"];
+			}
+		}
+		return $result_news;
+	}
+	/*
 	 * 根据标题获取已发布并且有封面图片的新闻信息
 	 * 返回数量：多条
 	 * */
@@ -592,6 +624,27 @@ class SelectService {
 			}
 		}
 		return $result;
+	}
+	/*
+	 * 根据id获取教师信息
+	 * 返回数量：多条
+	 * */
+	public function getTeacherById($data) {
+		if (isset($data["id"])) {
+			$result_tea = $this -> teacherDao -> findTeacherById($data["id"]);
+			//当前http链接拼接到图片路径
+			if(count($result_tea)>0){
+				if($result_tea[0]["cover"]!=""){
+					$result_tea[0]["cover"] = getLink() . $result_tea[0]["cover"];
+				}
+				if($result_tea[0]["head_img"]!=""){
+					$result_tea[0]["head_img"] = getLink() . $result_tea[0]["head_img"];
+				}
+			}
+			return $result_tea[0];
+		}else{
+			error("缺少必要参数：getTeacherById");
+		}
 	}
 }
 ?>
