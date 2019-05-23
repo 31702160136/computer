@@ -171,7 +171,7 @@
 					var cover = item.cover;
 					//如果没有封面图片自动添加一张指定图片
 					if(cover == "") {
-						var cover = window.location.host + "/computer/backstage/images/no_photo.jpg";
+						var cover = "/computer/backstage/images/no_photo.jpg";
 					}
 					var slideshow_cover = item.slideshow_cover; //轮播图片
 					var is_hot = item.is_hot;
