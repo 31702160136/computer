@@ -99,7 +99,7 @@
             
             <li>
                 <a _href="teachers_list.php">
-                    <i class="iconfont">&#xe723;</i>
+                    <i class="layui-icon layui-icon-flag"></i>
                     <cite id="chaxunlanmu">教师风采</cite>
                 </a>
             </li>
