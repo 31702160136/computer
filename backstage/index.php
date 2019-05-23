@@ -75,7 +75,7 @@
                     <li>
                         <a _href="news_general_list.php">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>所有新闻</cite>
+                            <cite>新闻列表</cite>
                         </a>
                     </li>
                 </ul>

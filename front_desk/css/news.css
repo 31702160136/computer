@@ -76,6 +76,13 @@
 .article span{
 	margin-left: 20px;
 }
+.back_a{
+	margin: 0 auto;
+	display: inline-block;
+	padding: 10px 20px;
+	border: 1px solid #e7e7e7;
+	color: rgb(28,38,69);
+}
 /*教师风采*/
 .teacher_main{
 	border-top: 4px solid rgb(28,38,69);

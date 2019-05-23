@@ -160,7 +160,7 @@
 				</div>
 				<div class="col-md-7 teacher_main clearfix" >
 					<div>
-						首页 > 教师风采 > 周春
+						首页 > 教师风采 > <span id="name"></span>
 						<hr />
 					</div>
 					<div class="img_container">
@@ -188,8 +188,8 @@
 					</div>
 					<div class="col-sm-6 col-xs-4 col-md-2 col-lg-1 footer_link" >
 						<div class="zl">
-							<span><a href="">质量工程</a></span>
-							<span><a href="">资源下载</a></span>
+							<span><a href="http://www.mmvtc.cn/templet/zlgc/">质量工程</a></span>
+							<span><a href="http://websites.mmvtc.cn:808/zsw/">资源下载</a></span>
 						</div>
 					</div>
 					
@@ -208,8 +208,8 @@
 					<div class="col-sm-2 col-xs-8 col-md-2 col-lg-1 footer_link">
 						<div>
 							<h4>友情链接</h4>
-							<span><a href="">就业网</a></span>
-							<span><a href="">招生网</a></span>
+							<span><a href="http://www.mmvtc.cn/templet/job/">就业网</a></span>
+							<span><a href="http://websites.mmvtc.cn:808/zsw/">招生网</a></span>
 						</div>
 					</div>
 				</div>
@@ -272,6 +272,7 @@
 					if(result['code'] == 200){
 						//提取教师信息
 						var msg_result = result['data'];
+						$("#name").text(msg_result["name"]);
 						var img='<img src="'+msg_result['head_img']+'" alt="" style="margin: 0 auto;"/>';
 						//教师信息渲染
 						var list = '<div><h3>个人简介</h3><span>姓名：'+msg_result['name']+'</span>'+

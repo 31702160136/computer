@@ -287,7 +287,7 @@
 			</div>
 		</div>
 		<!--教学科研 start-->
-		<div style="background: #f9f9f9;padding-bottom: 100px;padding-top: 20px;">
+		<div style="background: #f9f9f9;padding-bottom: 40px;padding-top: 20px;">
 			<section class="container mt20 mb20">
 				<div class="row">
 					<div class="teaching_title visible-md-inline visible-lg-inline">

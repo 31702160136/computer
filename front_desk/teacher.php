@@ -136,8 +136,8 @@
 					</div>
 					<div class="col-sm-6 col-xs-4 col-md-2 col-lg-1 footer_link" >
 						<div class="zl">
-							<span><a href="">质量工程</a></span>
-							<span><a href="">资源下载</a></span>
+							<span><a href="http://www.mmvtc.cn/templet/zlgc/">质量工程</a></span>
+							<span><a href="http://websites.mmvtc.cn:808/zsw/">资源下载</a></span>
 						</div>
 					</div>
 					
@@ -156,8 +156,8 @@
 					<div class="col-sm-2 col-xs-8 col-md-2 col-lg-1 footer_link">
 						<div>
 							<h4>友情链接</h4>
-							<span><a href="">就业网</a></span>
-							<span><a href="">招生网</a></span>
+							<span><a href="http://www.mmvtc.cn/templet/job/">就业网</a></span>
+							<span><a href="http://websites.mmvtc.cn:808/zsw/">招生网</a></span>
 						</div>
 					</div>
 				</div>
