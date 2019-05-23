@@ -95,6 +95,17 @@
 				}
 				findNews(data);
 			}
+			/*
+			 * 修改状态时定位新闻
+			 */
+			function reInit(){
+				var data={
+					page:1,
+					size:5,
+					column_title:$("#columnNameList").val()
+				}
+				findNews(data);
+			}
 			/**	搜索新闻，根据新闻的栏目搜索：
 			 *  	下拉框动态获取栏目标题
 			 * 		获取每个option的value值
@@ -114,6 +125,8 @@
 						var res=JSON.parse(data);
 						var category=res.data.data;
 						if (res.status) {
+							$("#columnNameList").html("");
+							$("#columnNameList").html('<option value="所有新闻" selected="selected">所有新闻</option>');
 							$.each(category, function(index,item) {
 								var id = item.id;
 								var title = item.title;
@@ -238,7 +251,7 @@
 					var contributor = item.contributor;
 					var cover = item.cover;
 					if(cover == "") {
-						var cover = window.location.host + "/computer/backstage/images/no_photo.jpg";
+						var cover = "/computer/backstage/images/no_photo.jpg";
 					}
 					var slideshow_cover = item.slideshow_cover; //轮播图片
 					var is_hot = item.is_hot;
@@ -257,7 +270,7 @@
 								'</div>'+
 							'</td>'+
 							'<td align="center">'+(customID++)+'</td>'+
-							'<td><img src="http://'+cover+'" /></td>'+
+							'<td><img src="'+cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 							'<td align="center">'+column+'</td>'+
 							'<td align="center">'+contributor+'</td>'+
@@ -345,8 +358,6 @@
 				                	processData: false,
 				                	contentType: false,
 									success: function(data){
-													console.log(data);
-										
 										var res=JSON.parse(data);
 										if (res.status) {
 											$.ajax({
@@ -404,7 +415,7 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								init();
+								reInit();
 								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
@@ -437,7 +448,7 @@
 						  	success:function(data){
 						        	var res=JSON.parse(data);
 						        	if (res.status) {
-										init();
+										reInit();
 										layer.msg('已删除!', {
 											icon: 1,
 											time: 1000
@@ -476,7 +487,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+				                	reInit();
 								}else{
 									alert("状态修改失败");
 								}
@@ -499,7 +510,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+							      	reInit();
 								}else{
 									alert("状态修改失败");
 								}
@@ -530,7 +541,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+							      	reInit();
 								}else{
 									alert("状态修改失败");
 								}
@@ -553,7 +564,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+							      	reInit();
 								}else{
 									alert("状态修改失败");
 								}
@@ -584,7 +595,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+							      	reInit();
 								}else{
 									alert("状态修改失败");
 								}
@@ -607,7 +618,7 @@
 							success: function(data){
 								var res=JSON.parse(data);
 								if (res.status) {
-							      	init();
+							      	reInit();
 								}else{
 									alert("状态修改失败");
 								}

@@ -167,7 +167,7 @@
 									'<i class="layui-icon">&#xe605;</i>'+
 								'</div>'+
 							'</td>'+
-							'<td><img src="http://'+head_img+'" /></td>'+
+							'<td><img src="'+head_img+'" /></td>'+
 							'<td align="center">'+name+'</td>'+
 							'<td align="center">'+sex+'</td>'+
 							'<td align="center">'+title+'</td>'+

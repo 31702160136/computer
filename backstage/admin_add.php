@@ -79,7 +79,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">角色</label>
 					<div class="layui-input-block">
-						<input type="radio" id="superAdmin" name="role" lay-skin="primary" title="超级管理员" value="superAdmin">
+						<input type="radio" id="superAdmin" name="role" lay-skin="primary" title="超级管理员" value="superAdmin" disabled>
 						<input type="radio" id="admin" name="role" lay-skin="primary" title="普通管理员" checked="checked" value="admin">
 					</div>
 				</div>
