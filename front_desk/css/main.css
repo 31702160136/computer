@@ -155,6 +155,7 @@ header .header_nav li:hover:after{
 }
 .pic_news .pic_news_right > a > div:nth-child(2) > div > span{
 	color: #999;
+	margin-left: 10px;
 	font-size: 14px;
 }
 /*文字新闻*/
@@ -314,7 +315,7 @@ header .header_nav li:hover:after{
 	position: absolute;
     bottom: 20px;
     font-size: 14px;
-    color: #777;
+    color: white;
     width: 1em;
     line-height: 14px;
     left: 50%;

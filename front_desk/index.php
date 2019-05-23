@@ -210,7 +210,7 @@
 		</div>
 		<!--轮播图 end-->
 		<!--图片新闻 start-->
-		<div style="background: #e7e7e7;">
+		<div style="background: #f9f9f9;">
 			<div class="container pic_news mb20">
 				<div class="row">
 					<section class="xueyuan">
@@ -226,10 +226,10 @@
 		<!--图片新闻 end-->
 		<!--文字新闻 strat-->
 		<section class="container">
-			<section class="xueyuan">
-				<h3>学院新闻<small>news</small></h3>
-			</section>
 			<div class="row">
+				<section class="xueyuan">
+				<h3>学院新闻<small>news</small></h3>
+				</section>
 				<!--新闻导航条-->
 				<div class="col-md-7" >
 					<ul class="nav nav-tabs news_title " role="tablist">
@@ -287,7 +287,7 @@
 			</div>
 		</div>
 		<!--教学科研 start-->
-		<div style="background: #e7e7e7;padding-bottom: 100px;padding-top: 20px;">
+		<div style="background: #f9f9f9;padding-bottom: 100px;padding-top: 20px;">
 			<section class="container mt20 mb20">
 				<div class="row">
 					<div class="teaching_title visible-md-inline visible-lg-inline">
