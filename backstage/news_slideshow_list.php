@@ -94,7 +94,7 @@
 					var list = 
 						'<tr>'+
 							'<td align="center">'+(customID++)+'</td>'+
-							'<td><img src="http://'+slideshow_cover+'" /></td>'+
+							'<td><img src="'+slideshow_cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 							'<td align="center">'+column+'</td>'+
 							'<td>'+getMyDate(creation_time)+'</td>'+
