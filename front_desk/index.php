@@ -141,6 +141,13 @@
 			}
 		});
 	</script>
+	<style>
+		#owl-demo .owl-dots{
+			position: absolute;
+			left: 45%;
+			bottom: 0;
+		}
+	</style>
 	<body>
 		<!--头部 start-->
 		<header>
@@ -303,7 +310,7 @@
 						<img src="images/logoarea.png"/>
 					</div>
 					<div class="col-sm-6 col-xs-8 col-md-3 col-lg-3 footer_address" >
-						<span>电话:0668-2920526 <a href="../backstage/index.php">管理登录</a></span>
+						<span>电话:0668-2920526 <a href="../backstage/login.php">管理登录</a></span>
 						<span>电子邮件：mzjsj@126.com</span>
 						<span>地址：茂名师电白区沙院镇海城五路1号</span>
 					</div>
