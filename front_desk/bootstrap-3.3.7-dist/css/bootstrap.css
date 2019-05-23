@@ -6784,7 +6784,7 @@ button.close {
 	margin: auto;
   	width: 60%;
   }
-  
+ 
 }
 @media only screen and (min-width: 992px) {
   .pic_news_right a p{
@@ -6814,6 +6814,7 @@ button.close {
 		border-radius: 35px;
 		margin: 25px 40px;
 	}
+	
 }
 @media only screen and (max-width: 992px) {
 		.pic_news .row>div{
@@ -6825,6 +6826,13 @@ button.close {
 	 	.pic_news img{
 			height: 90px;
 		}
+		 .owl-carousel .owl-item img {
+	  	height: auto !important;
+	  }
+	  #owl-demo .owl-dots {
+	  	left: 30% !important;
+	  }
+  
 	}
 	@media (max-width: 992px) {
 		.header_logo img{

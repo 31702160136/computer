@@ -20,11 +20,11 @@ if(sessionIsLogin()){
 	}
 	$data=array(
 		"title"=>@$_POST["title"],
-		"describe"=>@$_POST["describe"],
+		"describe"=>isset($_POST["describe"]) ? $_POST["describe"]:@$_POST["title"],
 		"content"=>isset($_POST["content"]) ? $_POST["content"]:null,
 		"cover"=>$cover,
 		"slideshow_cover"=>$slideshow_cover,
-		"type"=>@$_POST["type"],
+		"type"=>isset($_POST["type"]) ? $_POST["type"]:1,
 		"contributor"=>@$_POST["contributor"],
 		"is_hot"=>isset($_POST["is_hot"]) ? $_POST["is_hot"]:null,
 		"is_top"=>isset($_POST["is_top"]) ? $_POST["is_top"]:null,
