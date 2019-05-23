@@ -11,7 +11,7 @@
  Target Server Version : 100137
  File Encoding         : 65001
 
- Date: 23/05/2019 01:22:52
+ Date: 23/05/2019 09:48:57
 */
 
 SET NAMES utf8mb4;
@@ -35,13 +35,12 @@ CREATE TABLE `column`  (
 -- ----------------------------
 -- Records of column
 -- ----------------------------
-INSERT INTO `column` VALUES (29, '系部概况', 98, 1, 1557997248, 1558460177);
-INSERT INTO `column` VALUES (30, '新闻动态', 99, 1, 1557997305, 1558460170);
+INSERT INTO `column` VALUES (29, '系部概况', 89, 1, 1557997248, 1558574151);
+INSERT INTO `column` VALUES (30, '新闻动态', 98, 1, 1557997305, 1558574140);
 INSERT INTO `column` VALUES (31, '教学科研', 97, 1, 1557997318, 1558460183);
 INSERT INTO `column` VALUES (32, '党建工作', 96, 1, 1557997327, 1558460189);
 INSERT INTO `column` VALUES (33, '学生活动', 95, 1, 1557997335, 1558460200);
 INSERT INTO `column` VALUES (34, '招生就业', 94, 1, 1557997345, 1558460202);
-INSERT INTO `column` VALUES (35, '教师风采', 93, 1, 1557997356, 1558460205);
 INSERT INTO `column` VALUES (36, '实训管理', 92, 1, 1557997363, 1558460207);
 INSERT INTO `column` VALUES (38, '技能竞赛', 91, 1, 1557997943, 1558460210);
 INSERT INTO `column` VALUES (40, '公告通知', 90, 1, 1558063556, 1558460212);
@@ -208,18 +207,14 @@ CREATE TABLE `teacher`  (
   `creation_time` int(11) NOT NULL,
   `modify_time` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES (9, '陈新彬', '讲师 / 教授', 0, '清华大学', '测试数据中...', '/computer/images/blqkjdmtuszwxcihrnoepvyafg1558539553.jpeg', '/computer/images/ctxswkabufvilhnpqrozydjmeg1558539553.jpeg', 1558539553, 1558539553);
-INSERT INTO `teacher` VALUES (13, '123', '123', 2, '123', '123', '/computer/images/agnzrfoxqtpwhvudsbykmljeic1558540075.png', '/computer/images/tzioavbdcmrnwjyfpeqlugkxhs1558540075.jpeg', 1558540075, 1558540075);
-INSERT INTO `teacher` VALUES (21, '周洁文', '高级讲师', 2, '华南理工大学', '周洁文网络与信息管理师、高级讲师、全国计算机信息高新技术考试考评员,茂名市重大科技项目评审专家,茂名市科学技术奖评委员会委员。1987年毕业于华南理工大学计算机应用技术专业,长期致力于计算机应用技术教研工作,近年来,开发表6篇,主编(参编)教材6本,主持或参与课题13项。先后获得广东省高校学生工作红棉奖、广东省教育系统关心下一代工作先进个人、茂名市优秀班主任、茂名职业技术学院“十佳教职工”等荣誉称号。广东省高职高专委员会“IT优质课赛”三等奖,指导学生参加省技能大赛获二等奖。\n', '/computer/images/fmvnxjkaogszberwyuilphcdtq1558541785.png', '/computer/images/gehxmbtzwryslavkniocjqfupd1558541785.jpeg', 1558541785, 1558541785);
-INSERT INTO `teacher` VALUES (22, '周春', '讲师', 2, '华南师范大学', '周春讲师、工程师,国家职业技能鉴定考评员,1995年毕业于华南师范大学电子学与信息系统专业,现任计算机工程系应用技术教研室主任,主要研究方向为计算机应用技术和计算机网络技术。学院重点建设专业计算机通信专业负责人,《网络互联技术》精品课程负责人。主持完成教学研究项目1项,参与完成科研项目2项,公开发表学术论文篇,参编教材2部,副主编教材1部。2012、2013年指导学生参加全国职业院校技能大赛广东省选拔赛获得三等奖;曾获学院“十佳教职工”提名奖,并三度获得茂名职业技术学院“优秀教师”。\n', '/computer/images/aitgduwfycqjnslhkzxmvprobe1558541971.jpeg', '/computer/images/esqxhiokmtwvducyjfbngpzrla1558541971.jpeg', 1558541971, 1558541971);
-INSERT INTO `teacher` VALUES (23, '陈凡健', '讲师 ', 1, '华中科技大学', '陈凡健讲师 , 2004毕业于广东教育学院计算机专业毕业, 2009年获得华中科技大学软件工程硕士学位。在教学中注重采取多样化的教学方式，激发学生学习与思考的主动性和积极性。教学效果好,在搞好课程教学的同时，积极探讨教学法的研究和改革, 通过教学改革的研究进一步促进教学。 教学工作曾多次受到学校表彰。科研领域:主攻条形码,机器识别、物联网应用方向。\n', '/computer/images/uhtvrgykaexjbncqipldswfzmo1558542436.jpeg', '/computer/images/xneghibtqlcjawvdmpkysruzfo1558542436.jpeg', 1558542436, 1558542436);
-INSERT INTO `teacher` VALUES (24, '张劲勇', '硕士，讲师，网页设计师', 1, '广东工业大学', '张劲勇硕士，讲师，网页设计师。担任《PHP网站开发》、《ASP. NET开发技术》等多门课程教学工作，教学认真负责，深受学生好评。该同志以科研促进教学，主持或参与省、市和学院重点课题科研项目6项，发表论文5篇，参编出版教材3部，《网页 设计与制作》精品课程负责人。多次组织和指导学生参加“蓝杯”、“多迪杯”、“中星杯”等计算机技能大赛，曾取得一等奖、二等奖等好成绩。曾多次被评为学院“优秀党员”、“优秀班主任”、“优秀教师” 和“优秀共产党员”。', '/computer/images/sqnmrljhxyadopcgwvbkftizue1558542658.png', '/computer/images/ozlmisnfdyjbtakxrqphvcwgeu1558542658.jpeg', 1558542658, 1558542658);
-INSERT INTO `teacher` VALUES (25, '何林', '讲师', 1, '华中科技大学', '何林，讲师，2006年 毕业于广东石油化工学院计算机应用技术专业，2009年获得华中科技大学软件工程硕士学位。参编两本教材，独撰公开发表两篇省级以上论文，曾担任《计算机组装与维护》、《C语 言程序设计》、《JAVA程序设计》、《网页 设计与制作》等课程的教学工作，现担任计算机系辅导员，主要负责学生的日常管理工作，在工作上获得了领导、同事和同学们的支持与肯定，曾获评“优秀教师”、“优秀共产党员” 和“优秀辅导员”。', '/computer/images/qzxecfvujalgormhidspwntkby1558542724.png', '/computer/images/lohbqeakmdprgtixucvjzwfnsy1558542724.jpeg', 1558542724, 1558542724);
+INSERT INTO `teacher` VALUES (26, '周洁文', '高级讲师', 2, '华南理工大学', '周洁文网络与信息管理师、高级讲师、全国计算机信息高新技术考试考评员，茂名市重大科技项目评审专家，茂名市科学技术奖评委员会委员。1987年毕业于华南理工大学计算机应用技术专业，长期致力于计算机应用技术教研工作，近年来，公开发表6篇，主编(参编)教材6本，主持或参与课题13项。先后获得广东省高校学生工作红棉奖、广东省教育系统关心下一-代工作先进个人、 茂名市优秀班主任、茂名职业技术学院“十佳教职工”等荣誉称号。广东省高职高专委员会“IT优质课竞赛”三等奖，指导学生参加省技能大赛获二等奖。', '/computer/images/yjvdohwgspqecbtizrmkfuxnal1558575966.png', '/computer/images/uyrlbfqniwtskmdpoezxacjhvg1558575966.jpeg', 1558575966, 1558575966);
+INSERT INTO `teacher` VALUES (27, '周春', '讲师', 2, '华南师范大学', '周春讲师、工程师，国家职业技能鉴定考评员，1995年毕业于华南师范大学电子学与信息系统专业，现任计算机工程系应用技术教研室主任，主要研究方向为计算机应用技术和计算机网络技术。学院重点建设专业计算机通信专业负责人，《网络互联技术》精品课程负责人。主持完成教学研究项目1项，参与完成科研项目2项，公开发表学术论文7篇，参编教材2部，副主编教材1部。2012、2013年指导学生参加全国职业院校技能大赛广东省选拔赛获得三等奖;曾获学院“十佳教职工”提名奖，并三度获得茂名职业技术学院“优秀教师”。', '/computer/images/elkztqynxdrcfhgbuwsmiaopjv1558576024.png', '/computer/images/cmaidygnhkpwjruzlqsefbovxt1558576024.jpeg', 1558576024, 1558576024);
+INSERT INTO `teacher` VALUES (28, '何晓园', '讲师', 2, '华南师范大学', '何晓园，女，计算机讲师，国家职业技能鉴定计算机办公软件考评员；毕业于华南师范大学计算机科学专业，软件工程硕士；多年来一直从事计算机教学工作，主讲课程有《计算机应用基础》、《C语言 程序设计》、《网页设计》、《VB+SQL应用 系统开发》等，教学效果良好，多次教学测评为优秀。现任计算机工程系应用基础教研室主任，积极参加了《计算机应用基础》、《VB+SQL应用系统开发》、《网页设计与制作》等多门精品课建设，参研了多项院、市级科研课题;参编了《计算机公共基础》、《Photoshop基础教程》、 《Dreamweaver网页设计与制作》等多本教材;多次被评为优秀教师。', '/computer/images/upmsioljybkqeztvngfawcxrdh1558576086.png', '/computer/images/scnxtuvhqgiomkdflyrpwbaezj1558576086.jpeg', 1558576086, 1558576086);
 
 -- ----------------------------
 -- Table structure for user
@@ -243,12 +238,6 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (4, '小4', '1233', '123', 'admin', ' ', ' ', 0, 1553779527, 1558544284);
-INSERT INTO `user` VALUES (6, '小6', '1235', '123', 'admin', ' ', ' ', 1, 1553779631, 1553779631);
-INSERT INTO `user` VALUES (7, '小7', '5556', '111', 'admin', ' ', ' ', 1, 1553780685, 1553780685);
-INSERT INTO `user` VALUES (10, '小1', '是你', '111', 'admin', ' ', ' ', 1, 1553781367, 1553781367);
-INSERT INTO `user` VALUES (12, 'sad', 'safffffff', '4545454', 'admin', '5456464', '5454', 1, 1555343585, 1555343585);
-INSERT INTO `user` VALUES (14, '22323', '1', '1', 'admin', '23', '1', 1, 1557464712, 1557464712);
-INSERT INTO `user` VALUES (15, '杨鸿燊', 'admin', '123', 'superAdmin', ' ', ' ', 1, 1, 1);
+INSERT INTO `user` VALUES (15, '陈升燊', 'admin', 'admin', 'superAdmin', ' 13926790845', '1834867389@qq.com', 1, 1, 1558574222);
 
 SET FOREIGN_KEY_CHECKS = 1;

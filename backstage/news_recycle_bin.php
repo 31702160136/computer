@@ -189,7 +189,7 @@
 								'</div>'+
 							'</td>'+
 							'<td align="center">'+(customID++)+'</td>'+
-							'<td><img src="http://'+cover+'" /></td>'+
+							'<td><img src="'+cover+'" /></td>'+
 							'<td><i class="layui-icon x-show"></i>'+title+'</td>'+
 							'<td align="center">'+column+'</td>'+
 							'<td align="center">'+contributor+'</td>'+
