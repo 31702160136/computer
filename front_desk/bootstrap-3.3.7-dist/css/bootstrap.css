@@ -6795,6 +6795,26 @@ button.close {
   	margin-left: -80px;margin-top: 50px;
   }
 }
+@media only screen and (max-width: 768px){
+	.footer .row div:nth-child(6){
+		margin-top: 10px;
+		text-align: center;
+	}
+	.footer .row div:nth-child(6) h4{
+		float: left;
+	}
+	.footer .row div:nth-child(6) span{
+		margin-left: 20px;
+		display: initial;
+		width: auto;
+	}
+	.img_top{
+		width: 80px;
+		height: 80px;
+		border-radius: 35px;
+		margin: 25px 40px;
+	}
+}
 @media only screen and (max-width: 992px) {
 		.pic_news .row>div{
 			height: auto;

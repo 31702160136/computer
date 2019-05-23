@@ -175,25 +175,49 @@
 		</div>
 		<!--教师风采结束-->
 		<!--底部开始-->
-		<footer style="clear: left;">
-			<div class="container-fluid footer">
-				<div>
-					<div style="float: left;width: 300px;">
+		<footer class="footer">
+			<div class="container">
+				<div class="row clearfix">
+					<div class="col-md-4 col-lg-4 footer_img  visible-lg-inline">
 						<img src="images/logoarea.png"/>
 					</div>
-					<div style="padding-left: 30px;padding-top:10px;float: left;line-height: 40px;">
-						<span style="clear: both;">电话:0668-2920526&nbsp;&nbsp;电子邮件：mzjsj@126.com</span>
-						<br />
+					<div class="col-sm-6 col-xs-8 col-md-3 col-lg-3 footer_address" >
+						<span>电话:0668-2920526 <a href="../backstage/index.php">管理登录</a></span>
+						<span>电子邮件：mzjsj@126.com</span>
 						<span>地址：茂名师电白区沙院镇海城五路1号</span>
 					</div>
+					<div class="col-sm-6 col-xs-4 col-md-2 col-lg-1 footer_link" >
+						<div class="zl">
+							<span><a href="">质量工程</a></span>
+							<span><a href="">资源下载</a></span>
+						</div>
+					</div>
+					
+					<div class="col-sm-5 col-xs-5 col-md-2 col-lg-1 footer_wechat" >
+						<div>
+							<p>招生微信号</p>
+							<img src="images/wechat1.jpg" alt="招生微信号" />
+						</div>
+					</div>
+					<div class="col-sm-5 col-xs-5 col-md-2 col-lg-1 footer_wechat">
+						<div>
+							<p>系部微信号</p>
+							<img src="images/wechat2.jpg" alt="系部微信号" />	
+						</div>
+					</div>
+					<div class="col-sm-2 col-xs-8 col-md-2 col-lg-1 footer_link">
+						<div>
+							<h4>友情链接</h4>
+							<span><a href="">就业网</a></span>
+							<span><a href="">招生网</a></span>
+						</div>
+					</div>
 				</div>
-				<br style="clear: left;" />
 				<hr />
 				<p style="text-align: center;">
 					Cpoyright 2004-2017茂名职业技术学院 / 计算机工程系 All Rights Reserved.
 				</p>
 			</div>
-
 		</footer>
 
 		<script type="text/javascript">
@@ -248,7 +272,7 @@
 					if(result['code'] == 200){
 						//提取教师信息
 						var msg_result = result['data'];
-						var img='<img src="'+msg_result['cover']+'" alt="" style="margin: 0 auto;"/>';
+						var img='<img src="'+msg_result['head_img']+'" alt="" style="margin: 0 auto;"/>';
 						//教师信息渲染
 						var list = '<div><h3>个人简介</h3><span>姓名：'+msg_result['name']+'</span>'+
 								'<span>职称：'+msg_result['title']+'</span><span>毕业院校：'+msg_result['school']+'</span>'+

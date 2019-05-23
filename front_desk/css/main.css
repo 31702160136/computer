@@ -18,7 +18,10 @@ body {
 	background-color: rgba(244, 244, 244, .4) !important;
 }
 #header_bg {
-	background: url(../images/header_bg.jpg);
+	background: url(../images/header_bg.jpg) no-repeat;
+	background-size: 100%;
+	background-size: cover;
+	
 }
 
 header > .header_nav .row ul > li.active > a,
@@ -331,7 +334,7 @@ header .header_nav li:hover:after{
 	
 }
 #teaching_right img {
-	max-height: 300px;
+	height: 300px;
 }
 .teaching_content{
     position: relative;
@@ -375,12 +378,53 @@ header .header_nav li:hover:after{
 /*底部区域*/
 .footer {
 	color: #FFFFFF;
-	background: url(../images/header_bg.jpg);
+	background: url(../images/header_bg.jpg) no-repeat;
+	background-size: 100%;
+	background-size: cover;
+	padding-top: 10px;
 }
 .footer img {
-	margin-top: 15px;
-	margin-left: 15px;
+	
+}
+.footer .footer_img > img{
+	margin: 5px;
+}
+.footer .footer_img,
+.footer .footer_address{
+	margin-top: 30px;
+}
+.footer .footer_address a,
+.footer .footer_address a:hover {
+	color: white;
+	text-decoration: none;
+}
+.footer .footer_address > span{
+	margin: 5px 0;
+	display: inline-block;
 	width: 100%;
+}
+.footer .footer_link{
+	text-align: right;
+}
+.footer .zl{
+	text-align: left; 
+	margin-top: 35px;
+}
+.footer .footer_link div > span{
+	display: inline-block;
+	width: 100%;
+	line-height: 40px;
+}
+.footer .footer_link div > span a{
+	color: white;
+}
+.footer .footer_wechat > div{
+	margin-top: 10px;
+	text-align: center;
+}
+.footer .footer_wechat img{
+	width: 80px;
+	height: 80px;
 }
 .footer p {
 	padding-left: 10px;

@@ -114,6 +114,8 @@
 						var res=JSON.parse(data);
 						var category=res.data.data;
 						if (res.status) {
+							$("#columnNameList").html("");
+							$("#columnNameList").html('<option value="所有新闻" selected="selected">所有新闻</option>');
 							$.each(category, function(index,item) {
 								var id = item.id;
 								var title = item.title;
