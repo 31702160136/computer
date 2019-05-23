@@ -19,11 +19,11 @@ class NewsDao{
 		if(isset($page)&&isset($size)){
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
-							and n.`is_status`='1' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+							and n.`is_status`='1' ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
-							and n.`is_status`='1' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+							and n.`is_status`='1' ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -32,11 +32,11 @@ class NewsDao{
 		if(isset($page)&&isset($size)){
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` and n.`column_id`='".$id."' 
-							and n.`is_status`='1' and n.`is_hot`='1' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+							and n.`is_status`='1' and n.`is_hot`='1' ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` and n.`column_id`='".$id."' 
-							and n.`is_status`='1' and n.`is_hot`='1' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+							and n.`is_status`='1' and n.`is_hot`='1' ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -46,11 +46,11 @@ class NewsDao{
 		if(isset($page)&&isset($size)){
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
-							and n.`is_status`='1' and n.`cover` != '' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+							and n.`is_status`='1' and n.`cover` != '' ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
-							and n.`is_status`='1' and n.`cover` != '' ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+							and n.`is_status`='1' and n.`cover` != '' ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -93,12 +93,12 @@ class NewsDao{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and n.`column_id`='" . $id."' 
-								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+								ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from
 						 `news` n,`column` c where n.`column_id`=c.`id` 
 						 	and n.`is_status`='1' and n.`column_id`='" . $id."' 
-						 		ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+						 		ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -108,12 +108,12 @@ class NewsDao{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and c.`title`='" . $title."' 
-								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+								ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and c.`title`='" . $title."' 
-								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+								ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;
@@ -123,12 +123,12 @@ class NewsDao{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and n.`cover` !='' and c.`title`='" . $title."' 
-								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc limit ".$page.",".$size;
+								ORDER BY n.`is_top` desc, n.`creation_time` desc limit ".$page.",".$size;
 		}else{
 			$sql = "select n.*,c.title as `column` from 
 						`news` n,`column` c where n.`column_id`=c.`id` 
 							and n.`is_status`='1' and n.`cover` !='' and c.`title`='" . $title."' 
-								ORDER BY n.`is_top` desc, n.`is_hot` desc, n.`creation_time` desc";
+								ORDER BY n.`is_top` desc, n.`creation_time` desc";
 		}
 		$result=$this->sql->query($sql);
 		return $result;

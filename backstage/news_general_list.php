@@ -99,10 +99,14 @@
 			 * 修改状态时定位新闻
 			 */
 			function reInit(){
+				var value=$("#columnNameList").val();
+				if(value=="所有新闻"){
+            		value=null;
+            	}
 				var data={
 					page:1,
 					size:5,
-					column_title:$("#columnNameList").val()
+					column_title:value
 				}
 				findNews(data);
 			}
@@ -278,7 +282,7 @@
 							'<td class="td-manage">'+
 								'<button id="status'+id+'" class="td-status layui-btn layui-btn-xs layui-btn-disabled" onclick="status_edit(this,'+id+','+is_status+')">停用</button>'+
 								'<button id="top'+id+'" class="layui-btn layui-btn-disabled" onclick="top_edit(this,'+id+','+is_top+')">置顶</button>'+
-								'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">热点</button>'+
+								'<button id="hot'+id+'" class="layui-btn layui-btn-xs  layui-btn-disabled" onclick="hot_edit(this,'+id+','+is_hot+')">左侧</button>'+
 							'</td>'+
 							'<td class="td-manage">'+
 								'<button id="slideshow'+id+'" class="layui-btn layui-btn-warm" onclick="uploadFile(this,'+id+','+doEditItem.replace(/\"/g,"'")+')"><i class="layui-icon layui-icon-set" style="font-size: 10px; "></i>设置轮播新闻</button>'+
@@ -415,7 +419,7 @@
 						success: function(data){
 							var res = JSON.parse(data);
 							if (res.status) {
-								reInit();
+								init();
 								layer.msg(res.message, {icon: 1,time: 1000});
 							} else{
 								layer.msg(res.message, {icon: 2,time: 2000});
@@ -448,7 +452,7 @@
 						  	success:function(data){
 						        	var res=JSON.parse(data);
 						        	if (res.status) {
-										reInit();
+										init();
 										layer.msg('已删除!', {
 											icon: 1,
 											time: 1000

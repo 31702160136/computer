@@ -25,6 +25,9 @@
 网页分辨率适应：
 自适应分辨率（包括手机）
 
+兼容性：
+支持各种主流浏览器，包括IE11
+
 制作者：
 杨鸿燊 计算机工程系 17移动互联1班（后端）
 姚升阳 计算机工程系 17移动互联1班（前台）
@@ -33,4 +36,4 @@
 联系方式：
 13229025103
 技术栈：
-html，css，javaScript，jquery，ajax，php, mysql
+html，css，javaScript，jquery，OwlCarouse，bootstrap，ajax，json，layui，php, mysql

@@ -178,11 +178,11 @@
 					}					
 					var data = new FormData();
 					data.append("title",title);
-					data.append("describe","测试");
+					data.append("describe","");
 					data.append("content",newsContent);
 					data.append("cover",coverPhotoclick[0]);
 //					data.append("slideshow_cover",rotationPhotoclick[0]);
-					data.append("type","测试");
+					data.append("type","");
 					data.append("contributor",contributor);
 					data.append("is_status",release);
 					data.append("column_id",column_id);

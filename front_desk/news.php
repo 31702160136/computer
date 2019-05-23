@@ -202,7 +202,7 @@
 				async:true,
 				data:{
 					page:page,
-					size:5,
+					size:8,
 					column_id:column_id
 				},
 				success:function (data) {
