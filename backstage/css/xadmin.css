@@ -224,7 +224,8 @@ xblock{
 .container{
     width: 100%;
     height: 45px;
-    background-color: #009688;
+    /*background-color: #009688;*/
+   background:url(../images/bj.jpg);
    	/*background-image: url(../images/bj.jpg);*/
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -323,9 +324,12 @@ xblock{
 }
 /*新增*/
 .left-nav a:hover{
-    background: #009688 !important;
+    /*background: #009688 !important;*/
+    background:url(../images/bj.jpg);
+    /*鼠标悬浮文字颜色*/
     color: #fff;
-    border-color:  #04564e !important;
+    /*border-color:  #04564e !important;*/
+    border-color:  #003D79 !important;
 }
 .left-nav a.active{
     background: #009688 !important;
