@@ -6814,7 +6814,10 @@ button.close {
 		border-radius: 35px;
 		margin: 25px 40px;
 	}
-	
+	#article_main img{
+		width: 100%;
+		height: auto;
+	}	
 }
 @media only screen and (max-width: 992px) {
 		.pic_news .row>div{
