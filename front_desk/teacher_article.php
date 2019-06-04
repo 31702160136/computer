@@ -77,7 +77,7 @@
 				float: left;
 			}
 			.sidebar .teacher_slide{
-				height: 350px;
+				height: 420px;
 				overflow-y: scroll;
 			}
 			.sidebar .teacher_slide > li {
